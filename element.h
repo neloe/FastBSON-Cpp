@@ -23,7 +23,7 @@ namespace bson
       template <typename T>
       const T& data() const;
       template <typename T>
-      void data(T& t) const {t = data();}
+      void data(T& t) const {t = data<T>();}
       
     private:
       std::shared_ptr<void> m_data;
@@ -36,6 +36,14 @@ namespace bson
       void type_check() const;
   };
 
+  template <typename T>
+  std::string to_string();
+  
+  template <typename T>
+  TypeInfo default_type();
+  
 }
 
 #include "element.hpp"
+#include "template_spec/floats.hpp"
+#include "template_spec/strings.hpp"
