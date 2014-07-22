@@ -1,13 +1,14 @@
 /*!
  * \file floats.hpp
  * \author Nathan Eloe
- * \brief floating point template specializations
+ * \brief boolean template specializations
  */
 
 #pragma once
 
 #include "../typeinfo.h"
 #include "convert_utils.h"
+#include "../element.h"
 
 namespace bson
 {

@@ -11,6 +11,7 @@
 #include <string>
 #include <memory>
 #include <cstring>
+#include "../element.h"
 
 namespace bson
 {

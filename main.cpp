@@ -3,6 +3,7 @@
 #include "typeinfo.h"
 #include <string>
 #include "template_spec/convert_utils.h"
+#include "document.h"
 
 using namespace std;
 
@@ -17,5 +18,9 @@ int main(int argc, char **argv) {
   bson::_to_bytes<double>(floatdata, 42.314);
   elm4.from_bytes(floatdata, bson::FLOATING);
   cout << elm4.data<double>() << endl;
+  bson::Document doc;
+  doc.add("a double", elm);
+  doc.add("a string", std::string("hello world"));
+  cout << "indexing: " << doc["a double"].data<double>() << " " << doc["a string"].data<string>() << endl;
   return 0;
 }

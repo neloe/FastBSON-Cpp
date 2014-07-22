@@ -16,6 +16,11 @@ namespace bson
 		 MINKEY=0xFF, MAXKEY=0x7F
   };
   
+  char to_char(const TypeInfo & ti)
+  {
+    return static_cast<char>(ti);
+  }
+  
   //forward declaration
   template <class T>
   std::string to_string();

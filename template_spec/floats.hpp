@@ -8,6 +8,7 @@
 
 #include "../typeinfo.h"
 #include "convert_utils.h"
+#include "../element.h"
 
 namespace bson
 {

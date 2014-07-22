@@ -57,7 +57,36 @@ namespace bson
       case FLOATING:
 	num_bytes = deserialize_bytes<double>(bytes);
 	break;
+      case DOCUMENT:
+	num_bytes = deserialize_bytes<Document>(bytes);
+	break;
     }
     return num_bytes;
+  }
+  
+  void Element::to_sstream(std::ostringstream& oss) const
+  {
+    switch (m_type)
+    {
+      case INT64: case DATETIME: case TIMESTAMP:
+	serialize_bson<long>(oss);
+	break;
+      case INT32:
+	serialize_bson<int>(oss);
+	break;
+      case STRING: case JS: case DEPRECATED:
+	serialize_bson<std::string>(oss);
+	break;
+      case BOOL:
+	serialize_bson<bool>(oss);
+	break;
+      case FLOATING:
+	serialize_bson<double>(oss);
+	break;
+      case DOCUMENT:
+	serialize_bson<Document>(oss);
+	break;
+    }
+    return;
   }
 }

@@ -12,13 +12,18 @@
 
 namespace bson
 {
-
+  
+  class Document;
+  
   class Element
   {
     public:
       Element(): m_data(nullptr), m_type(_UNKNOWN) {}
       
       unsigned from_bytes(const char* data, const TypeInfo & m_type);
+      void to_sstream(std::ostringstream& oss) const;
+      
+      TypeInfo get_type() const {return m_type;}
       
       template <typename T>
       Element(const T& data, const TypeInfo & type = _UNKNOWN);
@@ -29,6 +34,8 @@ namespace bson
       void data(T& t) const {t = data<T>();}
       
     private:
+      friend class Document;
+      
       std::shared_ptr<void> m_data;
       TypeInfo m_type;
       
@@ -57,4 +64,5 @@ namespace bson
 #include "template_spec/strings.hpp"
 #include "template_spec/ints.hpp"
 #include "template_spec/bools.hpp"
+#include "template_spec/document.hpp"
 #include "element.hpp"
