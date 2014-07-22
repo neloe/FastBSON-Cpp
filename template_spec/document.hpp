@@ -9,6 +9,7 @@
 #include "../typeinfo.h"
 #include "convert_utils.h"
 #include "../element.h"
+#include <cstring>
 namespace bson 
 {
   //Element specific extension functions
@@ -33,6 +34,28 @@ namespace bson
   template<>
   unsigned Element::deserialize_bytes<Document>(const char* bytes)
   {
+    int32_t size;
+    memcpy(&size, bytes, 4);
+    char* str = new char[size];
+    std::memcpy(str, bytes, size);
+    char* iter = str + 4;
+    int consumed = 4;
+    int added;
+    TypeInfo ti;
+    while (consumed < size)
+    {
+      Element e;
+      ti = static_cast<TypeInfo>(iter[0]);
+      iter ++;
+      std::string name(iter);
+      iter += name.size() + 1;
+      added = e.from_bytes(iter, ti);
+      iter += added;
+      consumed += added + name.size() + 1;
+      (*(std::static_pointer_cast<Document>(m_data))).add(name, e);
+    }
+    
+    delete[] str;
     return 0;
   }
   
@@ -46,7 +69,7 @@ namespace bson
       data_ser << to_char(p.second.m_type) << p.first << '\0';
       p.second.to_sstream(data_ser);
     }
-    oss << static_cast<int>(data_ser.str().size()) << data_ser.str() << '\0';
+    oss << static_cast<int>(data_ser.str().size()) + 5 << data_ser.str() << '\0';
     return;
   }
 }
