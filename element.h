@@ -7,6 +7,7 @@
 #pragma once
 
 #include "typeinfo.h"
+#include <sstream>
 #include <memory>
 
 namespace bson
@@ -16,6 +17,8 @@ namespace bson
   {
     public:
       Element(): m_data(nullptr), m_type(_UNKNOWN) {}
+      
+      unsigned from_bytes(const char* data, const TypeInfo & m_type);
       
       template <typename T>
       Element(const T& data, const TypeInfo & type = _UNKNOWN);
@@ -34,6 +37,12 @@ namespace bson
       
       template <typename T>
       void type_check() const;
+      
+      template<typename T>
+      unsigned deserialize_bytes(const char* bytes);
+      
+      template<typename T>
+      void serialize_bson(std::ostringstream& oss) const;
   };
 
   template <typename T>
@@ -44,6 +53,8 @@ namespace bson
   
 }
 
-#include "element.hpp"
 #include "template_spec/floats.hpp"
 #include "template_spec/strings.hpp"
+#include "template_spec/ints.hpp"
+#include "template_spec/bools.hpp"
+#include "element.hpp"
