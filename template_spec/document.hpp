@@ -64,15 +64,13 @@ namespace bson
   template<>
   void Element::serialize_bson<Document>(std::ostringstream& oss) const
   {
-    std::string serialized;
     std::ostringstream data_ser;
-    printbson(oss);
     for (const std::pair<std::string, Element> & p: (*(std::static_pointer_cast<Document>(m_data))).m_data)
     {
       data_ser << to_char(p.second.m_type) << p.first << X00;
       p.second.encode(data_ser);
     }
-    _to_stream(oss, (int)(5 + data_ser.str().size()));
+    _to_stream(oss, static_cast<int>(5 + data_ser.tellp()));
     oss << data_ser.str() << X00;
     return;
   }
