@@ -67,6 +67,9 @@ namespace bson
       case OID:
 	num_bytes = deserialize_bytes<std::array<char, OID_SIZE>>(bytes);
 	break;
+      case NIL: case MINKEY: case MAXKEY: case UNDEF:
+	num_bytes = deserialize_bytes<void>(bytes);
+	break;
     }
     return num_bytes;
   }
@@ -98,6 +101,9 @@ namespace bson
 	break;
       case OID:
 	serialize_bson<std::array<char, OID_SIZE>>(oss);
+	break;
+      case NIL: case MINKEY: case MAXKEY: case UNDEF:
+	serialize_bson<void>(oss);
 	break;
     }
     return;
@@ -131,6 +137,9 @@ namespace bson
 	break;
       case OID:
 	result = _to_std_str<std::array<char, OID_SIZE>>();
+	break;
+      case NIL: case MINKEY: case MAXKEY: case UNDEF:
+	result = _to_std_str<void>();
 	break;
     }
     return result;

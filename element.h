@@ -142,4 +142,5 @@ namespace bson
 #include "template_spec/document.hpp"
 #include "template_spec/vectors.hpp"
 #include "template_spec/chararrs.hpp"
+#include "template_spec/voids.hpp"
 #include "element.hpp"
