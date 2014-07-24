@@ -64,6 +64,9 @@ namespace bson
       case ARRAY:
 	num_bytes = deserialize_bytes<std::vector<Element>>(bytes);
 	break;
+      case OID:
+	num_bytes = deserialize_bytes<std::array<char, OID_SIZE>>(bytes);
+	break;
     }
     return num_bytes;
   }
@@ -92,6 +95,9 @@ namespace bson
 	break;
       case ARRAY:
 	serialize_bson<std::vector<Element>>(oss);
+	break;
+      case OID:
+	serialize_bson<std::array<char, OID_SIZE>>(oss);
 	break;
     }
     return;
@@ -122,6 +128,9 @@ namespace bson
 	break;
       case ARRAY:
 	result = _to_std_str<std::vector<Element>>();
+	break;
+      case OID:
+	result = _to_std_str<std::array<char, OID_SIZE>>();
 	break;
     }
     return result;

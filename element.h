@@ -13,6 +13,7 @@
 namespace bson
 {
   const char X00 = '\0'; // null character, useful for encoding in bson
+  const int OID_SIZE = 12;
   
   class Document; // forward declaration for friend classness
   
@@ -140,4 +141,5 @@ namespace bson
 #include "template_spec/bools.hpp"
 #include "template_spec/document.hpp"
 #include "template_spec/vectors.hpp"
+#include "template_spec/chararrs.hpp"
 #include "element.hpp"
