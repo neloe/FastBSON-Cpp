@@ -19,12 +19,28 @@ namespace bson
   class Document
   {
     public:
+      /*!
+       * \brief accessor
+       * \pre None
+       * \post None
+       * \return the Element at the specified field name
+       */
       const Element& operator[] (const std::string & index) const {return m_data.at(index);}
       
+      /*!
+       * \brief element addition
+       * \pre None
+       * \post creates the element in the map
+       */ 
       void add (const std::string name, const Element& data) {m_data[name] = data;}
       template <class T>
       void add (const std::string name, const T& data, const TypeInfo ti = _UNKNOWN) {m_data[name] = Element(data, ti);}
       
+      /*!
+       * \brief insertion operator overloading
+       * \pre None
+       * \post inserts document d into the stream (using the string conversion for insertion)
+       */
       friend std::ostream& operator << (std::ostream& o, const Document& d);
       
     private:
