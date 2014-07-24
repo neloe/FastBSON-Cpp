@@ -64,7 +64,7 @@ namespace bson
     return num_bytes;
   }
   
-  void Element::to_sstream(std::ostringstream& oss) const
+  void Element::encode(std::ostringstream& oss) const
   {
     switch (m_type)
     {

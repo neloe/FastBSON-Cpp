@@ -18,7 +18,7 @@ namespace bson
   
   char to_char(const TypeInfo & ti)
   {
-    return static_cast<char>(ti);
+    return static_cast<char>((int)ti);
   }
   
   //forward declaration

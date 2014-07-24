@@ -12,6 +12,7 @@
 
 namespace bson
 {
+  const char X00 = '\0';
   
   class Document;
   
@@ -21,7 +22,7 @@ namespace bson
       Element(): m_data(nullptr), m_type(_UNKNOWN) {}
       
       unsigned from_bytes(const char* data, const TypeInfo & m_type);
-      void to_sstream(std::ostringstream& oss) const;
+      void encode(std::ostringstream& oss) const;
       
       TypeInfo get_type() const {return m_type;}
       
@@ -32,6 +33,8 @@ namespace bson
       const T& data() const;
       template <typename T>
       void data(T& t) const {t = data<T>();}
+      
+      static void encode(std::ostringstream& oss, const Element& e) {e.encode(oss);}
       
     private:
       friend class Document;

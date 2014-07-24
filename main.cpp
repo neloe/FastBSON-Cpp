@@ -22,5 +22,12 @@ int main(int argc, char **argv) {
   doc.add("a double", elm);
   doc.add("a string", std::string("hello world"));
   cout << "indexing: " << doc["a double"].data<double>() << " " << doc["a string"].data<string>() << endl;
+  
+  bson::Document querydoc, emptydoc;
+  querydoc.add("$query", bson::Element(emptydoc));
+  
+  ostringstream ss;
+  bson::Element::encode(ss, querydoc);
+  bson::printbson(ss);
   return 0;
 }

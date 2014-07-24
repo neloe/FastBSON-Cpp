@@ -10,6 +10,8 @@
 #include "convert_utils.h"
 #include "../element.h"
 #include <cstring>
+#include <iostream>
+
 namespace bson 
 {
   //Element specific extension functions
@@ -64,12 +66,14 @@ namespace bson
   {
     std::string serialized;
     std::ostringstream data_ser;
+    printbson(oss);
     for (const std::pair<std::string, Element> & p: (*(std::static_pointer_cast<Document>(m_data))).m_data)
     {
-      data_ser << to_char(p.second.m_type) << p.first << '\0';
-      p.second.to_sstream(data_ser);
+      data_ser << to_char(p.second.m_type) << p.first << X00;
+      p.second.encode(data_ser);
     }
-    oss << static_cast<int>(data_ser.str().size()) + 5 << data_ser.str() << '\0';
+    _to_stream(oss, (int)(5 + data_ser.str().size()));
+    oss << data_ser.str() << X00;
     return;
   }
 }

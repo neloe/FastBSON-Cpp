@@ -9,6 +9,7 @@
 #include <cstring>
 #include <memory>
 #include <boost/concept_check.hpp>
+#include <iostream>
 
 namespace bson
 {
@@ -33,5 +34,27 @@ namespace bson
     T data = *dataptr;
     delete dataptr;
     return data;
+  }
+  
+  template <class T>
+  void _to_stream(std::ostringstream& ss, const T& v)
+  {
+    char* it = (char*)(&v);
+    for (int i=0; i<sizeof(T); ++i, ++it)
+      ss << *it;
+  }
+  
+  void printbson(std::ostringstream& ss)
+  {
+    for (int i=0; i<ss.tellp(); i++)
+    {
+      char ch = ss.str()[i];
+      if (isalpha(ch) || ch == '$' || ch == '.')
+	std::cout << ch;
+      else
+	std::cout << std::hex << static_cast<int>(ch);
+      std::cout << " ";
+    }
+    std::cout << std::endl;
   }
 }
