@@ -46,10 +46,8 @@ namespace bson
   template <class T>
   T _from_bytes(const char* bytes)
   {
-    T* dataptr = new T;
-    std::memcpy(dataptr, bytes, sizeof(T));
-    T data = *dataptr;
-    delete dataptr;
+    T data;
+    std::memcpy(&data, bytes, sizeof(T));
     return data;
   }
   
