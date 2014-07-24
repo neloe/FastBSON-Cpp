@@ -61,7 +61,7 @@ namespace bson
 	num_bytes = deserialize_bytes<Document>(bytes);
 	break;
     }
-    return num_bytes + offset;
+    return num_bytes;
   }
   
   void Element::encode(std::ostringstream& oss) const
