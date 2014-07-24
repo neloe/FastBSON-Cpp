@@ -1,5 +1,7 @@
 /*!
- * 
+ * \file vectors.hpp
+ * \author Nathan Eloe
+ * \brief std::vector<Element> template specializations
  */
 
 #pragma once
