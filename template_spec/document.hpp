@@ -46,22 +46,17 @@ namespace bson
     int added;
     TypeInfo ti;
     m_data = std::shared_ptr<Document>(new Document);
-    std::cout << "adding " << size << " bytes" << std::endl;
     while (consumed < size - 1)
     {
       ti = static_cast<TypeInfo>(iter[0]);
       iter ++;
       std::string name(iter);
-      std::cout << "adding name: " << name << std::endl;
       iter += name.size() + 1;
       added = e.decode(iter, ti);
-      std::cout << added << std::endl;
       iter += added;
       consumed += (added + name.size() + 2);
-      std::cout << "consumed: " << consumed << std::endl;
       (*(std::static_pointer_cast<Document>(m_data))).add(name, e);
     }
-    std::cout << "after loop" << std::endl;
     
     delete[] str;
     return consumed + 1;
