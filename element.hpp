@@ -36,7 +36,7 @@ namespace bson
       throw type_error<T>(m_type);
   }
   
-  unsigned Element::decode(const char* bytes, const TypeInfo & type)
+  unsigned Element::decode(const char* bytes, const TypeInfo type)
   {
     unsigned num_bytes = -1;
     m_type = type;
@@ -61,7 +61,7 @@ namespace bson
 	num_bytes = deserialize_bytes<Document>(bytes);
 	break;
     }
-    return num_bytes;
+    return num_bytes + offset;
   }
   
   void Element::encode(std::ostringstream& oss) const

@@ -21,7 +21,7 @@ namespace bson
     public:
       Element(): m_data(nullptr), m_type(_UNKNOWN) {}
       
-      unsigned decode(const char* data, const TypeInfo & m_type);
+      unsigned decode(const char* data, const TypeInfo m_type);
       void encode(std::ostringstream& oss) const;
       
       TypeInfo get_type() const {return m_type;}
