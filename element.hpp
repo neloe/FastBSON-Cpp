@@ -9,6 +9,7 @@
 #include "element.h"
 #include "typeinfo.h"
 #include <memory>
+#include <vector>
 
 namespace bson
 {
@@ -60,6 +61,9 @@ namespace bson
       case DOCUMENT:
 	num_bytes = deserialize_bytes<Document>(bytes);
 	break;
+      case ARRAY:
+	num_bytes = deserialize_bytes<std::vector<Element>>(bytes);
+	break;
     }
     return num_bytes;
   }
@@ -85,6 +89,9 @@ namespace bson
 	break;
       case DOCUMENT:
 	serialize_bson<Document>(oss);
+	break;
+      case ARRAY:
+	serialize_bson<std::vector<Element>>(oss);
 	break;
     }
     return;
@@ -112,6 +119,9 @@ namespace bson
 	break;
       case DOCUMENT:
 	result = _to_std_str<Document>();
+	break;
+      case ARRAY:
+	result = _to_std_str<std::vector<Element>>();
 	break;
     }
     return result;

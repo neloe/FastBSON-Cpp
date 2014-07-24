@@ -139,4 +139,5 @@ namespace bson
 #include "template_spec/ints.hpp"
 #include "template_spec/bools.hpp"
 #include "template_spec/document.hpp"
+#include "template_spec/vectors.hpp"
 #include "element.hpp"

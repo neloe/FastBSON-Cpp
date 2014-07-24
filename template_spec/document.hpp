@@ -36,29 +36,25 @@ namespace bson
   template<>
   unsigned Element::deserialize_bytes<Document>(const char* bytes)
   {
-    Element e;
-    int32_t size;
-    memcpy(&size, bytes, 4);
-    char* str = new char[size];
-    std::memcpy(str, bytes, size);
-    char* iter = str + 4;
-    int consumed = 4;
-    int added;
     TypeInfo ti;
+    Element e;
+    int32_t size, consumed = 4, added;
+    memcpy(&size, bytes, 4);
+    std::unique_ptr<char> str(new char[size]);
+    std::memcpy(str.get(), bytes, size);
+    char* iter = str.get() + 4;
+    size --;
     m_data = std::shared_ptr<Document>(new Document);
     while (consumed < size - 1)
     {
-      ti = static_cast<TypeInfo>(iter[0]);
-      iter ++;
+      ti = static_cast<TypeInfo>(*(iter++));
       std::string name(iter);
       iter += name.size() + 1;
       added = e.decode(iter, ti);
       iter += added;
       consumed += (added + name.size() + 2);
-      (*(std::static_pointer_cast<Document>(m_data))).add(name, e);
+      std::static_pointer_cast<Document>(m_data)->add(name, e);
     }
-    
-    delete[] str;
     return consumed + 1;
   }
   

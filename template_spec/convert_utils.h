@@ -84,4 +84,17 @@ namespace bson
     }
     std::cout << std::endl;
   }
+  
+  /*!
+   * \brief converts integers to strings
+   * \pre None
+   * \post None
+   * \return the string representation of the integer
+   */
+  std::string itos(const int& a)
+  {
+    std::ostringstream oss;
+    oss << a;
+    return oss.str();
+  }
 }
