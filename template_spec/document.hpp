@@ -36,6 +36,7 @@ namespace bson
   template<>
   unsigned Element::deserialize_bytes<Document>(const char* bytes)
   {
+    Element e;
     int32_t size;
     memcpy(&size, bytes, 4);
     char* str = new char[size];
@@ -44,21 +45,26 @@ namespace bson
     int consumed = 4;
     int added;
     TypeInfo ti;
-    while (consumed < size)
+    m_data = std::shared_ptr<Document>(new Document);
+    std::cout << "adding " << size << " bytes" << std::endl;
+    while (consumed < size - 1)
     {
-      Element e;
       ti = static_cast<TypeInfo>(iter[0]);
       iter ++;
       std::string name(iter);
+      std::cout << "adding name: " << name << std::endl;
       iter += name.size() + 1;
-      added = e.from_bytes(iter, ti);
+      added = e.decode(iter, ti);
+      std::cout << added << std::endl;
       iter += added;
-      consumed += added + name.size() + 1;
+      consumed += (added + name.size() + 2);
+      std::cout << "consumed: " << consumed << std::endl;
       (*(std::static_pointer_cast<Document>(m_data))).add(name, e);
     }
+    std::cout << "after loop" << std::endl;
     
     delete[] str;
-    return 0;
+    return consumed + 1;
   }
   
   template<>
@@ -73,5 +79,24 @@ namespace bson
     _to_stream(oss, static_cast<int>(5 + data_ser.tellp()));
     oss << data_ser.str() << X00;
     return;
+  }
+  
+  template <>
+  std::string Element::_to_std_str<Document>() const
+  {
+    std::ostringstream oss;
+    bool first = true;
+    oss << "{ ";
+    for (const std::pair<std::string, Element>& p: std::static_pointer_cast<Document>(m_data)->m_data)
+    {
+      if (!first)
+      {
+	oss << ", ";
+	first = false;
+      }
+      oss << p.first << " : " << static_cast<std::string>(p.second);
+    }
+    oss << " }";
+    return oss.str();
   }
 }

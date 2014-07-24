@@ -47,6 +47,14 @@ namespace bson
     return;
   }
   
+  template <>
+  std::string Element::_to_std_str<long>() const
+  {
+    std::ostringstream oss;
+    oss << *(std::static_pointer_cast<long>(m_data));
+    return oss.str();
+  }
+  
   //Assumption: int maps to a 32 bit integer.  There probably needs to be a better way to do this (preprocessor?)
   template<>
   TypeInfo default_type<int>()
@@ -97,5 +105,13 @@ namespace bson
     _to_bytes(num, *(std::static_pointer_cast<int>(m_data)));
     oss << num[0] << num[1] << num[2] << num[3];
     return;
+  }
+  
+  template <>
+  std::string Element::_to_std_str<int>() const
+  {
+    std::ostringstream oss;
+    oss << *(std::static_pointer_cast<int>(m_data));
+    return oss.str();
   }
 }

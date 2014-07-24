@@ -13,10 +13,10 @@ int main(int argc, char **argv) {
   char floatdata[8];
   cout << elm.data<double>() << endl;
   cout << elm2.data<string>() << endl;
-  elm3.from_bytes(data, bson::INT32);
+  elm3.decode(data, bson::INT32);
   cout << elm3.data<int>() << endl;
   bson::_to_bytes<double>(floatdata, 42.314);
-  elm4.from_bytes(floatdata, bson::FLOATING);
+  elm4.decode(floatdata, bson::FLOATING);
   cout << elm4.data<double>() << endl;
   bson::Document doc;
   doc.add("a double", elm);
@@ -29,5 +29,9 @@ int main(int argc, char **argv) {
   ostringstream ss;
   bson::Element::encode(ss, querydoc);
   bson::printbson(ss);
+  bson::Document q;
+  bson::Element e2;
+  e2.decode(ss.str().c_str(), bson::DOCUMENT);
+  cout << e2.data<bson::Document>()<< endl;
   return 0;
 }

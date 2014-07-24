@@ -44,4 +44,10 @@ namespace bson
     oss << truth;
     return;
   }
+  
+  template <>
+  std::string Element::_to_std_str<bool>() const
+  {
+    return *(std::static_pointer_cast<bool>(m_data))? "true" : "false";
+  }
 }

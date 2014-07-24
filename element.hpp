@@ -36,7 +36,7 @@ namespace bson
       throw type_error<T>(m_type);
   }
   
-  unsigned Element::from_bytes(const char* bytes, const TypeInfo & type)
+  unsigned Element::decode(const char* bytes, const TypeInfo & type)
   {
     unsigned num_bytes = -1;
     m_type = type;
@@ -88,5 +88,32 @@ namespace bson
 	break;
     }
     return;
+  }
+  
+  Element::operator std::string() const
+  {
+    std::string result;
+    switch (m_type)
+    {
+      case INT64: case DATETIME: case TIMESTAMP:
+	result = _to_std_str<long>();
+	break;
+      case INT32:
+	result = _to_std_str<int>();
+	break;
+      case STRING: case JS: case DEPRECATED:
+	result = _to_std_str<std::string>();
+	break;
+      case BOOL:
+	result = _to_std_str<bool>();
+	break;
+      case FLOATING:
+	result = _to_std_str<double>();
+	break;
+      case DOCUMENT:
+	result = _to_std_str<Document>();
+	break;
+    }
+    return result;
   }
 }

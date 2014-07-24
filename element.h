@@ -21,7 +21,7 @@ namespace bson
     public:
       Element(): m_data(nullptr), m_type(_UNKNOWN) {}
       
-      unsigned from_bytes(const char* data, const TypeInfo & m_type);
+      unsigned decode(const char* data, const TypeInfo & m_type);
       void encode(std::ostringstream& oss) const;
       
       TypeInfo get_type() const {return m_type;}
@@ -35,6 +35,8 @@ namespace bson
       void data(T& t) const {t = data<T>();}
       
       static void encode(std::ostringstream& oss, const Element& e) {e.encode(oss);}
+      
+      operator std::string() const;
       
     private:
       friend class Document;
@@ -53,6 +55,9 @@ namespace bson
       
       template<typename T>
       void serialize_bson(std::ostringstream& oss) const;
+      
+      template <typename T>
+      std::string _to_std_str() const;
   };
 
   template <typename T>
