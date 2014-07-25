@@ -37,7 +37,7 @@ namespace bson
   {
     m_data = std::shared_ptr<oid>(new oid);
     std::memcpy(&(*(std::static_pointer_cast<oid>(m_data)))[0], bytes, OID_SIZE);
-    return 0;
+    return OID_SIZE;
   }
   
   template<>
