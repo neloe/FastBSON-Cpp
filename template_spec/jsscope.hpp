@@ -14,12 +14,6 @@
 
 namespace bson
 {
-  struct jscode_scope
-  {
-    int m_size;
-    std::string m_code;
-    Document m_mapping;
-  };
 
   template<>
   TypeInfo default_type<jscode_scope>()
@@ -43,23 +37,26 @@ namespace bson
   unsigned Element::deserialize_bytes<jscode_scope>(const char* bytes)
   {
     m_data = std::shared_ptr<jscode_scope>(new jscode_scope);
+    std::shared_ptr<jscode_scope> data(std::static_pointer_cast<jscode_scope>(m_data));
     Element e;
     int size;
-    std::memcpy(&size, bytes, 4);
-    std::static_pointer_cast<jscode_scope>(m_data)->m_size = size;
-    std::static_pointer_cast<jscode_scope>(m_data)->m_code = std::string(bytes + 4, size);
-    size += e.decode(bytes + 5 + size, DOCUMENT);
-    e.data(std::static_pointer_cast<jscode_scope>(m_data)->m_mapping);
-    return size + 5;
+    std::memcpy(&size, bytes + 4, 4);
+    data->first = std::string(bytes + 8, size - 1);
+    size += 5;
+    size += e.decode(bytes + size, DOCUMENT);
+    e.data(data->second);
+    return size;
   }
   
   template<>
   void Element::serialize_bson<jscode_scope>(std::ostringstream& oss) const
   {
     std::shared_ptr<jscode_scope> data(std::static_pointer_cast<jscode_scope>(m_data));
-    _to_stream(oss, data->m_size);
-    _to_stream(oss, data->m_code);
-    _to_stream(oss, data->m_mapping);
+    std::ostringstream temp;
+    _to_stream(temp, data -> first);
+    _to_stream(temp, data -> second);
+    _to_stream(oss, static_cast<int>(temp.tellp()));
+    oss << temp.str();
     return;
   }
   
@@ -68,8 +65,8 @@ namespace bson
   {
     std::ostringstream oss;
     std::shared_ptr<jscode_scope> data(std::static_pointer_cast<jscode_scope>(m_data));
-    Element e(data->m_mapping);
-    oss << "js_scope : { size : " << data->m_size << ", code : " << data->m_code << ", mapping : "
+    Element e(data->second);
+    oss << "js_scope : { code : " << data->first << ", mapping : "
         << static_cast<std::string>(e) << " }";
     return oss.str();
   }

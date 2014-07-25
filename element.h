@@ -18,14 +18,13 @@ namespace bson
   const int DB_PTR_SIZE = 12;
   
   class Element; //forward declaration for typedefs
-  
+    class Document; // forward declaration for friending and typedefs
+    
   typedef std::vector<Element> array;
   typedef std::array<char, OID_SIZE> oid;
   typedef std::pair<std::string, std::string> regex;
   typedef std::pair<std::string, std::array<char, DB_PTR_SIZE>> dbptr;
-  struct jscode_scope;
-  
-  class Document; // forward declaration for friend classness
+  typedef std::pair<std::string, Document> jscode_scope;
   
   class Element
   {
