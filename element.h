@@ -21,11 +21,11 @@ namespace bson
   class Document; // forward declaration for friending and typedefs
     
   typedef std::vector<Element> array;
-  typedef std::array<char, OID_SIZE> oid;
+  typedef std::array<unsigned char, OID_SIZE> oid;
   typedef std::pair<std::string, std::string> regex;
-  typedef std::pair<std::string, std::array<char, DB_PTR_SIZE>> dbptr;
+  typedef std::pair<std::string, std::array<unsigned char, DB_PTR_SIZE>> dbptr;
   typedef std::pair<std::string, Document> jscode_scope;
-  typedef std::pair<char, std::string> binary;
+  typedef std::pair<unsigned char, std::string> binary;
   
   class Element
   {

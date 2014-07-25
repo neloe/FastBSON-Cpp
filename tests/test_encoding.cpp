@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <array>
 
 TEST(Encoding, Int32)
 {
@@ -50,4 +51,16 @@ TEST(Encoding, String)
   strrep = oss.str();
   for (int i=0; i<6; i++)
     ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, OID)
+{
+  const bson::oid input = {'S', 0xd1, 0x2b, 0xc6, 0x86, 0, 0xb0, 0xad, 'O', 0xbb, 0x90, 0x2c};
+  bson::Element e(input);
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  for (int i=0; i < input.size(); i++)
+    ASSERT_EQ(input[i], static_cast<unsigned char>(strrep.c_str()[i]));
 }
