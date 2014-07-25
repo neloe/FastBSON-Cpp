@@ -41,9 +41,7 @@ namespace bson
   template<>
   void Element::serialize_bson<long>(std::ostringstream& oss) const
   {
-    char num[8];
-    _to_bytes(num, *(std::static_pointer_cast<long>(m_data)));
-    oss << num[0] << num[1] << num[2] << num[3] << num[4] << num[5] << num[6] << num[7];
+    _to_stream(oss, *(std::static_pointer_cast<long>(m_data)));
     return;
   }
   
@@ -101,9 +99,7 @@ namespace bson
   template<>
   void Element::serialize_bson<int>(std::ostringstream& oss) const
   {
-    char num[4];
-    _to_bytes(num, *(std::static_pointer_cast<int>(m_data)));
-    oss << num[0] << num[1] << num[2] << num[3];
+    _to_stream(oss, *(std::static_pointer_cast<int>(m_data)));
     return;
   }
   

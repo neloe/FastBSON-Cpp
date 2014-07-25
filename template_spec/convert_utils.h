@@ -58,10 +58,7 @@ namespace bson
    */
   void _to_stream(std::ostringstream& ss, const char* v)
   {
-    int i = 0;
-    while (v[i])
-      ss << v[i++];
-    ss << X00;
+    ss << v << X00;
   }
   
   /*!

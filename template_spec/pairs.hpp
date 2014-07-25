@@ -47,8 +47,9 @@ namespace bson
   template<>
   void Element::serialize_bson<regex>(std::ostringstream& oss) const
   {
-    oss << std::static_pointer_cast<regex>(m_data) -> first << X00
-        << std::static_pointer_cast<regex>(m_data) -> second << X00;
+    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> first);
+    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> second);
+    return;
   }
   
   template<>

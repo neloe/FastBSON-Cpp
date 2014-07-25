@@ -45,9 +45,7 @@ namespace bson
   template<>
   void Element::serialize_bson<std::string>(std::ostringstream& oss) const
   {
-    char size [4];
-    _to_bytes(size, static_cast<int>(std::static_pointer_cast<std::string>(m_data)->size()));
-    oss << size[0] << size[1] << size[2] << size[3] << *(std::static_pointer_cast<std::string>(m_data));
+    _to_stream(oss, *(std::static_pointer_cast<std::string>(m_data)));
     return;
   }
   

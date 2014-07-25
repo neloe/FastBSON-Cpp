@@ -40,9 +40,7 @@ namespace bson
   template<>
   void Element::serialize_bson<double>(std::ostringstream& oss) const
   {
-    char num[8];
-    _to_bytes(num, *(std::static_pointer_cast<double>(m_data)));
-    oss << num[0] << num[1] << num[2] << num[3] << num[4] << num[5] << num[6] << num[7];
+    _to_stream(oss, *(std::static_pointer_cast<double>(m_data)));
     return;
   }
   
