@@ -1,5 +1,5 @@
 /*!
- * \file chararrs.hpp
+ * \file jsscope.hpp
  * \author Nathan Eloe
  * \brief Javascript code with scope template specializations
  */
