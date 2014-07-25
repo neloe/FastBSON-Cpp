@@ -62,13 +62,19 @@ namespace bson
 	num_bytes = deserialize_bytes<Document>(bytes);
 	break;
       case ARRAY:
-	num_bytes = deserialize_bytes<std::vector<Element>>(bytes);
+	num_bytes = deserialize_bytes<array>(bytes);
 	break;
       case OID:
-	num_bytes = deserialize_bytes<std::array<char, OID_SIZE>>(bytes);
+	num_bytes = deserialize_bytes<oid>(bytes);
 	break;
       case NIL: case MINKEY: case MAXKEY: case UNDEF:
 	num_bytes = deserialize_bytes<void>(bytes);
+	break;
+      case REGEX:
+	num_bytes = deserialize_bytes<regex>(bytes);
+	break;
+      case DBPTR:
+	num_bytes = deserialize_bytes<dbptr>(bytes);
 	break;
     }
     return num_bytes;
@@ -97,13 +103,19 @@ namespace bson
 	serialize_bson<Document>(oss);
 	break;
       case ARRAY:
-	serialize_bson<std::vector<Element>>(oss);
+	serialize_bson<array>(oss);
 	break;
       case OID:
-	serialize_bson<std::array<char, OID_SIZE>>(oss);
+	serialize_bson<oid>(oss);
 	break;
       case NIL: case MINKEY: case MAXKEY: case UNDEF:
 	serialize_bson<void>(oss);
+	break;
+      case REGEX:
+	serialize_bson<regex>(oss);
+	break;
+      case DBPTR:
+	serialize_bson<dbptr>(oss);
 	break;
     }
     return;
@@ -133,13 +145,19 @@ namespace bson
 	result = _to_std_str<Document>();
 	break;
       case ARRAY:
-	result = _to_std_str<std::vector<Element>>();
+	result = _to_std_str<array>();
 	break;
       case OID:
-	result = _to_std_str<std::array<char, OID_SIZE>>();
+	result = _to_std_str<oid>();
 	break;
       case NIL: case MINKEY: case MAXKEY: case UNDEF:
 	result = _to_std_str<void>();
+	break;
+      case REGEX:
+	result = _to_std_str<regex>();
+	break;
+      case DBPTR:
+	result = _to_std_str<dbptr>();
 	break;
     }
     return result;

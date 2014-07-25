@@ -9,11 +9,20 @@
 #include "typeinfo.h"
 #include <sstream>
 #include <memory>
+#include <vector>
 
 namespace bson
 {
   const char X00 = '\0'; // null character, useful for encoding in bson
   const int OID_SIZE = 12;
+  const int DB_PTR_SIZE = 12;
+  
+  class Element; //forward declaration for typedefs
+  
+  typedef std::vector<Element> array;
+  typedef std::array<char, OID_SIZE> oid;
+  typedef std::pair<std::string, std::string> regex;
+  typedef std::pair<std::string, std::array<char, DB_PTR_SIZE>> dbptr;
   
   class Document; // forward declaration for friend classness
   
@@ -143,4 +152,5 @@ namespace bson
 #include "template_spec/vectors.hpp"
 #include "template_spec/chararrs.hpp"
 #include "template_spec/voids.hpp"
+#include "template_spec/pairs.hpp"
 #include "element.hpp"
