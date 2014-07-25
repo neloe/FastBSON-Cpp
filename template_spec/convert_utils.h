@@ -6,9 +6,9 @@
 
 #pragma once
 
+#include "../element.h"
 #include <cstring>
 #include <memory>
-#include <boost/concept_check.hpp>
 #include <iostream>
 
 namespace bson
@@ -52,6 +52,19 @@ namespace bson
   }
   
   /*!
+   * \brief inserts the bytes of the NTCA v in into the stream
+   * \pre v must be null terminated
+   * \post the byte representation of object v is inserted into the stream
+   */
+  void _to_stream(std::ostringstream& ss, const char* v)
+  {
+    int i = 0;
+    while (v[i])
+      ss << v[i++];
+    ss << X00;
+  }
+  
+  /*!
    * \brief inserts the bytes of object v in into the stream
    * \pre None
    * \post the byte representation of object v is inserted into the stream
@@ -62,6 +75,13 @@ namespace bson
     char* it = (char*)(&v);
     for (int i=0; i<sizeof(T); ++i, ++it)
       ss << *it;
+  }
+  
+  template <>
+  void _to_stream(std::ostringstream& ss, const std::string & v)
+  {
+    _to_stream(ss, static_cast<u_int32_t>(v.size()));
+    _to_stream(ss, v.c_str());
   }
   
   /*!
