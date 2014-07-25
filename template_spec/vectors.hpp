@@ -1,7 +1,7 @@
 /*!
  * \file vectors.hpp
  * \author Nathan Eloe
- * \brief std::vector<Element> template specializations
+ * \brief array template specializations
  */
 
 #pragma once
@@ -15,25 +15,25 @@
 namespace bson 
 {
   template<>
-  TypeInfo default_type<std::vector<Element>>()
+  TypeInfo default_type<array>()
   {
     return ARRAY;
   }
   
   template<>
-  std::string to_string<std::vector<Element>>()
+  std::string to_string<array>()
   {
     return "std::vector<bson::Element>";
   }
   
   template<>
-  bool Element::check_convert<std::vector<Element>>() const
+  bool Element::check_convert<array>() const
   {
     return m_type == ARRAY;
   }
   
   template<>
-  unsigned Element::deserialize_bytes<std::vector<Element>>(const char* bytes)
+  unsigned Element::deserialize_bytes<array>(const char* bytes)
   {
     TypeInfo ti;
     Element e;
@@ -43,7 +43,7 @@ namespace bson
     std::memcpy(str.get(), bytes, size);
     char* iter = str.get() + 4;
     size --;
-    m_data = std::shared_ptr<std::vector<Element>>(new std::vector<Element>);
+    m_data = std::shared_ptr<array>(new array);
     while (consumed < size)
     {
       ti = static_cast<TypeInfo>(*(iter++));
@@ -52,18 +52,18 @@ namespace bson
       added = e.decode(iter, ti);
       iter += added;
       consumed += (added + index.size() + 2);
-      std::static_pointer_cast<std::vector<Element>>(m_data) -> push_back(e);
+      std::static_pointer_cast<array>(m_data) -> push_back(e);
     }
     return consumed + 1;
   }
   
   template<>
-  void Element::serialize_bson<std::vector<Element>>(std::ostringstream& oss) const
+  void Element::serialize_bson<array>(std::ostringstream& oss) const
   {
-    int size = std::static_pointer_cast<std::vector<Element>>(m_data) -> size();
+    int size = std::static_pointer_cast<array>(m_data) -> size();
     int index = 0;
     std::ostringstream data_ser;
-    for (const Element & e: *(std::static_pointer_cast<std::vector<Element>>(m_data)))
+    for (const Element & e: *(std::static_pointer_cast<array>(m_data)))
     {
       data_ser << to_char(e.m_type) << itos(index++) << X00;
       e.encode(data_ser);
@@ -74,16 +74,16 @@ namespace bson
   }
   
   template <>
-  std::string Element::_to_std_str<std::vector<Element>>() const
+  std::string Element::_to_std_str<array>() const
   {
     std::ostringstream oss;
-    int size = std::static_pointer_cast<std::vector<Element>>(m_data) -> size();
+    int size = std::static_pointer_cast<array>(m_data) -> size();
     oss << "[ ";
     if (size > 0)
-      oss << static_cast<std::string>((*(std::static_pointer_cast<std::vector<Element>>(m_data)))[0]);
+      oss << static_cast<std::string>((*(std::static_pointer_cast<array>(m_data)))[0]);
     for (int i=0; i < size; i++)
     {
-      oss << ", " << static_cast<std::string>((*(std::static_pointer_cast<std::vector<Element>>(m_data)))[i]);
+      oss << ", " << static_cast<std::string>((*(std::static_pointer_cast<array>(m_data)))[i]);
     }
     oss << " ]";
     return oss.str();

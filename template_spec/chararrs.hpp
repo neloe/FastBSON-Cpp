@@ -15,44 +15,44 @@
 namespace bson
 {
   template<>
-  TypeInfo default_type<std::array<char, OID_SIZE>>()
+  TypeInfo default_type<oid>()
   {
     return OID;
   }
   
   template<>
-  std::string to_string<std::array<char, OID_SIZE>>()
+  std::string to_string<oid>()
   {
-    return "std::array<char, OID_SIZE>";
+    return "oid";
   }
   
   template<>
-  bool Element::check_convert<std::array<char, OID_SIZE>>() const
+  bool Element::check_convert<oid>() const
   {
     return m_type == OID;
   }
   
   template<>
-  unsigned Element::deserialize_bytes<std::array<char, OID_SIZE>>(const char* bytes)
+  unsigned Element::deserialize_bytes<oid>(const char* bytes)
   {
-    m_data = std::shared_ptr<std::array<char, OID_SIZE>>(new std::array<char, OID_SIZE>);
-    std::memcpy(&(*(std::static_pointer_cast<std::array<char, OID_SIZE>>(m_data)))[0], bytes, OID_SIZE);
+    m_data = std::shared_ptr<oid>(new oid);
+    std::memcpy(&(*(std::static_pointer_cast<oid>(m_data)))[0], bytes, OID_SIZE);
     return 0;
   }
   
   template<>
-  void Element::serialize_bson<std::array<char, OID_SIZE>>(std::ostringstream& oss) const
+  void Element::serialize_bson<oid>(std::ostringstream& oss) const
   {
-    for (const char& c: *(std::static_pointer_cast<std::array<char, OID_SIZE>>(m_data)))
+    for (const char& c: *(std::static_pointer_cast<oid>(m_data)))
       oss << c;
     return;
   }
   
   template<>
-  std::string Element::_to_std_str<std::array<char, OID_SIZE>>() const
+  std::string Element::_to_std_str<oid>() const
   {
     std::ostringstream oss;
-    serialize_bson<std::array<char, OID_SIZE>>(oss);
+    serialize_bson<oid>(oss);
     return oss.str();
   }
 }
