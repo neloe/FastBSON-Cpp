@@ -25,6 +25,7 @@ namespace bson
   typedef std::pair<std::string, std::string> regex;
   typedef std::pair<std::string, std::array<char, DB_PTR_SIZE>> dbptr;
   typedef std::pair<std::string, Document> jscode_scope;
+  typedef std::pair<char, std::string> binary;
   
   class Element
   {
@@ -154,4 +155,5 @@ namespace bson
 #include "template_spec/voids.hpp"
 #include "template_spec/pairs.hpp"
 #include "template_spec/jsscope.hpp"
+#include "template_spec/binary.hpp"
 #include "element.hpp"

@@ -79,6 +79,12 @@ namespace bson
       case JS_SCOPE:
 	num_bytes = deserialize_bytes<jscode_scope>(bytes);
 	break;
+      case BINARY:
+	num_bytes = deserialize_bytes<binary>(bytes);
+	break;
+      case _UNKNOWN:
+	throw type_UNKNOWN();
+	break;
     }
     return num_bytes;
   }
@@ -122,6 +128,12 @@ namespace bson
 	break;
       case JS_SCOPE:
 	serialize_bson<jscode_scope>(oss);
+	break;
+      case BINARY:
+	serialize_bson<binary>(oss);
+	break;
+      case _UNKNOWN:
+	throw type_UNKNOWN();
 	break;
     }
     return;
@@ -167,6 +179,12 @@ namespace bson
 	break;
       case JS_SCOPE:
 	result = _to_std_str<jscode_scope>();
+	break;
+      case BINARY:
+	result = _to_std_str<binary>();
+	break;
+      case _UNKNOWN:
+	throw type_UNKNOWN();
 	break;
     }
     return result;

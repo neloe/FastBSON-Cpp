@@ -8,6 +8,7 @@
 
 #include <exception>
 #include <string>
+#include <boost/concept_check.hpp>
 
 namespace bson
 {
@@ -41,6 +42,14 @@ namespace bson
       TypeInfo m_ti;
   };
   
+  class type_UNKNOWN: public std::exception
+  {
+    public:
+      virtual const char* what() const noexcept
+      {
+	return "_UNKNOWN type not implemented";
+      }
+  };
 
   std::string to_string(const TypeInfo & ti)
   {
