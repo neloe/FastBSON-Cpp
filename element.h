@@ -18,7 +18,7 @@ namespace bson
   const int DB_PTR_SIZE = 12;
   
   class Element; //forward declaration for typedefs
-    class Document; // forward declaration for friending and typedefs
+  class Document; // forward declaration for friending and typedefs
     
   typedef std::vector<Element> array;
   typedef std::array<char, OID_SIZE> oid;
@@ -109,18 +109,47 @@ namespace bson
 
 /* ------------ ALL FUNCTIONS BELOW THIS LINE MUST BE SPECIALIZED FOR TYPES --------- */
       
+      /*!
+       * \brief checks that type T and m_type are compatible
+       * \pre None
+       * \post None
+       * \return true if T and m_type are compatible, false otherwise
+       */
       template <typename T>
       bool check_convert() const;
       
+      /*!
+       * \brief checks that type T and m_type are compatible
+       * \pre None
+       * \post if T and m_type are not compatible, throws exception
+       * \throws type_error<T>
+       */
       template <typename T>
       void type_check() const;
       
+      /*!
+       * \brief deserializes the bytes into the object
+       * \pre bytes contains bson pertaining to the type specified in m_type
+       * \post this object contains the c++ representation of the bson encoded bytes
+       * \return the number of bytes consumed in the decoding
+       */
       template<typename T>
       unsigned deserialize_bytes(const char* bytes);
       
+      /*!
+       * \brief serializes this object into oss as a byte stream
+       * \pre None
+       * \post oss has the bson representation of this object inserted into it
+       */
       template<typename T>
       void serialize_bson(std::ostringstream& oss) const;
       
+      /*!
+       * \brief creates a string representation
+       * \pre None
+       * \post None
+       * \return a string representation of this object.  Ideally, it will be JSON compliant
+       */
       template <typename T>
       std::string _to_std_str() const;
   };
