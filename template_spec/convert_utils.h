@@ -78,7 +78,7 @@ namespace bson
   template <>
   void _to_stream(std::ostringstream& ss, const std::string & v)
   {
-    _to_stream(ss, static_cast<u_int32_t>(v.size()));
+    _to_stream(ss, static_cast<u_int32_t>(v.size()) + 1); //the +1 handles the null at the end
     _to_stream(ss, v.c_str());
   }
   
