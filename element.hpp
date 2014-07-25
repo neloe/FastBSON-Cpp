@@ -76,6 +76,9 @@ namespace bson
       case DBPTR:
 	num_bytes = deserialize_bytes<dbptr>(bytes);
 	break;
+      case JS_SCOPE:
+	num_bytes = deserialize_bytes<jscode_scope>(bytes);
+	break;
     }
     return num_bytes;
   }
@@ -116,6 +119,9 @@ namespace bson
 	break;
       case DBPTR:
 	serialize_bson<dbptr>(oss);
+	break;
+      case JS_SCOPE:
+	serialize_bson<jscode_scope>(oss);
 	break;
     }
     return;
@@ -158,6 +164,9 @@ namespace bson
 	break;
       case DBPTR:
 	result = _to_std_str<dbptr>();
+	break;
+      case JS_SCOPE:
+	result = _to_std_str<jscode_scope>();
 	break;
     }
     return result;

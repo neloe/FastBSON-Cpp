@@ -23,6 +23,7 @@ namespace bson
   typedef std::array<char, OID_SIZE> oid;
   typedef std::pair<std::string, std::string> regex;
   typedef std::pair<std::string, std::array<char, DB_PTR_SIZE>> dbptr;
+  struct jscode_scope;
   
   class Document; // forward declaration for friend classness
   
@@ -144,13 +145,14 @@ namespace bson
   
 }
 
+#include "template_spec/document.hpp"
 #include "template_spec/floats.hpp"
 #include "template_spec/strings.hpp"
 #include "template_spec/ints.hpp"
 #include "template_spec/bools.hpp"
-#include "template_spec/document.hpp"
 #include "template_spec/vectors.hpp"
 #include "template_spec/chararrs.hpp"
 #include "template_spec/voids.hpp"
 #include "template_spec/pairs.hpp"
+#include "template_spec/jsscope.hpp"
 #include "element.hpp"
