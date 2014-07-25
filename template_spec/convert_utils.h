@@ -11,6 +11,7 @@
 #include <memory>
 #include <iostream>
 
+class A;
 namespace bson
 {
   /*!
@@ -79,6 +80,14 @@ namespace bson
   {
     _to_stream(ss, static_cast<u_int32_t>(v.size()));
     _to_stream(ss, v.c_str());
+  }
+  
+  template <int ARRSIZE>
+  void _to_stream(std::ostringstream& ss, const std::array<char, ARRSIZE> & v)
+  {
+    for (const char c: v)
+      ss << v;
+    return;
   }
   
   /*!

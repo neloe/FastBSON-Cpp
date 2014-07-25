@@ -43,8 +43,7 @@ namespace bson
   template<>
   void Element::serialize_bson<oid>(std::ostringstream& oss) const
   {
-    for (const char& c: *(std::static_pointer_cast<oid>(m_data)))
-      oss << c;
+    _to_stream(oss, *(std::static_pointer_cast<oid>(m_data)));
     return;
   }
   
