@@ -30,7 +30,7 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<long>(const char* bytes)
+  unsigned Element::deserialize_bytes<long>(const unsigned char* bytes)
   {
     m_data = make_void_shared(_from_bytes<long>(bytes));
     return 8;
@@ -88,10 +88,10 @@ namespace bson
     return m_type == INT32;
   }
     template<>
-  unsigned Element::deserialize_bytes<int>(const char* bytes)
+  unsigned Element::deserialize_bytes<int>(const unsigned char* bytes)
   {
     m_data = make_void_shared(_from_bytes<int>(bytes));
-    return 8;
+    return 4;
   }
   
   template<>

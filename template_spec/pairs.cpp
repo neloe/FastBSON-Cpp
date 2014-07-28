@@ -31,13 +31,13 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<regex>(const char* bytes)
+  unsigned Element::deserialize_bytes<regex>(const unsigned char* bytes)
   {
     int size;
     m_data = std::shared_ptr<regex>(new regex);
-    std::static_pointer_cast<regex>(m_data) -> first = std::string(bytes);
+    std::static_pointer_cast<regex>(m_data) -> first = std::string((char*)bytes);
     size = (std::static_pointer_cast<regex>(m_data) -> first).size() + 1;
-    std::static_pointer_cast<regex>(m_data) -> second = std::string(bytes + size);
+    std::static_pointer_cast<regex>(m_data) -> second = std::string((char*)bytes + size);
     size += (std::static_pointer_cast<regex>(m_data) -> second).size() + 1;
     return size;
   }
@@ -80,14 +80,14 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<dbptr>(const char* bytes)
+  unsigned Element::deserialize_bytes<dbptr>(const unsigned char* bytes)
   {
     int size;
     int strsize;
     memcpy(&strsize, bytes, 4);
     size += 4;
     m_data = std::shared_ptr<dbptr>(new dbptr);
-    std::static_pointer_cast<dbptr>(m_data) -> first = std::string(bytes + size, strsize);
+    std::static_pointer_cast<dbptr>(m_data) -> first = std::string((char*)bytes + size, strsize);
     size += strsize + 1;
     std::memcpy(&((std::static_pointer_cast<dbptr>(m_data) -> second)[0]), bytes + size, DB_PTR_SIZE);
     return size + DB_PTR_SIZE;

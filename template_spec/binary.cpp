@@ -32,13 +32,13 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<binary>(const char* bytes)
+  unsigned Element::deserialize_bytes<binary>(const unsigned char* bytes)
   {
     binary data;
     int size;
     std::memcpy(&size, bytes, 4);
     data.first = bytes[5];
-    data.second = std::string(bytes + 6, size);
+    data.second = std::string((char*)bytes + 6, size);
     m_data = make_void_shared(data);
     return size + 5;
   }

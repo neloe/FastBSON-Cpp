@@ -16,7 +16,7 @@ namespace bson
   template <>
   bool Element::check_convert<bool>() const;
   template<>
-  unsigned Element::deserialize_bytes<bool>(const char* bytes);
+  unsigned Element::deserialize_bytes<bool>(const unsigned char* bytes);
   template<>
   void Element::serialize_bson<bool>(std::ostringstream& oss) const;
   template <>

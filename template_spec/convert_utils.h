@@ -19,7 +19,7 @@ namespace bson
    * \post copies the bytes contained in data to the bytes array
    */
   template <class T>
-  inline void _to_bytes(char* bytes, const T& data)
+  inline void _to_bytes(unsigned char* bytes, const T& data)
   {
     std::memcpy(bytes, &data, sizeof(T));
     return;
@@ -44,7 +44,7 @@ namespace bson
    * \return the data that is the bytes in the array, but as type T
    */
   template <class T>
-  T _from_bytes(const char* bytes)
+  T _from_bytes(const unsigned char* bytes)
   {
     T data;
     std::memcpy(&data, bytes, sizeof(T));
@@ -57,6 +57,10 @@ namespace bson
    * \post the byte representation of object v is inserted into the stream
    */
   inline void _to_stream(std::ostringstream& ss, const char* v)
+  {
+    ss << v << X00;
+  }
+  inline void _to_stream(std::ostringstream& ss, const unsigned char* v)
   {
     ss << v << X00;
   }

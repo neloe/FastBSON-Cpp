@@ -29,7 +29,7 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<void>(const char* bytes)
+  unsigned Element::deserialize_bytes<void>(const unsigned char* bytes)
   {
     return 0;
   }

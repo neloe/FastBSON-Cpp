@@ -9,6 +9,7 @@
 #include "../element.h"
 #include <string>
 #include <array>
+#include <iomanip>
 
 namespace bson
 {
@@ -31,7 +32,7 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<oid>(const char* bytes)
+  unsigned Element::deserialize_bytes<oid>(const unsigned char* bytes)
   {
     m_data = std::shared_ptr<oid>(new oid);
     std::memcpy(&(*(std::static_pointer_cast<oid>(m_data)))[0], bytes, OID_SIZE);
@@ -49,7 +50,8 @@ namespace bson
   std::string Element::_to_std_str<oid>() const
   {
     std::ostringstream oss;
-    serialize_bson<oid>(oss);
+    for (int i=0; i<OID_SIZE; i++)
+      oss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>((*(std::static_pointer_cast<oid>(m_data)))[i]);
     return oss.str();
   }
 }

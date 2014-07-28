@@ -32,14 +32,14 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<jscode_scope>(const char* bytes)
+  unsigned Element::deserialize_bytes<jscode_scope>(const unsigned char* bytes)
   {
     m_data = std::shared_ptr<jscode_scope>(new jscode_scope);
     std::shared_ptr<jscode_scope> data(std::static_pointer_cast<jscode_scope>(m_data));
     Element e;
     int size;
     std::memcpy(&size, bytes + 4, 4);
-    data->first = std::string(bytes + 8, size - 1);
+    data->first = std::string((char*)bytes + 8, size - 1);
     size += 5;
     size += e.decode(bytes + size, DOCUMENT);
     e.data(data->second);

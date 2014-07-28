@@ -31,25 +31,21 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<array>(const char* bytes)
+  unsigned Element::deserialize_bytes<array>(const unsigned char* bytes)
   {
+    Document d;
     TypeInfo ti;
     Element e;
-    int32_t size, consumed = 4, added;
+    int32_t size, consumed = 4;
     memcpy(&size, bytes, 4);
-    std::unique_ptr<char> str(new char[size]);
-    std::memcpy(str.get(), bytes, size);
-    char* iter = str.get() + 4;
     size --;
     m_data = std::shared_ptr<array>(new array);
     while (consumed < size)
     {
-      ti = static_cast<TypeInfo>(*(iter++));
-      std::string index(iter); //ignore this, we know it will be the index;
-      iter += index.size() + 1;
-      added = e.decode(iter, ti);
-      iter += added;
-      consumed += (added + index.size() + 2);
+      ti = static_cast<TypeInfo>(*(bytes + consumed));
+      std::string name((char*)bytes + (++consumed));
+      consumed += name.size() + 1;
+      consumed  += e.decode(bytes + consumed, ti);
       std::static_pointer_cast<array>(m_data) -> push_back(e);
     }
     return consumed + 1;

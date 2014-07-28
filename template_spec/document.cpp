@@ -33,7 +33,7 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<Document>(const char* bytes)
+  unsigned Element::deserialize_bytes<Document>(const unsigned char* bytes)
   {
     Document d;
     TypeInfo ti;
@@ -45,7 +45,7 @@ namespace bson
     while (consumed < size - 1)
     {
       ti = static_cast<TypeInfo>(*(bytes + consumed));
-      std::string name(bytes + (++consumed));
+      std::string name((char*)bytes + (++consumed));
       consumed += name.size() + 1;
       consumed  += e.decode(bytes + consumed, ti);
       std::static_pointer_cast<Document>(m_data)->add(name, e);

@@ -8,11 +8,10 @@
 #include "typeinfo.h"
 #include <memory>
 #include <vector>
-
 namespace bson
 {
   
-  unsigned Element::decode(const char* bytes, const TypeInfo type)
+  unsigned Element::decode(const unsigned char* bytes, const TypeInfo type)
   {
     unsigned num_bytes = -1;
     m_type = type;

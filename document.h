@@ -96,7 +96,7 @@ namespace bson
        * \post None
        * \return the set of field names
        */
-      std::set<std::string> field_names() {return m_field_names;}
+      std::set<std::string> field_names() const {return m_field_names;}
   };
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)

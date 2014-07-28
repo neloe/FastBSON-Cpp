@@ -16,7 +16,7 @@ namespace bson
   template<>
   bool Element::check_convert<regex>() const;
   template<>
-  unsigned Element::deserialize_bytes<regex>(const char* bytes);
+  unsigned Element::deserialize_bytes<regex>(const unsigned char* bytes);
   template<>
   void Element::serialize_bson<regex>(std::ostringstream& oss) const;
   template<>
@@ -28,7 +28,7 @@ namespace bson
   template<>
   bool Element::check_convert<dbptr>() const;
   template<>
-  unsigned Element::deserialize_bytes<dbptr>(const char* bytes);
+  unsigned Element::deserialize_bytes<dbptr>(const unsigned char* bytes);
   template<>
   void Element::serialize_bson<dbptr>(std::ostringstream& oss) const;
   template<>

@@ -16,7 +16,7 @@ namespace bson
   template<>
   bool Element::check_convert<jscode_scope>() const;
   template<>
-  unsigned Element::deserialize_bytes<jscode_scope>(const char* bytes);
+  unsigned Element::deserialize_bytes<jscode_scope>(const unsigned char* bytes);
   template<>
   void Element::serialize_bson<jscode_scope>(std::ostringstream& oss) const;
   template<>

@@ -10,6 +10,7 @@
 #include <memory>
 #include <cstring>
 #include "../element.h"
+#include <iostream>
 
 namespace bson
 {
@@ -32,11 +33,11 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<std::string>(const char* bytes)
+  unsigned Element::deserialize_bytes<std::string>(const unsigned char* bytes)
   {
     int32_t size;
     memcpy(&size, bytes, 4);
-    m_data = make_void_shared(std::string(bytes + 4, size - 1)); // -1 is to avoid the trailing NULL
+    m_data = make_void_shared(std::string((char*)(bytes + 4), size - 1)); // -1 is to avoid the trailing NULL
     return size + 4;
   }
   

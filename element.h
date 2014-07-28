@@ -52,7 +52,7 @@ namespace bson
        * \post the calling object contains the data that is BSON encoded in data
        * \return the number of bytes consumed while decoding
        */
-      unsigned decode(const char* data, const TypeInfo m_type);
+      unsigned decode(const unsigned char* data, const TypeInfo m_type);
       
       /*!
        * \brief encodes this object ias a bytestring
@@ -92,7 +92,7 @@ namespace bson
        * \post calls the member functions encode/decode on the passed objects
        */
       static void encode(std::ostringstream& oss, const Element& e) {e.encode(oss);}
-      static void decode(const char* data, const TypeInfo type, Element& e) {e.decode(data, type);}
+      static void decode(const unsigned char* data, const TypeInfo type, Element& e) {e.decode(data, type);}
       
       /*!
        * \brief std::string conversion operator
@@ -134,7 +134,7 @@ namespace bson
        * \return the number of bytes consumed in the decoding
        */
       template<typename T>
-      unsigned deserialize_bytes(const char* bytes);
+      unsigned deserialize_bytes(const unsigned char* bytes);
       
       /*!
        * \brief serializes this object into oss as a byte stream

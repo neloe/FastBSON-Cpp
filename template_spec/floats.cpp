@@ -29,7 +29,7 @@ namespace bson
   }
   
   template<>
-  unsigned Element::deserialize_bytes<double>(const char* bytes)
+  unsigned Element::deserialize_bytes<double>(const unsigned char* bytes)
   {
     m_data = make_void_shared(_from_bytes<double>(bytes));
     return 8;
