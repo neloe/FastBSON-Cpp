@@ -36,7 +36,7 @@ namespace bson
   {
     int32_t size;
     memcpy(&size, bytes, 4);
-    m_data = make_void_shared(std::string(bytes + 4, size));
+    m_data = make_void_shared(std::string(bytes + 4, size - 1)); // -1 is to avoid the trailing NULL
     return size + 4;
   }
   
