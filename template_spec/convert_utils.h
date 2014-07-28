@@ -11,7 +11,6 @@
 #include <memory>
 #include <iostream>
 
-class A;
 namespace bson
 {
   /*!
@@ -20,7 +19,7 @@ namespace bson
    * \post copies the bytes contained in data to the bytes array
    */
   template <class T>
-  void _to_bytes(char* bytes, const T& data)
+  inline void _to_bytes(char* bytes, const T& data)
   {
     std::memcpy(bytes, &data, sizeof(T));
     return;
@@ -33,7 +32,7 @@ namespace bson
    * \return a shared void pointer pointing at the data
    */
   template <class T>
-  std::shared_ptr<void> make_void_shared(const T& data)
+  inline std::shared_ptr<void> make_void_shared(const T& data)
   {
     return std::static_pointer_cast<void>(std::make_shared<T>(data));
   }
@@ -57,7 +56,7 @@ namespace bson
    * \pre v must be null terminated
    * \post the byte representation of object v is inserted into the stream
    */
-  void _to_stream(std::ostringstream& ss, const char* v)
+  inline void _to_stream(std::ostringstream& ss, const char* v)
   {
     ss << v << X00;
   }
@@ -76,14 +75,14 @@ namespace bson
   }
   
   template <>
-  void _to_stream(std::ostringstream& ss, const std::string & v)
+  inline void _to_stream(std::ostringstream& ss, const std::string & v)
   {
     _to_stream(ss, static_cast<u_int32_t>(v.size()) + 1); //the +1 handles the null at the end
     _to_stream(ss, v.c_str());
   }
   
   template <int ARRSIZE>
-  void _to_stream(std::ostringstream& ss, const std::array<char, ARRSIZE> & v)
+  inline void _to_stream(std::ostringstream& ss, const std::array<char, ARRSIZE> & v)
   {
     for (const char c: v)
       ss << v;
@@ -95,7 +94,7 @@ namespace bson
    * \pre None
    * \post the byte representation of stream is output to the screen
    */
-  void printbson(std::ostringstream& ss)
+  inline void printbson(std::ostringstream& ss)
   {
     for (int i=0; i<ss.tellp(); i++)
     {
@@ -115,7 +114,7 @@ namespace bson
    * \post None
    * \return the string representation of the integer
    */
-  std::string itos(const int& a)
+  inline std::string itos(const int& a)
   {
     std::ostringstream oss;
     oss << a;

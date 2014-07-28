@@ -1,53 +1,24 @@
 /*!
- * \file floats.hpp
+ * \file bools.hpp
  * \author Nathan Eloe
  * \brief boolean template specializations
  */
-
 #pragma once
-
-#include "../typeinfo.h"
-#include "convert_utils.h"
 #include "../element.h"
+#include <string>
 
 namespace bson
 {
   template<>
-  TypeInfo default_type<bool>()
-  {
-    return BOOL;
-  }
-  
+  TypeInfo default_type<bool>();
   template <>
-  std::string to_string<bool>()
-  {
-    return "bool";
-  }
-  
+  std::string to_string<bool>();
   template <>
-  bool Element::check_convert<bool>() const
-  {
-    return m_type == BOOL;
-  }
-  
+  bool Element::check_convert<bool>() const;
   template<>
-  unsigned Element::deserialize_bytes<bool>(const char* bytes)
-  {
-    m_data = make_void_shared(bytes[0]);
-    return 1;
-  }
-  
+  unsigned Element::deserialize_bytes<bool>(const char* bytes);
   template<>
-  void Element::serialize_bson<bool>(std::ostringstream& oss) const
-  {
-    char truth = 0 + *(std::static_pointer_cast<bool>(m_data));
-    oss << truth;
-    return;
-  }
-  
+  void Element::serialize_bson<bool>(std::ostringstream& oss) const;
   template <>
-  std::string Element::_to_std_str<bool>() const
-  {
-    return *(std::static_pointer_cast<bool>(m_data))? "true" : "false";
-  }
+  std::string Element::_to_std_str<bool>() const;
 }

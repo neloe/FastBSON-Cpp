@@ -16,10 +16,11 @@ include_directories(..)
 #add files with new test here
 set (test_sources
 test_encoding.cpp
+test_decoding.cpp
 )
 
 add_executable(tests ${test_sources})
-target_link_libraries(tests gtest_main)
+target_link_libraries(tests fastbson gtest_main)
 
 add_custom_command(TARGET tests 
                    POST_BUILD

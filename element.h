@@ -186,3 +186,4 @@ namespace bson
 #include "template_spec/jsscope.hpp"
 #include "template_spec/binary.hpp"
 #include "element.hpp"
+

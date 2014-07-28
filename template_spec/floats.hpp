@@ -1,54 +1,24 @@
 /*!
  * \file floats.hpp
  * \author Nathan Eloe
- * \brief floating point template specializations
+ * \brief Double precision numbers template specializations
  */
-
 #pragma once
-
-#include "../typeinfo.h"
-#include "convert_utils.h"
 #include "../element.h"
+#include <string>
 
 namespace bson
 {
   template<>
-  TypeInfo default_type<double>()
-  {
-    return FLOATING;
-  }
-  
+  TypeInfo default_type<double>();
   template <>
-  std::string to_string<double>()
-  {
-    return "double";
-  }
-  
+  std::string to_string<double>();
   template <>
-  bool Element::check_convert<double>() const
-  {
-    return m_type == FLOATING;
-  }
-  
+  bool Element::check_convert<double>() const;
   template<>
-  unsigned Element::deserialize_bytes<double>(const char* bytes)
-  {
-    m_data = make_void_shared(_from_bytes<double>(bytes));
-    return 8;
-  }
-  
+  unsigned Element::deserialize_bytes<double>(const char* bytes);
   template<>
-  void Element::serialize_bson<double>(std::ostringstream& oss) const
-  {
-    _to_stream(oss, *(std::static_pointer_cast<double>(m_data)));
-    return;
-  }
-  
+  void Element::serialize_bson<double>(std::ostringstream& oss) const;
   template <>
-  std::string Element::_to_std_str<double>() const
-  {
-    std::ostringstream oss;
-    oss << *(std::static_pointer_cast<double>(m_data));
-    return oss.str();
-  }
+  std::string Element::_to_std_str<double>() const;
 }

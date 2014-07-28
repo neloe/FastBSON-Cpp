@@ -12,12 +12,17 @@
 
 namespace bson
 {
+  const std::string NAMES[] = {"unknown", "floating point number", "string", "document", "array",
+                                        "binary data", "undefined", "object ID", "boolean", "datetime",
+					"null value", "regular expression", "database pointer",
+					"javascript code", "depreicated", "scoped javascript", "int 32",
+					"timestamp", "int64"};
   enum TypeInfo {_UNKNOWN=0, FLOATING=1, STRING, DOCUMENT, ARRAY, BINARY, UNDEF, OID, BOOL, DATETIME,
                  NIL, REGEX, DBPTR, JS, DEPRECATED, JS_SCOPE, INT32, TIMESTAMP, INT64, 
 		 MINKEY=0xFF, MAXKEY=0x7F
   };
   
-  char to_char(const TypeInfo & ti)
+  inline char to_char(const TypeInfo & ti)
   {
     return static_cast<char>((int)ti);
   }
@@ -26,7 +31,10 @@ namespace bson
   template <class T>
   std::string to_string();
   
-  std::string to_string(const TypeInfo & ti);
+  inline std::string to_string(const TypeInfo & ti)
+  {
+    return (ti == 0xFF?"max key": (ti == 0x7F?"min key": NAMES[ti]));
+  }
   
   template <class T>
   class type_error: public std::exception
@@ -51,14 +59,6 @@ namespace bson
       }
   };
 
-  std::string to_string(const TypeInfo & ti)
-  {
-    static const std::string NAMES[] = {"unknown", "floating point number", "string", "document", "array",
-                                        "binary data", "undefined", "object ID", "boolean", "datetime",
-					"null value", "regular expression", "database pointer",
-					"javascript code", "depreicated", "scoped javascript", "int 32",
-					"timestamp", "int64"};
-    return (ti == 0xFF?"max key": (ti == 0x7F?"min key": NAMES[ti]));
-  }
+  
   
 }

@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <array>
+#include <vector>
 
 TEST(Encoding, Int32)
 {
@@ -63,4 +64,171 @@ TEST(Encoding, OID)
   strrep = oss.str();
   for (int i=0; i < input.size(); i++)
     ASSERT_EQ(input[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, EmptyDoc)
+{
+  bson::Document d;
+  bson::Element e(d);
+  const unsigned char BSON_REP[] = {5, 0, 0, 0, 0};
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i<strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, DocSingleI32)
+{
+  bson::Document d;
+  d.add("i", 1234);
+  ASSERT_EQ(bson::INT32, d["i"].get_type());
+  const unsigned char BSON_REP[] = {0x0c, 0, 0, 0, 0x10, 'i', 0, 0xd2, 4, 0, 0, 0};
+  bson::Element e(d);
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i<strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, DocSingleI64)
+{
+  bson::Document d;
+  d.add("l", 1223412345622);
+  ASSERT_EQ(bson::INT64, d["l"].get_type());
+  const unsigned char BSON_REP[] = {0x10, 0, 0, 0, 0x12, 'l', 0, 0x16, 0xeb, 0x0e, 0xd9, 0x1c, 1, 0, 0, 0};
+  bson::Element e(d);
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i<strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, DocSingleString)
+{
+  bson::Document d;
+  d.add("s", std::string("b"));
+  ASSERT_EQ(bson::STRING, d["s"].get_type());
+  const unsigned char BSON_REP[] = {0x0E, 0, 0, 0, 0x2, 's', 0, 2, 0, 0, 0, 'b', 0, 0};
+  bson::Element e(d);
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i< strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, DocEmptyDoc)
+{
+  bson::Document d, d1;
+  d.add("d", d1);
+  ASSERT_EQ(bson::DOCUMENT, d["d"].get_type());
+  const unsigned char BSON_REP[] = {0x0d, 0, 0, 0, 0x03, 'd', 0, 5, 0, 0, 0, 0, 0};
+  bson::Element e(d);
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i< strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, DocNonEmptyDoc)
+{
+  bson::Document d, d1;
+  d1.add("s", std::string("b"));
+  d.add("d", d1);
+  ASSERT_EQ(bson::DOCUMENT, d["d"].get_type());
+  const unsigned char BSON_REP[] = {0x16, 0, 0, 0, 0x03, 'd', 0, 0x0E, 0, 0, 0, 0x2, 's', 0, 2, 0, 0, 0, 'b', 0, 0, 0};
+  bson::Element e(d);
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i< strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, EmptyArray)
+{
+  std::vector<bson::Element> v;
+  bson::Element e(v);
+  ASSERT_EQ(bson::ARRAY, e.get_type());
+  const unsigned char BSON_REP[] = {5, 0, 0, 0, 0};
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i< strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, ArrayOneInt32)
+{
+  std::vector<bson::Element> v;
+  v.push_back(bson::Element(4));
+  bson::Element e(v);
+  ASSERT_EQ(bson::ARRAY, e.get_type());
+  const unsigned char BSON_REP[] = {0x0c, 0, 0, 0, 0x10, '0', 0, 4, 0, 0, 0, 0};
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i< strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, ArrayTwoVals)
+{
+  std::vector<bson::Element> v;
+  v.push_back(bson::Element(4));
+  v.push_back(bson::Element(std::string("b")));
+  bson::Element e(v);
+  ASSERT_EQ(bson::ARRAY, e.get_type());
+  const unsigned char BSON_REP[] = {0x15, 0, 0, 0, 0x10, '0', 0, 4, 0, 0, 0, 0x02, '1', 0, 2, 0, 0, 0, 'b', 0, 0};
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(BSON_REP[0], strrep.size());
+  for (int i=0; i< strrep.size(); i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
+TEST(Encoding, BoolTrue)
+{
+  bson::Element e(true);
+  ASSERT_EQ(bson::BOOL, e.get_type());
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(1, strrep.size());
+  ASSERT_EQ(1, strrep.c_str()[0]);
+}
+
+TEST(Encoding, BoolFalse)
+{
+  bson::Element e(false);
+  ASSERT_EQ(bson::BOOL, e.get_type());
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  ASSERT_EQ(1, strrep.size());
+  ASSERT_EQ(0, strrep.c_str()[0]);
 }

@@ -1,50 +1,24 @@
 /*!
  * \file voids.hpp
  * \author Nathan Eloe
- * \brief void template specializations
+ * \brief iboid template specializations
  */
-
 #pragma once
-
-#include "../typeinfo.h"
-#include "convert_utils.h"
 #include "../element.h"
+#include <string>
 
 namespace bson
 {
   template<>
-  TypeInfo default_type<void>()
-  {
-    return NIL;
-  }
-  
+  TypeInfo default_type<void>();
   template <>
-  std::string to_string<void>()
-  {
-    return "void";
-  }
-  
+  std::string to_string<void>();
   template <>
-  bool Element::check_convert<void>() const
-  {
-    return m_type == NIL || m_type == MINKEY || m_type == MAXKEY || m_type == UNDEF;
-  }
-  
+  bool Element::check_convert<void>() const;
   template<>
-  unsigned Element::deserialize_bytes<void>(const char* bytes)
-  {
-    return 0;
-  }
-  
+  unsigned Element::deserialize_bytes<void>(const char* bytes);
   template<>
-  void Element::serialize_bson<void>(std::ostringstream& oss) const
-  {
-    return;
-  }
-  
+  void Element::serialize_bson<void>(std::ostringstream& oss) const;
   template <>
-  std::string Element::_to_std_str<void>() const
-  {
-    return "";
-  }
+  std::string Element::_to_std_str<void>() const;
 }

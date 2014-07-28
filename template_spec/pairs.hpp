@@ -1,120 +1,36 @@
 /*!
  * \file pairs.hpp
  * \author Nathan Eloe
- * \brief template specializations or pair type objects
+ * \brief std::pair<std::string, std::string> template specializations
  */
-
 #pragma once
-
-#include "../typeinfo.h"
-#include "convert_utils.h"
 #include "../element.h"
-#include <memory>
+#include <string>
 
-namespace bson 
+namespace bson
 {
-  //regexes
   template<>
-  TypeInfo default_type<regex>()
-  {
-    return REGEX;
-  }
-  
+  TypeInfo default_type<regex>();
   template<>
-  std::string to_string<regex>()
-  {
-    return "regex>";
-  }
-  
+  std::string to_string<regex>();
   template<>
-  bool Element::check_convert<regex>() const
-  {
-    return m_type == REGEX;
-  }
-  
+  bool Element::check_convert<regex>() const;
   template<>
-  unsigned Element::deserialize_bytes<regex>(const char* bytes)
-  {
-    int size;
-    m_data = std::shared_ptr<regex>(new regex);
-    std::static_pointer_cast<regex>(m_data) -> first = std::string(bytes);
-    size = (std::static_pointer_cast<regex>(m_data) -> first).size() + 1;
-    std::static_pointer_cast<regex>(m_data) -> second = std::string(bytes + size);
-    size += (std::static_pointer_cast<regex>(m_data) -> second).size() + 1;
-    return size;
-  }
-  
+  unsigned Element::deserialize_bytes<regex>(const char* bytes);
   template<>
-  void Element::serialize_bson<regex>(std::ostringstream& oss) const
-  {
-    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> first);
-    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> second);
-    return;
-  }
-  
+  void Element::serialize_bson<regex>(std::ostringstream& oss) const;
   template<>
-  std::string Element::_to_std_str<regex>() const
-  {
-    std::ostringstream oss;
-    oss << "regex: [ ";
-    oss << std::static_pointer_cast<regex>(m_data) -> first << ", "
-        << std::static_pointer_cast<regex>(m_data) -> second << " ]";
-    return oss.str();
-  }
-  
-  // dbpointers
+  std::string Element::_to_std_str<regex>() const;
   template<>
-  TypeInfo default_type<dbptr>()
-  {
-    return DBPTR;
-  }
-  
+  TypeInfo default_type<dbptr>();
   template<>
-  std::string to_string<dbptr>()
-  {
-    return "dbptr>";
-  }
-  
+  std::string to_string<dbptr>();
   template<>
-  bool Element::check_convert<dbptr>() const
-  {
-    return m_type == DBPTR;
-  }
-  
+  bool Element::check_convert<dbptr>() const;
   template<>
-  unsigned Element::deserialize_bytes<dbptr>(const char* bytes)
-  {
-    int size;
-    int strsize;
-    memcpy(&strsize, bytes, 4);
-    size += 4;
-    m_data = std::shared_ptr<dbptr>(new dbptr);
-    std::static_pointer_cast<dbptr>(m_data) -> first = std::string(bytes + size, strsize);
-    size += strsize + 1;
-    std::memcpy(&((std::static_pointer_cast<dbptr>(m_data) -> second)[0]), bytes + size, DB_PTR_SIZE);
-    return size + DB_PTR_SIZE;
-  }
-  
+  unsigned Element::deserialize_bytes<dbptr>(const char* bytes);
   template<>
-  void Element::serialize_bson<dbptr>(std::ostringstream& oss) const
-  {
-    _to_stream(oss, std::static_pointer_cast<dbptr>(m_data) -> first.size());
-    oss << std::static_pointer_cast<dbptr>(m_data) -> first << X00;
-    for (const char c: std::static_pointer_cast<dbptr>(m_data) -> second)
-      oss << c;
-    oss << X00;
-    return;
-  }
-  
+  void Element::serialize_bson<dbptr>(std::ostringstream& oss) const;
   template<>
-  std::string Element::_to_std_str<dbptr>() const
-  {
-    std::ostringstream oss;
-    oss << "dbptr: [ ";
-    oss << std::static_pointer_cast<dbptr>(m_data) -> first << ", ";
-    for (const char c: std::static_pointer_cast<dbptr>(m_data) -> second)
-      oss << c;
-    oss << " ]";
-    return oss.str();
-  }
+  std::string Element::_to_std_str<dbptr>() const;
 }

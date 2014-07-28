@@ -1,113 +1,44 @@
 /*!
- * \file floats.hpp
+ * \file ints.hpp
  * \author Nathan Eloe
- * \brief integer template specializations
+ * \brief integer and long template specializations
  */
-
 #pragma once
-
-#include "../typeinfo.h"
-#include "convert_utils.h"
 #include "../element.h"
+#include <string>
 
 namespace bson
 {
-  //ints
+  //long integers
   template<>
-  TypeInfo default_type<long>()
-  {
-    return INT64;
-  }
-  
+  TypeInfo default_type<long>();
   template <>
-  std::string to_string<long>()
-  {
-    return "long";
-  }
-  
+  std::string to_string<long>();
   template <>
-  bool Element::check_convert<long>() const
-  {
-    return m_type == INT64 || m_type == DATETIME || m_type == TIMESTAMP;
-  }
-  
+  bool Element::check_convert<long>() const;
   template<>
-  unsigned Element::deserialize_bytes<long>(const char* bytes)
-  {
-    m_data = make_void_shared(_from_bytes<long>(bytes));
-    return 8;
-  }
-  
+  unsigned Element::deserialize_bytes<long>(const char* bytes);
   template<>
-  void Element::serialize_bson<long>(std::ostringstream& oss) const
-  {
-    _to_stream(oss, *(std::static_pointer_cast<long>(m_data)));
-    return;
-  }
-  
+  void Element::serialize_bson<long>(std::ostringstream& oss) const;
   template <>
-  std::string Element::_to_std_str<long>() const
-  {
-    std::ostringstream oss;
-    oss << *(std::static_pointer_cast<long>(m_data));
-    return oss.str();
-  }
-  
-  //Assumption: int maps to a 32 bit integer.  There probably needs to be a better way to do this (preprocessor?)
+  std::string Element::_to_std_str<long>() const;
+  //integers
   template<>
-  TypeInfo default_type<int>()
-  {
-    return INT32;
-  }
-  
+  TypeInfo default_type<int>();
   template<>
-  std::string to_string<int>()
-  {
-    return "int";
-  }
-  
+  std::string to_string<int>();
   template <>
-  bool Element::check_convert<int>() const
-  {
-    return m_type == INT32;
-  }
-  //And... shorts.  Which will map to an int32
+  bool Element::check_convert<int>() const;
   template<>
-  TypeInfo default_type<short>()
-  {
-    return INT32;
-  }
-  
+  TypeInfo default_type<short>();
   template<>
-  std::string to_string<short>()
-  {
-    return "short";
-  }
-  
+  std::string to_string<short>();
   template <>
-  bool Element::check_convert<short>() const
-  {
-    return m_type == INT32;
-  }
-    template<>
-  unsigned Element::deserialize_bytes<int>(const char* bytes)
-  {
-    m_data = make_void_shared(_from_bytes<int>(bytes));
-    return 8;
-  }
-  
+  bool Element::check_convert<short>() const;
   template<>
-  void Element::serialize_bson<int>(std::ostringstream& oss) const
-  {
-    _to_stream(oss, *(std::static_pointer_cast<int>(m_data)));
-    return;
-  }
-  
+  unsigned Element::deserialize_bytes<int>(const char* bytes);
+  template<>
+  void Element::serialize_bson<int>(std::ostringstream& oss) const;
   template <>
-  std::string Element::_to_std_str<int>() const
-  {
-    std::ostringstream oss;
-    oss << *(std::static_pointer_cast<int>(m_data));
-    return oss.str();
-  }
+  std::string Element::_to_std_str<int>() const;
 }
