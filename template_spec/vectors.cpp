@@ -46,7 +46,7 @@ namespace bson
       std::string name((char*)bytes + (++consumed));
       consumed += name.size() + 1;
       consumed  += e.decode(bytes + consumed, ti);
-      std::static_pointer_cast<array>(m_data) -> push_back(e);
+      std::static_pointer_cast<array>(m_data) -> emplace_back(e);
     }
     return consumed + 1;
   }

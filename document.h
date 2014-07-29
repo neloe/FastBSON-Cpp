@@ -40,7 +40,7 @@ namespace bson
        * \pre None
        * \post creates the element in the map. If name already exists in the document the value is overwritten
        */ 
-      void add (const std::string name, const Element& data) {m_data[name] = data; m_field_names.insert(name);}
+      void add (const std::string name, const Element& data) {m_data.emplace(name, data); m_field_names.insert(name);}
       /*!
        * \brief element addition
        * \pre T must be template specialized for the Element class
