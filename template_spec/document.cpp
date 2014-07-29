@@ -78,8 +78,8 @@ namespace bson
       if (!first)
       {
 	oss << ", ";
-	first = false;
       }
+      first = false;
       oss << p.first << " : " << static_cast<std::string>(p.second);
     }
     oss << " }";
