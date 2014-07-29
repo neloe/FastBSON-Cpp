@@ -75,7 +75,7 @@ namespace bson
     oss << "[ ";
     if (size > 0)
       oss << static_cast<std::string>((*(std::static_pointer_cast<array>(m_data)))[0]);
-    for (int i=0; i < size; i++)
+    for (int i=1; i < size; i++)
     {
       oss << ", " << static_cast<std::string>((*(std::static_pointer_cast<array>(m_data)))[i]);
     }
