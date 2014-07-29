@@ -47,6 +47,13 @@ namespace bson
       Element(const T& data, const TypeInfo & type = _UNKNOWN);
       
       /*!
+       * \brief decoding constructor
+       * \pre type is compatible with the kind of data in the char*
+       * \post constructs the object by calling the associated decode functions
+       */
+      Element(const unsigned char* data, const TypeInfo & type) {decode(data, type);}
+      
+      /*!
        * \brief decodes a byte string into the calling object
        * \pre m_type reflects the object type that is BSON encoded in data
        * \post the calling object contains the data that is BSON encoded in data
