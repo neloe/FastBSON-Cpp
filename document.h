@@ -8,6 +8,7 @@
 
 #include "element.h"
 #include "typeinfo"
+#include <initializer_list>
 #include <map>
 #include <set>
 #include <string>
@@ -25,6 +26,13 @@ namespace bson
       std::set<std::string> m_field_names;
       
     public:
+      Document() = default;
+      /*!
+       * \brief Initialization list constructor
+       * \pre None
+       * \post Constructs the dictionary using the init list of key/value pairs
+       */
+      Document(std::initializer_list<std::pair<std::string, Element>> list){for (auto i: list) {m_data.emplace(i.first, i.second); m_field_names.emplace(i.first);}}
       /*!
        * \brief accessor
        * \pre None

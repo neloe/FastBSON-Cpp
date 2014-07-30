@@ -20,6 +20,7 @@ element.cpp
 
 add_library(fastbson SHARED ${bson_src})
 
-#add_executable(bson_runner main.cpp)
+add_executable(bson_runner main.cpp)
+target_link_libraries(bson_runner fastbson)
 
 add_subdirectory(tests)

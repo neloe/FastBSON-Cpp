@@ -14,7 +14,7 @@ namespace bson
 {
   // Constructors
   template <typename T>
-  Element::Element(const T& data, const TypeInfo & type): m_type(type)
+  Element::Element(const T& data, const TypeInfo type): m_type(type)
   {
     if (!m_type)
       m_type = default_type<T>();

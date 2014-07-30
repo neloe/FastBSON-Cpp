@@ -8,6 +8,7 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+  /*
   bson::Element elm(5.4), elm2(string("hello")), elm3, elm4;
   char data[4] = {5,1}; // should be 261 in little endian 0x105
   char floatdata[8];
@@ -33,5 +34,8 @@ int main(int argc, char **argv) {
   bson::Element e2;
   e2.decode(ss.str().c_str(), bson::DOCUMENT);
   cout << e2.data<bson::Document>()<< endl;
+  */
+  bson::Document d2({{"a",1}, {"b", "s"}});
+  cout << d2 << endl;
   return 0;
 }

@@ -10,6 +10,14 @@
 #include <vector>
 namespace bson
 {
+  Element::Element(const char* data, const TypeInfo type)
+  {
+    m_type = type;
+    if (!m_type)
+      m_type = default_type<std::string>();
+    type_check<std::string>();
+    m_data = std::static_pointer_cast<void>(std::make_shared<std::string> (std::string(data)));
+  }
   
   unsigned Element::decode(const unsigned char* bytes, const TypeInfo type)
   {

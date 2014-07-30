@@ -44,7 +44,9 @@ namespace bson
        * \post Constructs the object using the template specialization
        */
       template <typename T>
-      Element(const T& data, const TypeInfo & type = _UNKNOWN);
+      Element(const T& data, const TypeInfo type = _UNKNOWN);
+      
+      Element(const char* data, const TypeInfo type = _UNKNOWN);
       
       /*!
        * \brief decoding constructor
