@@ -1,0 +1,75 @@
+\hypertarget{typeinfo_8h}{\section{typeinfo.\+h File Reference}
+\label{typeinfo_8h}\index{typeinfo.\+h@{typeinfo.\+h}}
+}
+
+
+Enumeration to keep track of types for bson.  
+
+
+{\ttfamily \#include $<$exception$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$boost/concept\+\_\+check.\+hpp$>$}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classbson_1_1type__error}{bson\+::type\+\_\+error$<$ T $>$}
+\item 
+class \hyperlink{classbson_1_1type___u_n_k_n_o_w_n}{bson\+::type\+\_\+\+U\+N\+K\+N\+O\+W\+N}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespacebson_a6c41ff65d733f64ff5eb13a94452a063}{enum {\bfseries Type\+Info} \{ \\*
+{\bfseries \+\_\+\+U\+N\+K\+N\+O\+W\+N} =0, 
+{\bfseries F\+L\+O\+A\+T\+I\+N\+G} =1, 
+{\bfseries S\+T\+R\+I\+N\+G}, 
+{\bfseries D\+O\+C\+U\+M\+E\+N\+T}, 
+\\*
+{\bfseries A\+R\+R\+A\+Y}, 
+{\bfseries B\+I\+N\+A\+R\+Y}, 
+{\bfseries U\+N\+D\+E\+F}, 
+{\bfseries O\+I\+D}, 
+\\*
+{\bfseries B\+O\+O\+L}, 
+{\bfseries D\+A\+T\+E\+T\+I\+M\+E}, 
+{\bfseries N\+I\+L}, 
+{\bfseries R\+E\+G\+E\+X}, 
+\\*
+{\bfseries D\+B\+P\+T\+R}, 
+{\bfseries J\+S}, 
+{\bfseries D\+E\+P\+R\+E\+C\+A\+T\+E\+D}, 
+{\bfseries J\+S\+\_\+\+S\+C\+O\+P\+E}, 
+\\*
+{\bfseries I\+N\+T32}, 
+{\bfseries T\+I\+M\+E\+S\+T\+A\+M\+P}, 
+{\bfseries I\+N\+T64}, 
+{\bfseries M\+I\+N\+K\+E\+Y} =0x\+F\+F, 
+\\*
+{\bfseries M\+A\+X\+K\+E\+Y} =0x7\+F
+ \}}\label{namespacebson_a6c41ff65d733f64ff5eb13a94452a063}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespacebson_a77b2d6189553c48d5c56c6b6431ea5b6}{char {\bfseries bson\+::to\+\_\+char} (const Type\+Info \&ti)}\label{namespacebson_a77b2d6189553c48d5c56c6b6431ea5b6}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string {\bfseries bson\+::to\+\_\+string} ()
+\begin{DoxyCompactList}\small\item\em converts a type name to a string (for exceptions) \end{DoxyCompactList}\item 
+\hypertarget{namespacebson_a8abf70aa907f60b3f25d71cdb02e679d}{std\+::string {\bfseries bson\+::to\+\_\+string} (const Type\+Info \&ti)}\label{namespacebson_a8abf70aa907f60b3f25d71cdb02e679d}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::string {\bfseries bson\+::\+N\+A\+M\+E\+S} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Enumeration to keep track of types for bson. 
+
+\begin{DoxyAuthor}{Author}
+Nathan Eloe 
+\end{DoxyAuthor}

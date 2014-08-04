@@ -1,0 +1,258 @@
+\hypertarget{classbson_1_1_document}{\section{bson\+:\+:Document Class Reference}
+\label{classbson_1_1_document}\index{bson\+::\+Document@{bson\+::\+Document}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbson_1_1_document_ac2d96a9a7cc578ad769120bb1757a72d}{Document} (std\+::initializer\+\_\+list$<$ std\+::pair$<$ std\+::string, \hyperlink{classbson_1_1_element}{Element} $>$$>$ list)
+\begin{DoxyCompactList}\small\item\em Initialization list constructor. \end{DoxyCompactList}\item 
+const \hyperlink{classbson_1_1_element}{Element} \& \hyperlink{classbson_1_1_document_a37575739ba04bc0cdeab04828fcd6d7d}{operator\mbox{[}$\,$\mbox{]}} (const std\+::string \&index) const 
+\begin{DoxyCompactList}\small\item\em accessor \end{DoxyCompactList}\item 
+\hypertarget{classbson_1_1_document_a526ef4900d0842b9d2bf699dd32da7e4}{\hyperlink{classbson_1_1_element}{Element} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (const std\+::string \&index)}\label{classbson_1_1_document_a526ef4900d0842b9d2bf699dd32da7e4}
+
+\item 
+void \hyperlink{classbson_1_1_document_a1fea885e6efb76119b8e75dab2ed1ff2}{add} (const std\+::string name, const \hyperlink{classbson_1_1_element}{Element} \&data)
+\begin{DoxyCompactList}\small\item\em element addition \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \hyperlink{classbson_1_1_document_af4207bd81fead053e679cbbecaac294e}{add} (const std\+::string name, const T \&data, const Type\+Info ti=\+\_\+\+U\+N\+K\+N\+O\+W\+N)
+\begin{DoxyCompactList}\small\item\em element addition \end{DoxyCompactList}\item 
+void \hyperlink{classbson_1_1_document_a2dd4dee4cae8930d3f35acb6badf1c9b}{set} (const std\+::string name, const \hyperlink{classbson_1_1_element}{Element} \&data)
+\begin{DoxyCompactList}\small\item\em element modification \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \hyperlink{classbson_1_1_document_af8c1c129a0b8a21a1ab3a719e9677d0b}{set} (const std\+::string \&name, const T \&data, const Type\+Info ti=\+\_\+\+U\+N\+K\+N\+O\+W\+N)
+\begin{DoxyCompactList}\small\item\em element modification \end{DoxyCompactList}\item 
+auto \hyperlink{classbson_1_1_document_ae4387eb48d47787eed0a0c7d46214433}{begin} () -\/$>$ decltype(m\+\_\+data.\+begin())
+\begin{DoxyCompactList}\small\item\em iterator functions \end{DoxyCompactList}\item 
+\hypertarget{classbson_1_1_document_a261933f02ab97f8c3630a6bd978bf72b}{auto {\bfseries end} () -\/$>$ decltype(m\+\_\+data.\+end())}\label{classbson_1_1_document_a261933f02ab97f8c3630a6bd978bf72b}
+
+\item 
+\hypertarget{classbson_1_1_document_a8e77cea1e110d8e6c9f1eaec1e762e80}{auto {\bfseries rbegin} () -\/$>$ decltype(m\+\_\+data.\+rbegin())}\label{classbson_1_1_document_a8e77cea1e110d8e6c9f1eaec1e762e80}
+
+\item 
+\hypertarget{classbson_1_1_document_a3dbd675ec728ae5e5869f96e2e341b3d}{auto {\bfseries rend} () -\/$>$ decltype(m\+\_\+data.\+rend())}\label{classbson_1_1_document_a3dbd675ec728ae5e5869f96e2e341b3d}
+
+\item 
+\hypertarget{classbson_1_1_document_a981b86245cd36a13432e66c14329d585}{auto {\bfseries cbegin} () -\/$>$ decltype(m\+\_\+data.\+cbegin())}\label{classbson_1_1_document_a981b86245cd36a13432e66c14329d585}
+
+\item 
+\hypertarget{classbson_1_1_document_a1b3d3866623fd1953f5a70b337c2b18a}{auto {\bfseries cend} () -\/$>$ decltype(m\+\_\+data.\+cend())}\label{classbson_1_1_document_a1b3d3866623fd1953f5a70b337c2b18a}
+
+\item 
+\hypertarget{classbson_1_1_document_a050381182bf3f92ac472950cc62a14b4}{auto {\bfseries crbegin} () -\/$>$ decltype(m\+\_\+data.\+crbegin())}\label{classbson_1_1_document_a050381182bf3f92ac472950cc62a14b4}
+
+\item 
+\hypertarget{classbson_1_1_document_a1667c39ae48b51087452e34f6200ebe9}{auto {\bfseries crend} () -\/$>$ decltype(m\+\_\+data.\+crend())}\label{classbson_1_1_document_a1667c39ae48b51087452e34f6200ebe9}
+
+\item 
+std\+::set$<$ std\+::string $>$ \hyperlink{classbson_1_1_document_a4d0e6f7f9d1ba20e709ddc7e46bd00a0}{field\+\_\+names} () const 
+\begin{DoxyCompactList}\small\item\em returns the set of field names \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classbson_1_1_document_a016b821f88c7c0a2de1451c175cefbf9}{class {\bfseries Element}}\label{classbson_1_1_document_a016b821f88c7c0a2de1451c175cefbf9}
+
+\item 
+std\+::ostream \& \hyperlink{classbson_1_1_document_a66f02c1ef7b76d9bc4373b503585c6e9}{operator$<$$<$} (std\+::ostream \&o, const \hyperlink{classbson_1_1_document}{Document} \&d)
+\begin{DoxyCompactList}\small\item\em insertion operator overloading \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classbson_1_1_document_ac2d96a9a7cc578ad769120bb1757a72d}{\index{bson\+::\+Document@{bson\+::\+Document}!Document@{Document}}
+\index{Document@{Document}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{Document}]{\setlength{\rightskip}{0pt plus 5cm}bson\+::\+Document\+::\+Document (
+\begin{DoxyParamCaption}
+\item[{std\+::initializer\+\_\+list$<$ std\+::pair$<$ std\+::string, {\bf Element} $>$$>$}]{list}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_ac2d96a9a7cc578ad769120bb1757a72d}
+
+
+Initialization list constructor. 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Constructs the dictionary using the init list of key/value pairs 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classbson_1_1_document_a1fea885e6efb76119b8e75dab2ed1ff2}{\index{bson\+::\+Document@{bson\+::\+Document}!add@{add}}
+\index{add@{add}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void bson\+::\+Document\+::add (
+\begin{DoxyParamCaption}
+\item[{const std\+::string}]{name, }
+\item[{const {\bf Element} \&}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_a1fea885e6efb76119b8e75dab2ed1ff2}
+
+
+element addition 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+creates the element in the map. If name already exists in the document the value is overwritten 
+\end{DoxyPostcond}
+\hypertarget{classbson_1_1_document_af4207bd81fead053e679cbbecaac294e}{\index{bson\+::\+Document@{bson\+::\+Document}!add@{add}}
+\index{add@{add}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void bson\+::\+Document\+::add (
+\begin{DoxyParamCaption}
+\item[{const std\+::string}]{name, }
+\item[{const T \&}]{data, }
+\item[{const Type\+Info}]{ti = {\ttfamily \+\_\+UNKNOWN}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_af4207bd81fead053e679cbbecaac294e}
+
+
+element addition 
+
+\begin{DoxyPrecond}{Precondition}
+T must be template specialized for the \hyperlink{classbson_1_1_element}{Element} class 
+
+if ti is not defaulted, it and type T must be compatible 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+creates the element in the map. If name already exists in the document the value is overwritten 
+\end{DoxyPostcond}
+\hypertarget{classbson_1_1_document_ae4387eb48d47787eed0a0c7d46214433}{\index{bson\+::\+Document@{bson\+::\+Document}!begin@{begin}}
+\index{begin@{begin}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{begin}]{\setlength{\rightskip}{0pt plus 5cm}auto bson\+::\+Document\+::begin (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ decltype(m\+\_\+data.\+begin()) \hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_ae4387eb48d47787eed0a0c7d46214433}
+
+
+iterator functions 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+None 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+iterators pointing at the beginning and end of the data in the document 
+\end{DoxyReturn}
+\hypertarget{classbson_1_1_document_a4d0e6f7f9d1ba20e709ddc7e46bd00a0}{\index{bson\+::\+Document@{bson\+::\+Document}!field\+\_\+names@{field\+\_\+names}}
+\index{field\+\_\+names@{field\+\_\+names}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{field\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}std\+::set$<$std\+::string$>$ bson\+::\+Document\+::field\+\_\+names (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_a4d0e6f7f9d1ba20e709ddc7e46bd00a0}
+
+
+returns the set of field names 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+None 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+the set of field names 
+\end{DoxyReturn}
+\hypertarget{classbson_1_1_document_a37575739ba04bc0cdeab04828fcd6d7d}{\index{bson\+::\+Document@{bson\+::\+Document}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Element}\& bson\+::\+Document\+::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{index}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_a37575739ba04bc0cdeab04828fcd6d7d}
+
+
+accessor 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+None 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+the \hyperlink{classbson_1_1_element}{Element} at the specified field name 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if index is not in the dictionary \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classbson_1_1_document_a2dd4dee4cae8930d3f35acb6badf1c9b}{\index{bson\+::\+Document@{bson\+::\+Document}!set@{set}}
+\index{set@{set}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}void bson\+::\+Document\+::set (
+\begin{DoxyParamCaption}
+\item[{const std\+::string}]{name, }
+\item[{const {\bf Element} \&}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_a2dd4dee4cae8930d3f35acb6badf1c9b}
+
+
+element modification 
+
+\begin{DoxyPrecond}{Precondition}
+name exists as an index in the document 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+changes the element at index name 
+\end{DoxyPostcond}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if name is not in the \hyperlink{classbson_1_1_document}{Document} \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classbson_1_1_document_af8c1c129a0b8a21a1ab3a719e9677d0b}{\index{bson\+::\+Document@{bson\+::\+Document}!set@{set}}
+\index{set@{set}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void bson\+::\+Document\+::set (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{const T \&}]{data, }
+\item[{const Type\+Info}]{ti = {\ttfamily \+\_\+UNKNOWN}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_document_af8c1c129a0b8a21a1ab3a719e9677d0b}
+
+
+element modification 
+
+\begin{DoxyPrecond}{Precondition}
+name exists as an index in the document 
+
+T must be template specialized for the \hyperlink{classbson_1_1_element}{Element} class 
+
+if ti is not defaulted, it and type T must be compatible 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+changes the element at index name 
+\end{DoxyPostcond}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if name is not in the \hyperlink{classbson_1_1_document}{Document} \\
+\hline
+\end{DoxyExceptions}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classbson_1_1_document_a66f02c1ef7b76d9bc4373b503585c6e9}{\index{bson\+::\+Document@{bson\+::\+Document}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!bson\+::\+Document@{bson\+::\+Document}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}std\+::ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{std\+::ostream \&}]{o, }
+\item[{const {\bf Document} \&}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}}\label{classbson_1_1_document_a66f02c1ef7b76d9bc4373b503585c6e9}
+
+
+insertion operator overloading 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+inserts document d into the stream (using the string conversion for insertion) 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{document_8h}{document.\+h}\end{DoxyCompactItemize}

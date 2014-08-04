@@ -1,0 +1,249 @@
+\hypertarget{classbson_1_1_element}{\section{bson\+:\+:Element Class Reference}
+\label{classbson_1_1_element}\index{bson\+::\+Element@{bson\+::\+Element}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbson_1_1_element_a74a721f236327e588798713ecb7d2140}{Element} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\hyperlink{classbson_1_1_element_a47bb78622c93b9c5ee46ba2306e2ecd9}{Element} (const T \&\hyperlink{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{data}, const Type\+Info type=\+\_\+\+U\+N\+K\+N\+O\+W\+N)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hypertarget{classbson_1_1_element_a1e8662fb29bc50dee4f3dde16b3dfd9a}{{\bfseries Element} (const char $\ast$\hyperlink{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{data}, const Type\+Info type=\+\_\+\+U\+N\+K\+N\+O\+W\+N)}\label{classbson_1_1_element_a1e8662fb29bc50dee4f3dde16b3dfd9a}
+
+\item 
+\hyperlink{classbson_1_1_element_ad6c099da832f6ef01f9b4fec9951a682}{Element} (const unsigned char $\ast$\hyperlink{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{data}, const Type\+Info \&type)
+\begin{DoxyCompactList}\small\item\em decoding constructor \end{DoxyCompactList}\item 
+unsigned \hyperlink{classbson_1_1_element_a5f0107bf841eab384f78897d6022eab2}{decode} (const unsigned char $\ast$\hyperlink{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{data}, const Type\+Info m\+\_\+type)
+\begin{DoxyCompactList}\small\item\em decodes a byte string into the calling object \end{DoxyCompactList}\item 
+void \hyperlink{classbson_1_1_element_a4bd94ab22d7f957bd076c5396c09cc2b}{encode} (std\+::ostringstream \&oss) const 
+\begin{DoxyCompactList}\small\item\em encodes this object ias a bytestring \end{DoxyCompactList}\item 
+Type\+Info \hyperlink{classbson_1_1_element_a7f4b3a920d8680889e03efb1f761c2a8}{get\+\_\+type} () const 
+\begin{DoxyCompactList}\small\item\em type accessor \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\const T \& \hyperlink{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{data} () const 
+\begin{DoxyCompactList}\small\item\em data accessor \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classbson_1_1_element_a163cea2cdc4dd3d922359df32b6fd953}{data} (T \&t) const 
+\begin{DoxyCompactList}\small\item\em data accessor \end{DoxyCompactList}\item 
+\hyperlink{classbson_1_1_element_a15e2009787e1e18c26d0de42a93050cc}{operator std\+::string} () const 
+\begin{DoxyCompactList}\small\item\em std\+::string conversion operator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{classbson_1_1_element_ae011087aa6ebd1969ad63d61fc4318d3}{encode} (std\+::ostringstream \&oss, const \hyperlink{classbson_1_1_element}{Element} \&e)
+\begin{DoxyCompactList}\small\item\em static encoders and decoders \end{DoxyCompactList}\item 
+\hypertarget{classbson_1_1_element_ab2f391b6a9d2431d878910d37276ba37}{static void {\bfseries decode} (const unsigned char $\ast$\hyperlink{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{data}, const Type\+Info type, \hyperlink{classbson_1_1_element}{Element} \&e)}\label{classbson_1_1_element_ab2f391b6a9d2431d878910d37276ba37}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classbson_1_1_element_a883538034e58fc5c0de7d4e4cab3cef7}{class {\bfseries Document}}\label{classbson_1_1_element_a883538034e58fc5c0de7d4e4cab3cef7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classbson_1_1_element_a74a721f236327e588798713ecb7d2140}{\index{bson\+::\+Element@{bson\+::\+Element}!Element@{Element}}
+\index{Element@{Element}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{Element}]{\setlength{\rightskip}{0pt plus 5cm}bson\+::\+Element\+::\+Element (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_element_a74a721f236327e588798713ecb7d2140}
+
+
+Default Constructor. 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Constructs an empty element with no data or type 
+\end{DoxyPostcond}
+\hypertarget{classbson_1_1_element_a47bb78622c93b9c5ee46ba2306e2ecd9}{\index{bson\+::\+Element@{bson\+::\+Element}!Element@{Element}}
+\index{Element@{Element}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{Element}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bson\+::\+Element\+::\+Element (
+\begin{DoxyParamCaption}
+\item[{const T \&}]{data, }
+\item[{const Type\+Info}]{type = {\ttfamily \+\_\+UNKNOWN}}
+\end{DoxyParamCaption}
+)}}\label{classbson_1_1_element_a47bb78622c93b9c5ee46ba2306e2ecd9}
+
+
+Constructor. 
+
+\begin{DoxyPrecond}{Precondition}
+Related template functions are specialized for type T 
+
+Type t has been configured such that it is compatible with type 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Constructs the object using the template specialization 
+\end{DoxyPostcond}
+\hypertarget{classbson_1_1_element_ad6c099da832f6ef01f9b4fec9951a682}{\index{bson\+::\+Element@{bson\+::\+Element}!Element@{Element}}
+\index{Element@{Element}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{Element}]{\setlength{\rightskip}{0pt plus 5cm}bson\+::\+Element\+::\+Element (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{data, }
+\item[{const Type\+Info \&}]{type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_element_ad6c099da832f6ef01f9b4fec9951a682}
+
+
+decoding constructor 
+
+\begin{DoxyPrecond}{Precondition}
+type is compatible with the kind of data in the char$\ast$ 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+constructs the object by calling the associated decode functions 
+\end{DoxyPostcond}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}{\index{bson\+::\+Element@{bson\+::\+Element}!data@{data}}
+\index{data@{data}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ const T \& bson\+::\+Element\+::data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classbson_1_1_element_a5a9f2e3fa927fb283adf8c47b39495e1}
+
+
+data accessor 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+None 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+the data held in the calling object. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classbson_1_1type__error}{bson\+::type\+\_\+error}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classbson_1_1_element_a163cea2cdc4dd3d922359df32b6fd953}{\index{bson\+::\+Element@{bson\+::\+Element}!data@{data}}
+\index{data@{data}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void bson\+::\+Element\+::data (
+\begin{DoxyParamCaption}
+\item[{T \&}]{t}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_element_a163cea2cdc4dd3d922359df32b6fd953}
+
+
+data accessor 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+changes the parameter to be the data held in the calling object 
+\end{DoxyPostcond}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classbson_1_1type__error}{bson\+::type\+\_\+error}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classbson_1_1_element_a5f0107bf841eab384f78897d6022eab2}{\index{bson\+::\+Element@{bson\+::\+Element}!decode@{decode}}
+\index{decode@{decode}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{decode}]{\setlength{\rightskip}{0pt plus 5cm}unsigned bson\+::\+Element\+::decode (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{data, }
+\item[{const Type\+Info}]{m\+\_\+type}
+\end{DoxyParamCaption}
+)}}\label{classbson_1_1_element_a5f0107bf841eab384f78897d6022eab2}
+
+
+decodes a byte string into the calling object 
+
+\begin{DoxyPrecond}{Precondition}
+m\+\_\+type reflects the object type that is B\+S\+O\+N encoded in data 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+the calling object contains the data that is B\+S\+O\+N encoded in data 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+the number of bytes consumed while decoding 
+\end{DoxyReturn}
+\hypertarget{classbson_1_1_element_a4bd94ab22d7f957bd076c5396c09cc2b}{\index{bson\+::\+Element@{bson\+::\+Element}!encode@{encode}}
+\index{encode@{encode}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{encode}]{\setlength{\rightskip}{0pt plus 5cm}void bson\+::\+Element\+::encode (
+\begin{DoxyParamCaption}
+\item[{std\+::ostringstream \&}]{oss}
+\end{DoxyParamCaption}
+) const}}\label{classbson_1_1_element_a4bd94ab22d7f957bd076c5396c09cc2b}
+
+
+encodes this object ias a bytestring 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+encodes this object in B\+S\+O\+N into the output string stream 
+\end{DoxyPostcond}
+\hypertarget{classbson_1_1_element_ae011087aa6ebd1969ad63d61fc4318d3}{\index{bson\+::\+Element@{bson\+::\+Element}!encode@{encode}}
+\index{encode@{encode}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{encode}]{\setlength{\rightskip}{0pt plus 5cm}static void bson\+::\+Element\+::encode (
+\begin{DoxyParamCaption}
+\item[{std\+::ostringstream \&}]{oss, }
+\item[{const {\bf Element} \&}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{classbson_1_1_element_ae011087aa6ebd1969ad63d61fc4318d3}
+
+
+static encoders and decoders 
+
+\begin{DoxyPrecond}{Precondition}
+m\+\_\+type reflects the object type that is B\+S\+O\+N encoded in data 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+calls the member functions encode/decode on the passed objects 
+\end{DoxyPostcond}
+\hypertarget{classbson_1_1_element_a7f4b3a920d8680889e03efb1f761c2a8}{\index{bson\+::\+Element@{bson\+::\+Element}!get\+\_\+type@{get\+\_\+type}}
+\index{get\+\_\+type@{get\+\_\+type}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{get\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}Type\+Info bson\+::\+Element\+::get\+\_\+type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classbson_1_1_element_a7f4b3a920d8680889e03efb1f761c2a8}
+
+
+type accessor 
+
+\begin{DoxyPrecond}{Precondition}
+None 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+None 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+the type of the object 
+\end{DoxyReturn}
+\hypertarget{classbson_1_1_element_a15e2009787e1e18c26d0de42a93050cc}{\index{bson\+::\+Element@{bson\+::\+Element}!operator std\+::string@{operator std\+::string}}
+\index{operator std\+::string@{operator std\+::string}!bson\+::\+Element@{bson\+::\+Element}}
+\subsubsection[{operator std\+::string}]{\setlength{\rightskip}{0pt plus 5cm}bson\+::\+Element\+::operator std\+::string (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classbson_1_1_element_a15e2009787e1e18c26d0de42a93050cc}
+
+
+std\+::string conversion operator 
+
+\begin{DoxyPrecond}{Precondition}
+\+\_\+to\+\_\+std\+\_\+str is template specialized 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+converts this object to a string 
+\end{DoxyPostcond}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{element_8h}{element.\+h}\item 
+element.\+cpp\item 
+\hyperlink{element_8hpp}{element.\+hpp}\end{DoxyCompactItemize}

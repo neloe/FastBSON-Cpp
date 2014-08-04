@@ -1,0 +1,83 @@
+\hypertarget{element_8h}{\section{element.\+h File Reference}
+\label{element_8h}\index{element.\+h@{element.\+h}}
+}
+
+
+Declaration of a B\+S\+O\+N element.  
+
+
+{\ttfamily \#include \char`\"{}typeinfo.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$sstream$>$}\\*
+{\ttfamily \#include $<$memory$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/document.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/floats.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/strings.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/ints.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/bools.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/vectors.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/chararrs.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/voids.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/pairs.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/jsscope.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}template\+\_\+spec/binary.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}element.\+hpp\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classbson_1_1_element}{bson\+::\+Element}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespacebson_a889cbd9b6722f0ca0ce7e6e0152dbb08}{typedef std\+::vector$<$ Element $>$ {\bfseries bson\+::array}}\label{namespacebson_a889cbd9b6722f0ca0ce7e6e0152dbb08}
+
+\item 
+\hypertarget{namespacebson_a098262b719467d3ccb2b4e7f8a2c405b}{typedef std\+::array$<$ unsigned \\*
+char, O\+I\+D\+\_\+\+S\+I\+Z\+E $>$ {\bfseries bson\+::oid}}\label{namespacebson_a098262b719467d3ccb2b4e7f8a2c405b}
+
+\item 
+\hypertarget{namespacebson_aa858fc77fdde42053b7654d89fb4aea9}{typedef std\+::pair$<$ std\+::string, \\*
+std\+::string $>$ {\bfseries bson\+::regex}}\label{namespacebson_aa858fc77fdde42053b7654d89fb4aea9}
+
+\item 
+\hypertarget{namespacebson_a3f3051610a757567afeb6d8df926eb4b}{typedef std\+::pair$<$ std\+::string, \\*
+std\+::array$<$ unsigned char, \\*
+D\+B\+\_\+\+P\+T\+R\+\_\+\+S\+I\+Z\+E $>$ $>$ {\bfseries bson\+::dbptr}}\label{namespacebson_a3f3051610a757567afeb6d8df926eb4b}
+
+\item 
+\hypertarget{namespacebson_ac81ab2cd5826d15fd570d2771f98afd5}{typedef std\+::pair$<$ std\+::string, \\*
+Document $>$ {\bfseries bson\+::jscode\+\_\+scope}}\label{namespacebson_ac81ab2cd5826d15fd570d2771f98afd5}
+
+\item 
+\hypertarget{namespacebson_a59d8f7e0753d7db58b777995f8f0412d}{typedef std\+::pair$<$ unsigned \\*
+char, std\+::string $>$ {\bfseries bson\+::binary}}\label{namespacebson_a59d8f7e0753d7db58b777995f8f0412d}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::string {\bfseries bson\+::to\+\_\+string} ()
+\begin{DoxyCompactList}\small\item\em converts a type name to a string (for exceptions) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\Type\+Info {\bfseries bson\+::default\+\_\+type} ()
+\begin{DoxyCompactList}\small\item\em determines the default type for type T \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespacebson_a11c2d5c3578fe201ed59df9ac0e87a79}{const char {\bfseries bson\+::\+X00} = '\textbackslash{}0'}\label{namespacebson_a11c2d5c3578fe201ed59df9ac0e87a79}
+
+\item 
+\hypertarget{namespacebson_a7b88049f5cec530b486e5ed1102ca5f0}{const int {\bfseries bson\+::\+O\+I\+D\+\_\+\+S\+I\+Z\+E} = 12}\label{namespacebson_a7b88049f5cec530b486e5ed1102ca5f0}
+
+\item 
+\hypertarget{namespacebson_aeed8c1e4d6f43f30283073a6e0a68c69}{const int {\bfseries bson\+::\+D\+B\+\_\+\+P\+T\+R\+\_\+\+S\+I\+Z\+E} = 12}\label{namespacebson_aeed8c1e4d6f43f30283073a6e0a68c69}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Declaration of a B\+S\+O\+N element. 
+
+\begin{DoxyAuthor}{Author}
+Nathan Eloe 
+\end{DoxyAuthor}
