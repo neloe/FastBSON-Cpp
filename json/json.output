@@ -1,0 +1,319 @@
+Grammar
+
+    0 $accept: _object $end
+
+    1 _object: object
+
+    2 object: T_OBJBEG obj_list T_OBJEND
+    3       | T_OBJBEG T_OBJEND
+
+    4 obj_list: obj_list T_COMMA obj_pair
+    5         | obj_pair
+
+    6 obj_pair: T_STR T_COLON value
+
+    7 array: T_ARRBEG arrvals T_ARRBEG
+    8      | T_ARRBEG T_ARREND
+
+    9 arrvals: arrvals T_COMMA value
+   10        | value
+
+   11 value: T_STR
+   12      | T_DOUB
+   13      | T_INT
+   14      | object
+   15      | array
+   16      | T_T
+   17      | T_F
+   18      | T_NIL
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+T_NIL (258) 18
+T_OBJBEG (259) 2 3
+T_OBJEND (260) 2 3
+T_ARRBEG (261) 7 8
+T_ARREND (262) 8
+T_COLON (263) 6
+T_COMMA (264) 4 9
+T_T (265) 16
+T_F (266) 17
+T_STR (267) 6 11
+T_INT (268) 13
+T_DOUB (269) 12
+
+
+Nonterminals, with rules where they appear
+
+$accept (15)
+    on left: 0
+_object (16)
+    on left: 1, on right: 0
+object (17)
+    on left: 2 3, on right: 1 14
+obj_list (18)
+    on left: 4 5, on right: 2 4
+obj_pair (19)
+    on left: 6, on right: 4 5
+array (20)
+    on left: 7 8, on right: 15
+arrvals (21)
+    on left: 9 10, on right: 7 9
+value (22)
+    on left: 11 12 13 14 15 16 17 18, on right: 6 9 10
+
+
+State 0
+
+    0 $accept: . _object $end
+
+    T_OBJBEG  shift, and go to state 1
+
+    _object  go to state 2
+    object   go to state 3
+
+
+State 1
+
+    2 object: T_OBJBEG . obj_list T_OBJEND
+    3       | T_OBJBEG . T_OBJEND
+
+    T_OBJEND  shift, and go to state 4
+    T_STR     shift, and go to state 5
+
+    obj_list  go to state 6
+    obj_pair  go to state 7
+
+
+State 2
+
+    0 $accept: _object . $end
+
+    $end  shift, and go to state 8
+
+
+State 3
+
+    1 _object: object .
+
+    $default  reduce using rule 1 (_object)
+
+
+State 4
+
+    3 object: T_OBJBEG T_OBJEND .
+
+    $default  reduce using rule 3 (object)
+
+
+State 5
+
+    6 obj_pair: T_STR . T_COLON value
+
+    T_COLON  shift, and go to state 9
+
+
+State 6
+
+    2 object: T_OBJBEG obj_list . T_OBJEND
+    4 obj_list: obj_list . T_COMMA obj_pair
+
+    T_OBJEND  shift, and go to state 10
+    T_COMMA   shift, and go to state 11
+
+
+State 7
+
+    5 obj_list: obj_pair .
+
+    $default  reduce using rule 5 (obj_list)
+
+
+State 8
+
+    0 $accept: _object $end .
+
+    $default  accept
+
+
+State 9
+
+    6 obj_pair: T_STR T_COLON . value
+
+    T_NIL     shift, and go to state 12
+    T_OBJBEG  shift, and go to state 1
+    T_ARRBEG  shift, and go to state 13
+    T_T       shift, and go to state 14
+    T_F       shift, and go to state 15
+    T_STR     shift, and go to state 16
+    T_INT     shift, and go to state 17
+    T_DOUB    shift, and go to state 18
+
+    object  go to state 19
+    array   go to state 20
+    value   go to state 21
+
+
+State 10
+
+    2 object: T_OBJBEG obj_list T_OBJEND .
+
+    $default  reduce using rule 2 (object)
+
+
+State 11
+
+    4 obj_list: obj_list T_COMMA . obj_pair
+
+    T_STR  shift, and go to state 5
+
+    obj_pair  go to state 22
+
+
+State 12
+
+   18 value: T_NIL .
+
+    $default  reduce using rule 18 (value)
+
+
+State 13
+
+    7 array: T_ARRBEG . arrvals T_ARRBEG
+    8      | T_ARRBEG . T_ARREND
+
+    T_NIL     shift, and go to state 12
+    T_OBJBEG  shift, and go to state 1
+    T_ARRBEG  shift, and go to state 13
+    T_ARREND  shift, and go to state 23
+    T_T       shift, and go to state 14
+    T_F       shift, and go to state 15
+    T_STR     shift, and go to state 16
+    T_INT     shift, and go to state 17
+    T_DOUB    shift, and go to state 18
+
+    object   go to state 19
+    array    go to state 20
+    arrvals  go to state 24
+    value    go to state 25
+
+
+State 14
+
+   16 value: T_T .
+
+    $default  reduce using rule 16 (value)
+
+
+State 15
+
+   17 value: T_F .
+
+    $default  reduce using rule 17 (value)
+
+
+State 16
+
+   11 value: T_STR .
+
+    $default  reduce using rule 11 (value)
+
+
+State 17
+
+   13 value: T_INT .
+
+    $default  reduce using rule 13 (value)
+
+
+State 18
+
+   12 value: T_DOUB .
+
+    $default  reduce using rule 12 (value)
+
+
+State 19
+
+   14 value: object .
+
+    $default  reduce using rule 14 (value)
+
+
+State 20
+
+   15 value: array .
+
+    $default  reduce using rule 15 (value)
+
+
+State 21
+
+    6 obj_pair: T_STR T_COLON value .
+
+    $default  reduce using rule 6 (obj_pair)
+
+
+State 22
+
+    4 obj_list: obj_list T_COMMA obj_pair .
+
+    $default  reduce using rule 4 (obj_list)
+
+
+State 23
+
+    8 array: T_ARRBEG T_ARREND .
+
+    $default  reduce using rule 8 (array)
+
+
+State 24
+
+    7 array: T_ARRBEG arrvals . T_ARRBEG
+    9 arrvals: arrvals . T_COMMA value
+
+    T_ARRBEG  shift, and go to state 26
+    T_COMMA   shift, and go to state 27
+
+
+State 25
+
+   10 arrvals: value .
+
+    $default  reduce using rule 10 (arrvals)
+
+
+State 26
+
+    7 array: T_ARRBEG arrvals T_ARRBEG .
+
+    $default  reduce using rule 7 (array)
+
+
+State 27
+
+    9 arrvals: arrvals T_COMMA . value
+
+    T_NIL     shift, and go to state 12
+    T_OBJBEG  shift, and go to state 1
+    T_ARRBEG  shift, and go to state 13
+    T_T       shift, and go to state 14
+    T_F       shift, and go to state 15
+    T_STR     shift, and go to state 16
+    T_INT     shift, and go to state 17
+    T_DOUB    shift, and go to state 18
+
+    object  go to state 19
+    array   go to state 20
+    value   go to state 28
+
+
+State 28
+
+    9 arrvals: arrvals T_COMMA value .
+
+    $default  reduce using rule 9 (arrvals)

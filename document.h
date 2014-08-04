@@ -90,7 +90,9 @@ namespace bson
        * \return iterators pointing at the beginning and end of the data in the document
        */
       auto begin() -> decltype(m_data.begin()) {return m_data.begin();}
+      auto begin() const -> decltype(m_data.begin()) {return m_data.begin();}
       auto end() -> decltype(m_data.end()) {return m_data.end();}
+      auto end() const -> decltype(m_data.end())  {return m_data.end();}
       auto rbegin() -> decltype(m_data.rbegin()) {return m_data.rbegin();}
       auto rend() -> decltype(m_data.rend()) {return m_data.rend();}
       auto cbegin() -> decltype(m_data.cbegin()) {return m_data.cbegin();}
@@ -105,6 +107,13 @@ namespace bson
        * \return the set of field names
        */
       std::set<std::string> field_names() const {return m_field_names;}
+      
+      /*!
+       * \brief combines two Documents
+       * \pre None
+       * \post The supplied Document is combined into this one
+       */
+      void combine(const bson::Document d) {m_data.insert(d.begin(), d.end()); return;}
   };
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)
