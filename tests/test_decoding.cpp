@@ -13,7 +13,7 @@ TEST(Decoding, Int32)
   unsigned char bs[4];
   for (int i=0; i<10000; i++)
   {
-    mempcpy(bs, &i, sizeof(i));
+    memcpy(bs, &i, sizeof(i));
     e.decode(bs, bson::INT32);
     ASSERT_EQ(i, e.data<int>());
   }
@@ -25,7 +25,7 @@ TEST(Decoding, Int64)
   unsigned char bs[8];
   for (long i=0; i<100000; i++)
   {
-    mempcpy(bs, &i, sizeof(i));
+    memcpy(bs, &i, sizeof(i));
     e.decode(bs, bson::INT64);
     ASSERT_EQ(i, e.data<long>());
   }
