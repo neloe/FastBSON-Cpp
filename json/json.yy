@@ -34,7 +34,12 @@ inline std::string stripquotes (const char* txt)
 {
   return std::string(txt + 1, std::strlen(txt) - 2);
 }
-
+template <typename T>
+inline void clean(T* t)
+{
+  if (t) delete t; 
+  t = nullptr;
+}
 %}
 
 %union {
@@ -60,23 +65,23 @@ std::vector<bson::Element> * vec;
 
 %start _object
 %%
-_object  : object {driver.set_doc($1->data<bson::Document>());};
+_object  : object {driver.set_doc($1->data<bson::Document>()); clean($1);};
 
 object   : T_OBJBEG obj_list T_OBJEND {$$ = $2;}
          | T_OBJBEG T_OBJEND {$$ = new bson::Element(bson::Document());};
 
-obj_list : obj_list T_COMMA obj_pair { bson::Document d($1->data<bson::Document>()); d.combine($3->data<bson::Document>()); $$ = new Element(d); }
+obj_list : obj_list T_COMMA obj_pair { bson::Document d($1->data<bson::Document>()); d.combine($3->data<bson::Document>()); clean($1), clean($3); $$ = new Element(d); }
          | obj_pair {$$ = $1;};
          
-obj_pair : T_STR T_COLON value { $$ = new bson::Element(bson::Document({{stripquotes($1->c_str()), *$3}})); };
+obj_pair : T_STR T_COLON value { $$ = new bson::Element(bson::Document({{stripquotes($1->c_str()), *$3}})); clean($1), clean($3);};
 
-array    : T_ARRBEG arrvals T_ARRBEG {std::vector<bson::Element> v(*$2); std::reverse(v.begin(),v.end()); $$ = new bson::Element(v);}
+array    : T_ARRBEG arrvals T_ARREND {std::vector<bson::Element> v(*$2); clean ($2); $$ = new bson::Element(v);}
          | T_ARRBEG T_ARREND {$$ = new bson::Element(std::vector<bson::Element>());};
 
-arrvals  : arrvals T_COMMA value {std::vector<bson::Element> v(*$1); v.push_back(*($3)); $$ = new std::vector<bson::Element>(v);}
-         | value {std::vector<bson::Element> v; v.push_back(*$1); $$ = new std::vector<bson::Element>(v);};
+arrvals  : arrvals T_COMMA value {std::vector<bson::Element> v(*$1); v.push_back(*($3)); clean($1), clean($3); $$ = new std::vector<bson::Element>(v);}
+         | value {std::vector<bson::Element> v; v.push_back(*$1); clean($1); $$ = new std::vector<bson::Element>(v);};
 
-value    : T_STR {$$ = new bson::Element(stripquotes($1->c_str()));} //handle quotes
+value    : T_STR {$$ = new bson::Element(stripquotes($1->c_str())); clean($1);} //handle quotes
          | T_DOUB {$$ = new bson::Element($1);}
          | T_INT {$$ = new bson::Element($1);}
          | object {$$ = $1;}
