@@ -1,7 +1,7 @@
 project(bson)
 cmake_minimum_required(VERSION 2.8)
 
-SET(CMAKE_CXX_FLAGS "-std=c++11 -g -Wno-deprecated-register ${CMAKE_CXX_FLAGS}")
+SET(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated-register ${CMAKE_CXX_FLAGS}")
 
 find_package(BISON)
 find_package(FLEX)
