@@ -1,7 +1,9 @@
 project(bson)
 cmake_minimum_required(VERSION 2.8)
 
-SET(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated-register ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated-register ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -Wno-deprecated-register -O0 --coverage ${CMAKE_CXX_FLAGS_DEBUG}")
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules/)
 
 find_package(BISON)
 find_package(FLEX)
@@ -31,3 +33,6 @@ add_library(fastbson SHARED ${bson_src} ${BISON_jsonParser_OUTPUTS} ${FLEX_jsonL
 add_executable(bson_runner main.cpp)
 target_link_libraries(bson_runner fastbson)
 add_subdirectory(tests)
+
+include(CodeCoverage)
+setup_target_for_coverage(${PROJECT_NAME}_coverage tests coverage)
