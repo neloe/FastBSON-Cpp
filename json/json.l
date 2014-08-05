@@ -37,7 +37,6 @@ class invalid_token: public std::exception
 
 %option noyywrap
 %option yyclass="bson::JSON_Scanner"
-%option outfile="json_lex.cpp"
 %option c++
 
 /*

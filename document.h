@@ -33,6 +33,13 @@ namespace bson
        * \post Constructs the dictionary using the init list of key/value pairs
        */
       Document(std::initializer_list<std::pair<std::string, Element>> list){for (auto i: list) {m_data.emplace(i.first, i.second); m_field_names.emplace(i.first);}}
+      
+      /*!
+       * \brief JSON string construction
+       * \pre None
+       * \post This document contains information mirroring the JSON string
+       */
+      Document(const std::string & json) {from_json(json);}
       /*!
        * \brief accessor
        * \pre None
@@ -114,6 +121,13 @@ namespace bson
        * \post The supplied Document is combined into this one
        */
       void combine(const bson::Document d) {m_data.insert(d.begin(), d.end()); return;}
+      
+      /*!
+       * \brief Changes this document to mirror the JSON string
+       * \pre None
+       * \post This document contains information matching the JSON string
+       */
+      void from_json(const std::string& json);
   };
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)

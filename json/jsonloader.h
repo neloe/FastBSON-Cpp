@@ -8,7 +8,7 @@
 #include <memory>
 #include "../document.h"
 #include "jsonscanner.h"
-#include "json.tab.hh"
+#include "json.tab.hpp"
 
 namespace bson
 {

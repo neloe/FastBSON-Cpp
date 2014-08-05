@@ -1,7 +1,15 @@
 project(bson)
 cmake_minimum_required(VERSION 2.8)
 
-SET(CMAKE_CXX_FLAGS "-std=c++11 -g ${CMAKE_CXX_FLAGS}")
+SET(CMAKE_CXX_FLAGS "-std=c++11 -g -Wno-deprecated-register ${CMAKE_CXX_FLAGS}")
+
+find_package(BISON)
+find_package(FLEX)
+BISON_TARGET(jsonParser json/json.yy ${CMAKE_CURRENT_BINARY_DIR}/json.tab.cpp)
+FLEX_TARGET(jsonLexer json/json.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cpp)
+ADD_FLEX_BISON_DEPENDENCY(jsonLexer jsonParser)
+
+include_directories(json ${CMAKE_CURRENT_BINARY_DIR})
 
 set(bson_src
 template_spec/binary.cpp
@@ -15,12 +23,11 @@ template_spec/document.cpp
 template_spec/ints.cpp
 template_spec/pairs.cpp
 template_spec/vectors.cpp
+json/jsonloader.cpp
 element.cpp
 )
-
-add_library(fastbson SHARED ${bson_src})
+add_library(fastbson SHARED ${bson_src} ${BISON_jsonParser_OUTPUTS} ${FLEX_jsonLexer_OUTPUTS})
 
 add_executable(bson_runner main.cpp)
 target_link_libraries(bson_runner fastbson)
-
 add_subdirectory(tests)

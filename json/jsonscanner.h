@@ -13,7 +13,7 @@
 #undef YY_DECL
 #define YY_DECL int bson::JSON_Scanner::yylex()
 
-#include "json.tab.hh"
+#include "json.tab.hpp"
 
 namespace bson
 {
