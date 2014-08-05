@@ -17,6 +17,7 @@
 
 namespace bson
 {
+  //enum {T_NIL, T_T, T_F, T_STR, T_INT, T_DOUB, T_OBJBEG, T_OBJEND, T_ARRBEG, T_ARREND, T_COLON, T_COMMA};
   class JSON_Scanner: public yyFlexLexer
   {
     public:

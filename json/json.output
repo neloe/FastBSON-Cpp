@@ -33,17 +33,17 @@ Terminals, with rules where they appear
 $end (0) 0
 error (256)
 T_NIL (258) 18
-T_OBJBEG (259) 2 3
-T_OBJEND (260) 2 3
-T_ARRBEG (261) 7 8
-T_ARREND (262) 8
-T_COLON (263) 6
-T_COMMA (264) 4 9
-T_T (265) 16
-T_F (266) 17
-T_STR (267) 6 11
-T_INT (268) 13
-T_DOUB (269) 12
+T_T (259) 16
+T_F (260) 17
+T_STR (261) 6 11
+T_INT (262) 13
+T_DOUB (263) 12
+T_OBJBEG (264) 2 3
+T_OBJEND (265) 2 3
+T_ARRBEG (266) 7 8
+T_ARREND (267) 8
+T_COLON (268) 6
+T_COMMA (269) 4 9
 
 
 Nonterminals, with rules where they appear
@@ -81,8 +81,8 @@ State 1
     2 object: T_OBJBEG . obj_list T_OBJEND
     3       | T_OBJBEG . T_OBJEND
 
-    T_OBJEND  shift, and go to state 4
-    T_STR     shift, and go to state 5
+    T_STR     shift, and go to state 4
+    T_OBJEND  shift, and go to state 5
 
     obj_list  go to state 6
     obj_pair  go to state 7
@@ -104,16 +104,16 @@ State 3
 
 State 4
 
-    3 object: T_OBJBEG T_OBJEND .
+    6 obj_pair: T_STR . T_COLON value
 
-    $default  reduce using rule 3 (object)
+    T_COLON  shift, and go to state 9
 
 
 State 5
 
-    6 obj_pair: T_STR . T_COLON value
+    3 object: T_OBJBEG T_OBJEND .
 
-    T_COLON  shift, and go to state 9
+    $default  reduce using rule 3 (object)
 
 
 State 6
@@ -144,13 +144,13 @@ State 9
     6 obj_pair: T_STR T_COLON . value
 
     T_NIL     shift, and go to state 12
+    T_T       shift, and go to state 13
+    T_F       shift, and go to state 14
+    T_STR     shift, and go to state 15
+    T_INT     shift, and go to state 16
+    T_DOUB    shift, and go to state 17
     T_OBJBEG  shift, and go to state 1
-    T_ARRBEG  shift, and go to state 13
-    T_T       shift, and go to state 14
-    T_F       shift, and go to state 15
-    T_STR     shift, and go to state 16
-    T_INT     shift, and go to state 17
-    T_DOUB    shift, and go to state 18
+    T_ARRBEG  shift, and go to state 18
 
     object  go to state 19
     array   go to state 20
@@ -168,7 +168,7 @@ State 11
 
     4 obj_list: obj_list T_COMMA . obj_pair
 
-    T_STR  shift, and go to state 5
+    T_STR  shift, and go to state 4
 
     obj_pair  go to state 22
 
@@ -182,58 +182,58 @@ State 12
 
 State 13
 
-    7 array: T_ARRBEG . arrvals T_ARRBEG
-    8      | T_ARRBEG . T_ARREND
-
-    T_NIL     shift, and go to state 12
-    T_OBJBEG  shift, and go to state 1
-    T_ARRBEG  shift, and go to state 13
-    T_ARREND  shift, and go to state 23
-    T_T       shift, and go to state 14
-    T_F       shift, and go to state 15
-    T_STR     shift, and go to state 16
-    T_INT     shift, and go to state 17
-    T_DOUB    shift, and go to state 18
-
-    object   go to state 19
-    array    go to state 20
-    arrvals  go to state 24
-    value    go to state 25
-
-
-State 14
-
    16 value: T_T .
 
     $default  reduce using rule 16 (value)
 
 
-State 15
+State 14
 
    17 value: T_F .
 
     $default  reduce using rule 17 (value)
 
 
-State 16
+State 15
 
    11 value: T_STR .
 
     $default  reduce using rule 11 (value)
 
 
-State 17
+State 16
 
    13 value: T_INT .
 
     $default  reduce using rule 13 (value)
 
 
-State 18
+State 17
 
    12 value: T_DOUB .
 
     $default  reduce using rule 12 (value)
+
+
+State 18
+
+    7 array: T_ARRBEG . arrvals T_ARRBEG
+    8      | T_ARRBEG . T_ARREND
+
+    T_NIL     shift, and go to state 12
+    T_T       shift, and go to state 13
+    T_F       shift, and go to state 14
+    T_STR     shift, and go to state 15
+    T_INT     shift, and go to state 16
+    T_DOUB    shift, and go to state 17
+    T_OBJBEG  shift, and go to state 1
+    T_ARRBEG  shift, and go to state 18
+    T_ARREND  shift, and go to state 23
+
+    object   go to state 19
+    array    go to state 20
+    arrvals  go to state 24
+    value    go to state 25
 
 
 State 19
@@ -299,13 +299,13 @@ State 27
     9 arrvals: arrvals T_COMMA . value
 
     T_NIL     shift, and go to state 12
+    T_T       shift, and go to state 13
+    T_F       shift, and go to state 14
+    T_STR     shift, and go to state 15
+    T_INT     shift, and go to state 16
+    T_DOUB    shift, and go to state 17
     T_OBJBEG  shift, and go to state 1
-    T_ARRBEG  shift, and go to state 13
-    T_T       shift, and go to state 14
-    T_F       shift, and go to state 15
-    T_STR     shift, and go to state 16
-    T_INT     shift, and go to state 17
-    T_DOUB    shift, and go to state 18
+    T_ARRBEG  shift, and go to state 18
 
     object  go to state 19
     array   go to state 20

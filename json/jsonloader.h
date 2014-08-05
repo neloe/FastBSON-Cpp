@@ -16,7 +16,7 @@ namespace bson
   {
     public:
       JSON_Loader(): m_doc(), parser(nullptr), scanner(nullptr) {}
-      virtual ~JSON_Loader();
+      virtual ~JSON_Loader() {}
       
       void set_doc(const Document & doc) {m_doc = doc;}
       const Document& parse(const std::string& jsonstr);

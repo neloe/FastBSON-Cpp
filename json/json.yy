@@ -24,6 +24,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <iostream>
 #include "jsonloader.h"
 #include "../document.h"
 #include "../element.h"
@@ -44,10 +45,11 @@ bson::Element * elm;
 std::vector<bson::Element> * vec;
 }
 
-%token T_NIL T_OBJBEG T_OBJEND T_ARRBEG T_ARREND T_COLON T_COMMA T_T T_F
+%token T_NIL T_T T_F
 %token <text> T_STR 
 %token <l> T_INT
 %token <d> T_DOUB
+%token T_OBJBEG T_OBJEND T_ARRBEG T_ARREND T_COLON T_COMMA 
 
 %destructor { if ($$) { delete $$; $$ = nullptr;}} <text>
 %destructor { if ($$) { delete $$; $$ = nullptr;}} <elm>
@@ -55,7 +57,6 @@ std::vector<bson::Element> * vec;
 
 %type <elm> object value array obj_list obj_pair
 %type <vec> arrvals
-
 
 %start _object
 %%
@@ -67,13 +68,13 @@ object   : T_OBJBEG obj_list T_OBJEND {$$ = $2;}
 obj_list : obj_list T_COMMA obj_pair { bson::Document d($1->data<bson::Document>()); d.combine($3->data<bson::Document>()); $$ = new Element(d); }
          | obj_pair {$$ = $1;};
          
-obj_pair : T_STR T_COLON value { $$ = new bson::Element(bson::Document({{stripquotes($1->c_str()), $3}})); };
+obj_pair : T_STR T_COLON value { $$ = new bson::Element(bson::Document({{stripquotes($1->c_str()), *$3}})); };
 
 array    : T_ARRBEG arrvals T_ARRBEG {std::vector<bson::Element> v(*$2); std::reverse(v.begin(),v.end()); $$ = new bson::Element(v);}
          | T_ARRBEG T_ARREND {$$ = new bson::Element(std::vector<bson::Element>());};
 
 arrvals  : arrvals T_COMMA value {std::vector<bson::Element> v(*$1); v.push_back(*($3)); $$ = new std::vector<bson::Element>(v);}
-         | value {$$ = new std::vector<bson::Element>({$1});};
+         | value {std::vector<bson::Element> v; v.push_back(*$1); $$ = new std::vector<bson::Element>(v);};
 
 value    : T_STR {$$ = new bson::Element(stripquotes($1->c_str()));} //handle quotes
          | T_DOUB {$$ = new bson::Element($1);}
@@ -82,7 +83,7 @@ value    : T_STR {$$ = new bson::Element(stripquotes($1->c_str()));} //handle qu
          | array {$$ = $1;}
          | T_T {$$ = new bson::Element(true);}
          | T_F {$$ = new bson::Element(false);}
-         | T_NIL {$$ = new bson::Element(nullptr, bson::NIL);};
+         | T_NIL {$$ = new bson::Element(); $$ -> make_void();};
 
 %%
 
