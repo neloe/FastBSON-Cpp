@@ -36,3 +36,4 @@ add_subdirectory(tests)
 
 include(CodeCoverage)
 setup_target_for_coverage(${PROJECT_NAME}_coverage tests coverage)
+setup_target_for_coverage_cobertura(${PROJECT_NAME}_cobertura tests coverage)
