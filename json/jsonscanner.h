@@ -20,13 +20,12 @@ namespace bson
   //enum {T_NIL, T_T, T_F, T_STR, T_INT, T_DOUB, T_OBJBEG, T_OBJEND, T_ARRBEG, T_ARREND, T_COLON, T_COMMA};
   class invalid_token: public std::exception
   {
-    private: std::string m_bad_token;
+    private: std::string m_exctext;
     public:
-      invalid_token (const char* badtok): m_bad_token(badtok) {}
+      invalid_token (const char* badtok): m_exctext("Invalid json token: ") {m_exctext += badtok;}
       virtual const char* what() const noexcept
       {
-	std::string exctext = "Invalid json token: " + m_bad_token;
-	return exctext.c_str();
+	return m_exctext.c_str();
       }
   };
   
