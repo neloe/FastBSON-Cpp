@@ -66,7 +66,7 @@ TEST(JSONConvert, FromBool)
 
 TEST(JSONConvert, InvalidJSON)
 {
-  const std::string MESG ("Invalid json token: a");
+  const char MESG[]= "Invalid json token: a";
   bson::Document d;
   ASSERT_THROW(d.from_json("asdf"), bson::invalid_token);
   try
@@ -75,8 +75,7 @@ TEST(JSONConvert, InvalidJSON)
   }
   catch (bson::invalid_token e)
   {
-    std::string emesg(e.what());
-    ASSERT_EQ(MESG, emesg);
+    ASSERT_STREQ(MESG, e.what());
   }
 }
 
