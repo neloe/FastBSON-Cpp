@@ -6,6 +6,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <cstring>
 #include <set>
 #include "../json/jsonscanner.h"
 
@@ -73,8 +74,9 @@ TEST(JSONConvert, InvalidJSON)
   {
     d.from_json("asdf");
   }
-  catch (bson::invalid_token e)
+  catch (bson::invalid_token& e)
   {
+    //this is my last try to get this valgrind errors to go away on crapbuntu
     ASSERT_STREQ(MESG, e.what());
   }
 }
