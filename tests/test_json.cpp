@@ -66,8 +66,18 @@ TEST(JSONConvert, FromBool)
 
 TEST(JSONConvert, InvalidJSON)
 {
+  const std::string MESG ("Invalid json token: a");
   bson::Document d;
   ASSERT_THROW(d.from_json("asdf"), bson::invalid_token);
+  try
+  {
+    d.from_json("asdf");
+  }
+  catch (bson::invalid_token e)
+  {
+    std::string emesg(e.what());
+    ASSERT_EQ(MESG, emesg);
+  }
 }
 
 TEST(JSONConvert, EmptyObject)
@@ -96,4 +106,19 @@ TEST(JSONConvert, MultiField)
   ASSERT_EQ(2, d.field_names().size());
   ASSERT_EQ(1, d["a"].data<long>());
   ASSERT_EQ(3.14000, d["b"].data<double>());
+}
+
+TEST(JSONConvert, MalformedJSONErrorTextCleanup)
+{
+  ASSERT_THROW(bson::Document d("\"asdf\""), bson::malformed_json);
+}
+
+TEST(JSONConvert, MalformedJSONErrorVectorCleanup)
+{
+  ASSERT_THROW(bson::Document d("{\"a\": [123, 3.14, \"asdf\"}]}"), bson::malformed_json);
+}
+
+TEST(JSONConvert, MalformedJSONErrorObjectCleanup)
+{
+  ASSERT_THROW(bson::Document d("{\"a\": {}"), bson::malformed_json);
 }

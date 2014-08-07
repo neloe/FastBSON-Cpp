@@ -9,6 +9,10 @@
     class JSON_Loader;
     class Element;
     class Document;
+    
+    class malformed_json: public std::exception
+    {
+    };
   }
 }
 
@@ -28,6 +32,7 @@
 #include "jsonloader.h"
 #include "../document.h"
 #include "../element.h"
+#include <exception>
 static int yylex(bson::JSON_Parser::semantic_type *yylval, bson::JSON_Scanner &scanner, bson::JSON_Loader &driver);
 
 inline std::string stripquotes (const char* txt)
@@ -94,7 +99,7 @@ value    : T_STR {$$ = new bson::Element(stripquotes($1->c_str())); clean($1);} 
 
 void bson::JSON_Parser::error(const std::string & err_message)
 {
-  std::cerr << "Error: " << err_message << std::endl;
+  throw bson::malformed_json();
   return;
 }
 
