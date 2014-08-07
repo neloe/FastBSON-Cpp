@@ -7,6 +7,7 @@
 #include <array>
 #include <vector>
 #include <set>
+#include "../json/jsonscanner.h"
 
 TEST(JSONConvert, FromString)
 {
@@ -60,7 +61,39 @@ TEST(JSONConvert, FromBool)
   ASSERT_TRUE(d[key].data<bool>());
   d.from_json("{\"" + key + "\": false }");
   ASSERT_EQ(1, d.field_names().size());
-  ASSERT_FALSE(d[key].data<bool>());
-  
+  ASSERT_FALSE(d[key].data<bool>()); 
 }
 
+TEST(JSONConvert, InvalidJSON)
+{
+  bson::Document d;
+  ASSERT_THROW(d.from_json("asdf"), bson::invalid_token);
+}
+
+TEST(JSONConvert, EmptyObject)
+{
+  bson::Document d("{}");
+  ASSERT_EQ(0, d.field_names().size());
+}
+
+TEST(JSONConvert, EmptyArray)
+{
+  bson::Document d("{\"asdf\": []}");
+  ASSERT_EQ(1, d.field_names().size());
+  ASSERT_EQ(0, d["asdf"].data<bson::array>().size());
+}
+
+TEST(JSONConvert, NestedObject)
+{
+  bson::Document d("{\"asdf\": {}}");
+  ASSERT_EQ(1, d.field_names().size());
+  ASSERT_EQ(0, d["asdf"].data<bson::Document>().field_names().size());
+}
+
+TEST(JSONConvert, MultiField)
+{
+  bson::Document d("{\"a\": 1, \"b\": 3.14000}");
+  ASSERT_EQ(2, d.field_names().size());
+  ASSERT_EQ(1, d["a"].data<long>());
+  ASSERT_EQ(3.14000, d["b"].data<double>());
+}

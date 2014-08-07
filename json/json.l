@@ -21,18 +21,6 @@ const char* NAMES[] = {"NULL", "TRUE", "FALSE", "String", "Integer",
                        "Double", "Obj. Beg", "Obj. End", "Arr Beg", "Arr End",
                        "Colon", "Comma"};
 void dbprint(const int toktype, const char* text);
-
-class invalid_token: public std::exception
-{
-  private: std::string m_bad_token;
-  public:
-    invalid_token (const char* badtok): m_bad_token(badtok) {}
-    virtual const char* what() const noexcept
-    {
-      std::string exctext = "Invalid json token: " + m_bad_token;
-      return exctext.c_str();
-    }
-};
 %}
 
 %option noyywrap
@@ -72,8 +60,6 @@ NIL	"null"
 {WSPACE}	{}
 .		{throw invalid_token(YYText());}
 %%
-
-
 void dbprint(const int toktype, const char* text)
 {
 #if DEBUG

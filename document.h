@@ -120,7 +120,7 @@ namespace bson
        * \pre None
        * \post The supplied Document is combined into this one
        */
-      void combine(const bson::Document d) {m_data.insert(d.begin(), d.end()); return;}
+      void combine(const bson::Document d) {m_data.insert(d.begin(), d.end()); m_field_names.insert(d.m_field_names.begin(), d.m_field_names.end()); return;}
       
       /*!
        * \brief Changes this document to mirror the JSON string
