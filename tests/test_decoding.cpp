@@ -39,7 +39,7 @@ TEST(Decoding, String)
   ASSERT_EQ(std::string("$query"), e.data<std::string>());
 }
 
-TEST(Decode, Document)
+TEST(Decoding, Document)
 {
   bson::Element e;
   // This is actual hex pulled from a mongodb query, not just random crap
