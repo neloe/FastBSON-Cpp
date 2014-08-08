@@ -33,6 +33,6 @@ namespace bson
   void Element::type_check() const
   {
     if (!check_convert<T>())
-      throw type_error<T>(m_type);
+      throw type_error(m_type, to_string<T>());
   }
 }

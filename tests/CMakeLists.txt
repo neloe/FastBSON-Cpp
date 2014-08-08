@@ -18,6 +18,7 @@ set (test_sources
 test_encoding.cpp
 test_decoding.cpp
 test_json.cpp
+test_elm.cpp
 )
 
 add_executable(tests ${test_sources})

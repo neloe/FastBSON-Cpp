@@ -87,8 +87,8 @@ namespace bson
     memcpy(&strsize, bytes, 4);
     size += 4;
     m_data = std::shared_ptr<dbptr>(new dbptr);
-    std::static_pointer_cast<dbptr>(m_data) -> first = std::string((char*)bytes + size, strsize);
-    size += strsize + 1;
+    std::static_pointer_cast<dbptr>(m_data) -> first = std::string((char*)bytes + size, strsize - 1); //to avoid the trailing null
+    size += strsize;
     std::memcpy(&((std::static_pointer_cast<dbptr>(m_data) -> second)[0]), bytes + size, DB_PTR_SIZE);
     return size + DB_PTR_SIZE;
   }

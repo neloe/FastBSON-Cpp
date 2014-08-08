@@ -65,3 +65,87 @@ TEST(Decoding, Document)
   ASSERT_EQ(3.14000, e.data<bson::Document>()["d"].data<double>());
   ASSERT_EQ(std::string("53d12bc68600b0ad4fbb902c"), static_cast<std::string>(e.data<bson::Document>()["_id"]));
 }
+
+TEST(Decoding, BoolTrue)
+{
+  unsigned char abool[] = {0x1};
+  bson::Element e;
+  bool res;
+  ASSERT_EQ(1, e.decode(abool, bson::BOOL));
+  e.data(res);
+  ASSERT_TRUE(res);
+}
+
+TEST(Decoding, BoolFalse)
+{
+  unsigned char abool[] = {0x0};
+  bson::Element e;
+  bool res;
+  ASSERT_EQ(1, e.decode(abool, bson::BOOL));
+  e.data(res);
+  ASSERT_FALSE(res);
+}
+
+TEST(Decoding, ArrayEmpty)
+{
+  unsigned char avec[] = {5, 0, 0, 0, 0};
+  bson::Element e;
+  bson::array res;
+  ASSERT_EQ(5, e.decode(avec, bson::ARRAY));
+  e.data(res);
+  ASSERT_EQ(0, res.size());
+}
+TEST(Decoding, ArrayNonEmpty)
+{
+  unsigned char avec[] = {0x0c, 0, 0, 0,
+                          0x10, '0', 0,
+			  3, 0, 0, 0,
+			  0};
+  bson::Element e;
+  bson::array res;
+  ASSERT_EQ(12, e.decode(avec, bson::ARRAY));
+  e.data(res);
+  ASSERT_EQ(1, res.size());
+  ASSERT_EQ(3, res[0].data<int>());
+}
+
+TEST(Decoding, MinKey)
+{
+  unsigned char minkey[] = {0};
+  bson::Element e;
+  ASSERT_EQ(0, e.decode(minkey, bson::MINKEY));
+}
+TEST(Decoding, MaxKey)
+{
+  unsigned char maxkey[] = {0};
+  bson::Element e;
+  ASSERT_EQ(0, e.decode(maxkey, bson::MAXKEY));
+}
+TEST(Decoding, Nil)
+{
+  unsigned char nil[] = {0};
+  bson::Element e;
+  ASSERT_EQ(0, e.decode(nil, bson::NIL));
+}
+
+TEST(Decoding, RegEx)
+{
+  unsigned char regex[] = {'a', 'b', 'c', 0, 'd', 'e', 'f', 0};
+  bson::Element e;
+  ASSERT_EQ(8, e.decode(regex, bson::REGEX));
+  ASSERT_EQ(std::string("abc"), e.data<bson::regex>().first);
+  ASSERT_EQ(std::string("def"), e.data<bson::regex>().second);
+}
+
+TEST(Decoding, DbPtr)
+{
+  unsigned char dbptr[] = {2, 0, 0, 0, 'a', 0, 1,2,3,4,5,6,7,8,9,10,11,12};
+  bson::Element e;
+  ASSERT_EQ(18, e.decode(dbptr, bson::DBPTR));
+  ASSERT_EQ(std::string("a"), e.data<bson::dbptr>().first);
+  for (unsigned char i = 0; i < 12; i++)
+  {
+    
+    ASSERT_EQ(i+1, e.data<bson::dbptr>().second[i]);
+  }
+}
