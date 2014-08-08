@@ -232,3 +232,33 @@ TEST(Encoding, BoolFalse)
   ASSERT_EQ(1, strrep.size());
   ASSERT_EQ(0, strrep.c_str()[0]);
 }
+
+TEST(Encoding, Nil)
+{
+  bson::Element e;
+  std::ostringstream oss;
+  e.make_void();
+  ASSERT_EQ(bson::NIL, e.get_type());
+  e.encode(oss);
+  ASSERT_EQ(0,oss.str().size());
+}
+
+TEST(Encoding, MinKey)
+{
+  bson::Element e;
+  std::ostringstream oss;
+  e.make_void(bson::MINKEY);
+  ASSERT_EQ(bson::MINKEY, e.get_type());
+  e.encode(oss);
+  ASSERT_EQ(0,oss.str().size());
+}
+
+TEST(Encoding, MaxKey)
+{
+  bson::Element e;
+  std::ostringstream oss;
+  e.make_void(bson::MAXKEY);
+  ASSERT_EQ(bson::MAXKEY, e.get_type());
+  e.encode(oss);
+  ASSERT_EQ(0,oss.str().size());
+}
