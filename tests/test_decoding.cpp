@@ -190,3 +190,10 @@ TEST(Decoding, BinaryNonEmpty)
   for (char i = 0; i < 7; i++)
     ASSERT_EQ(i, e.data<bson::binary>().second[i]);
 }
+
+TEST(Decoding, UnknownException)
+{
+  unsigned char blah[] = {0};
+  bson::Element e;
+  ASSERT_THROW(e.decode(blah, bson::_UNKNOWN), bson::type_UNKNOWN);
+}
