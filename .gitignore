@@ -4,3 +4,5 @@ json.tab.cc
 json.tab.hh
 json_lex.cpp
 build
+doxygen/
+build/
