@@ -82,7 +82,7 @@ namespace bson
   template<>
   unsigned Element::deserialize_bytes<dbptr>(const unsigned char* bytes)
   {
-    int size;
+    int size = 0;
     int strsize;
     memcpy(&strsize, bytes, 4);
     size += 4;
