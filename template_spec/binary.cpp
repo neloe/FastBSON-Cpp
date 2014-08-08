@@ -38,7 +38,7 @@ namespace bson
     int size;
     std::memcpy(&size, bytes, 4);
     data.first = bytes[5];
-    data.second = std::string((char*)bytes + 6, size);
+    data.second = std::string((char*)bytes + 5, size);
     m_data = make_void_shared(data);
     return size + 5;
   }

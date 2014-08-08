@@ -149,3 +149,44 @@ TEST(Decoding, DbPtr)
     ASSERT_EQ(i+1, e.data<bson::dbptr>().second[i]);
   }
 }
+
+TEST(Decoding, EmptyJS)
+{
+  unsigned char jscd[] = {14, 0, 0, 0,
+                          1, 0, 0, 0, 0, 
+                          5, 0 ,0, 0, 0};
+  bson::Element e;
+  ASSERT_EQ(14, e.decode(jscd, bson::JS_SCOPE));
+}
+
+TEST(Decoding, NonEmptyJS)
+{
+  unsigned char jscd[] = {22, 0, 0, 0,
+                          2, 0, 0, 0, '$', 0, 
+                          0x0c, 0, 0, 0,
+                          0x10, '0', 0,
+			  3, 0, 0, 0,
+			  0};
+  bson::Element e;
+  ASSERT_EQ(22, e.decode(jscd, bson::JS_SCOPE));
+  ASSERT_EQ(std::string("$"), e.data<bson::jscode_scope>().first);
+  ASSERT_EQ(3, e.data<bson::jscode_scope>().second["0"].data<int>());
+}
+
+TEST(Decoding, BinaryEmpty)
+{
+  unsigned char bin[] = {0,0,0,0,0};
+  bson::Element e;
+  ASSERT_EQ(5, e.decode(bin, bson::BINARY));
+}
+
+TEST(Decoding, BinaryNonEmpty)
+{
+  unsigned char bin[] = {7,0,0,0,0,0,1,2,3,4,5,6};
+  bson::Element e;
+  ASSERT_EQ(12, e.decode(bin, bson::BINARY));
+  ASSERT_EQ(0x0, e.data<bson::binary>().first);
+  ASSERT_EQ(7, e.data<bson::binary>().second.size());
+  for (char i = 0; i < 7; i++)
+    ASSERT_EQ(i, e.data<bson::binary>().second[i]);
+}

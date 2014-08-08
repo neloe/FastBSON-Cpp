@@ -40,7 +40,7 @@ namespace bson
     int size;
     std::memcpy(&size, bytes + 4, 4);
     data->first = std::string((char*)bytes + 8, size - 1);
-    size += 5;
+    size += 8;
     size += e.decode(bytes + size, DOCUMENT);
     e.data(data->second);
     return size;
