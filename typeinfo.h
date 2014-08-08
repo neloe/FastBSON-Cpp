@@ -38,15 +38,13 @@ namespace bson
   class type_error: public std::exception
   {
     public:
-      type_error(const TypeInfo & ti, const std::string & ctype): m_ti(ti), m_ctype(ctype) {}
+      type_error(const TypeInfo & ti, const std::string & ctype) {m_err = "Invalid conversion from C++ type: " + ctype + " to BSON type: " + to_string(ti);}
       virtual const char* what() const noexcept
       {
-	std::string err = "Invalid conversion from C++ type: " + m_ctype + " to BSON type: " + to_string(m_ti);
-	return err.c_str();
+	return m_err.c_str();
       }
     private:
-      TypeInfo m_ti;
-      std::string m_ctype;
+      std::string m_err;
   };
   
   class type_UNKNOWN: public std::exception
