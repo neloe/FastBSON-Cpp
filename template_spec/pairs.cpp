@@ -45,8 +45,8 @@ namespace bson
   template<>
   void Element::serialize_bson<regex>(std::ostringstream& oss) const
   {
-    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> first);
-    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> second);
+    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> first.c_str());
+    _to_stream(oss, std::static_pointer_cast<regex>(m_data) -> second.c_str());
     return;
   }
   
@@ -96,11 +96,10 @@ namespace bson
   template<>
   void Element::serialize_bson<dbptr>(std::ostringstream& oss) const
   {
-    _to_stream(oss, std::static_pointer_cast<dbptr>(m_data) -> first.size());
+    _to_stream(oss, static_cast<int>(std::static_pointer_cast<dbptr>(m_data) -> first.size() + 1));
     oss << std::static_pointer_cast<dbptr>(m_data) -> first << X00;
     for (const char c: std::static_pointer_cast<dbptr>(m_data) -> second)
       oss << c;
-    oss << X00;
     return;
   }
   

@@ -262,3 +262,61 @@ TEST(Encoding, MaxKey)
   e.encode(oss);
   ASSERT_EQ(0,oss.str().size());
 }
+
+TEST(Encoding, Regex)
+{
+  unsigned char regex[] = {'a', 'b', 'c', 0, 'd', 'e', 'f', 0};
+  bson::Element e(bson::regex({std::string("abc"), std::string("def")}), bson::REGEX);
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep (oss.str());
+  ASSERT_EQ(8, rep.size());
+  for (int i=0; i<8; i++)
+    ASSERT_EQ(regex[i], static_cast<unsigned char>(rep[i]));
+}
+
+TEST(Encoding, DbPtr)
+{
+  unsigned char dbptr[] = {2, 0, 0, 0, 'a', 0, 1,2,3,4,5,6,7,8,9,10,11,12};
+  bson::Element e(bson::dbptr({"a", {1,2,3,4,5,6,7,8,9,10,11,12}}), bson::DBPTR);
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep (oss.str());
+  ASSERT_EQ(18, rep.size());
+  for (int i=0; i<18; i++)
+  {
+    ASSERT_EQ(dbptr[i], static_cast<unsigned char>(rep[i]));
+  }
+}
+
+/*TEST(Encoding, EmptyJS)
+{
+  unsigned char jscd[] = {14, 0, 0, 0,
+                          1, 0, 0, 0, 0, 
+                          5, 0 ,0, 0, 0};
+  bson::Document d;
+  bson::Element e(bson::jscode_scope({"",d}));
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep(oss.str());
+  
+  ASSERT_EQ(14, rep.size());
+  for (int i=0; i<rep.size(); i++)
+  {
+    ASSERT_EQ(jscd[i], static_cast<unsigned char>(rep[i]));
+  }
+}
+
+TEST(Encoding, NonEmptyJS)
+{
+  unsigned char jscd[] = {22, 0, 0, 0,
+                          2, 0, 0, 0, '$', 0, 
+                          0x0c, 0, 0, 0,
+                          0x10, '0', 0,
+			  3, 0, 0, 0,
+			  0};
+  bson::Element e;
+  ASSERT_EQ(22, e.decode(jscd, bson::JS_SCOPE));
+  ASSERT_EQ(std::string("$"), e.data<bson::jscode_scope>().first);
+  ASSERT_EQ(3, e.data<bson::jscode_scope>().second["0"].data<int>());
+}*/
