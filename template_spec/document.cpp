@@ -8,6 +8,7 @@
 #include "../typeinfo.h"
 #include "convert_utils.h"
 #include "../element.h"
+#include "../json/jsonloader.h"
 #include <cstring>
 #include <iostream>
 
@@ -84,5 +85,12 @@ namespace bson
     }
     oss << " }";
     return oss.str();
+  }
+  
+  // Other document specific functionality
+  void Document::from_json(const std::string & json)
+  {
+    JSON_Loader loader;
+    *this = loader.parse(json);
   }
 }

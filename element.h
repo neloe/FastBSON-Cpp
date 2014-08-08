@@ -48,6 +48,8 @@ namespace bson
       
       Element(const char* data, const TypeInfo type = _UNKNOWN);
       
+      void make_void(const TypeInfo type = NIL) {m_type = NIL; type_check<void>();}
+      
       /*!
        * \brief decoding constructor
        * \pre type is compatible with the kind of data in the char*

@@ -8,7 +8,6 @@
 
 #include <exception>
 #include <string>
-#include <boost/concept_check.hpp>
 
 namespace bson
 {
