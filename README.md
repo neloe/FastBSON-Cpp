@@ -21,3 +21,4 @@ Documentation is located here: http://lumate.github.io/FastBSON-Cpp/html/index.h
 Note: You must go to /html/index.html in your browser because doxygen is configured to do both latex and html documentation.
 
 Further information may be found here: rickfoosusa.blogspot.com/2011/10/howto-use-doxygen-with-github.html
+=======
