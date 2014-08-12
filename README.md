@@ -36,6 +36,12 @@ To run code coverage: `cmake .. -DCMAKE_BUILD_TYPE=Debug && make bson_coverage`
 
 To generate Cobertura xml output for code coverage: `cmake .. -DCMAKE_BUILD_TYPE=Debug && make bson_cobertura`
 
+
+Prerequisites
+-------------
+
+This software requires the following programs to compile (install as appropriate for your operating system): bison, flex, lcov, cmake, a C++11 compliant compiler (clang 3.X+, g++ 4.7+)
+
 =======
 
 
