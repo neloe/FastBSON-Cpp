@@ -21,4 +21,21 @@ Documentation is located here: http://lumate.github.io/FastBSON-Cpp/html/index.h
 Note: You must go to /html/index.html in your browser because doxygen is configured to do both latex and html documentation.
 
 Further information may be found here: rickfoosusa.blogspot.com/2011/10/howto-use-doxygen-with-github.html
+
+
+Build Instructions
+------------------
+
+This software uses CMake as it's build system; as such out of source builds are preferred.
+
+You should create a build directory in the source directory and cd to it.
+
+To prepare for release (from the build directory) : `cmake .. && make fastbson`
+
+To run code coverage: `cmake .. -DCMAKE_BUILD_TYPE=Debug && make bson_coverage`
+
+To generate Cobertura xml output for code coverage: `cmake .. -DCMAKE_BUILD_TYPE=Debug && make bson_cobertura`
+
 =======
+
+
