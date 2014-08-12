@@ -1,0 +1,8 @@
+*.kdev4
+a.out
+json.tab.cc
+json.tab.hh
+json_lex.cpp
+build
+doxygen/
+build/
