@@ -87,7 +87,8 @@ namespace bson
   {
     return m_type == INT32;
   }
-    template<>
+  
+  template<>
   unsigned Element::deserialize_bytes<int>(const unsigned char* bytes)
   {
     m_data = make_void_shared(_from_bytes<int>(bytes));
@@ -97,7 +98,7 @@ namespace bson
   template<>
   void Element::serialize_bson<int>(std::ostringstream& oss) const
   {
-    _to_stream(oss, *(std::static_pointer_cast<int>(m_data)));
+    _to_stream(oss, static_cast<int>(*(std::static_pointer_cast<short>(m_data))));
     return;
   }
   

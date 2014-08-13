@@ -18,7 +18,7 @@ TEST(Encoding, Int32)
     ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
 }
 
-TEST(Encoding, short)
+TEST(Encoding, Short)
 {
   bson::Element e(static_cast<short>(1234));
   const unsigned char BSON_REP[] = {0xd2, 4, 0, 0};
