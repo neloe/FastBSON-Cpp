@@ -21,7 +21,7 @@ namespace bson
   template<>
   std::string to_string<regex>()
   {
-    return "regex>";
+    return "std::pair<std::string, std::string>";
   }
   
   template<>

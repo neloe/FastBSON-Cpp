@@ -110,3 +110,16 @@ TEST(ExceptionText, FromJSON)
     ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<std::string, bson::Document> and BSON type: string"), std::string(e.what()));
   }
 }
+
+TEST(ExceptionText, FromRegex)
+{
+  try
+  {
+    bson::Element e(bson::regex({}), bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<std::string, std::string> and BSON type: string"), std::string(e.what()));
+  }
+}
