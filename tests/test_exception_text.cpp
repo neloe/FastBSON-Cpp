@@ -136,3 +136,30 @@ TEST(ExceptionText, FromDBPtr)
     ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<std::string, std::array<unsigned char, 12>> and BSON type: string"), std::string(e.what()));
   }
 }
+
+TEST(ExceptionText, FromArr)
+{
+  try
+  {
+    bson::Element e(bson::array({}), bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::vector<bson::Element> and BSON type: string"), std::string(e.what()));
+  }
+}
+
+TEST(ExceptionText, FromVoid)
+{
+  try
+  {
+    bson::Element e;
+    e.make_void(bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: void and BSON type: string"), std::string(e.what()));
+  }
+}
