@@ -132,18 +132,7 @@ namespace bson
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)
   {
-    bool first = true;
-    oss << "{ ";
-    for (std::pair<std::string, Element> p: d.m_data)
-    {
-      if (!first)
-      {
-	oss << ", ";
-      }
-      first = false;
-      oss << p.first << " : " << static_cast<std::string>(p.second);
-    }
-    oss << " }";
-    return oss;
+    Element e(d);
+    oss << static_cast<std::string>(e);
   }
 }

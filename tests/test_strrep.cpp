@@ -76,6 +76,16 @@ TEST(StringRepresentation, DocSingleString)
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
+TEST(StringRepresentation, DocMulti)
+{
+  bson::Document d({{"i", 1234}});
+  d.add("s", std::string("b"));
+  bson::Element e(d);
+  const std::string strrep1("{ s : \"b\", i : 1234 }");
+  const std::string strrep2("{ i : 1234, s : \"b\" }");
+  ASSERT_TRUE(strrep1 == static_cast<std::string>(e) || strrep2 == static_cast<std::string>(e));
+}
+
 TEST(StringRepresentation, DocEmptyDoc)
 {
   bson::Document d, d1;
