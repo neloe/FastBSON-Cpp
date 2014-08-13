@@ -52,7 +52,7 @@ namespace bson
   class type_error: public std::exception
   {
     public:
-      type_error(const TypeInfo & ti, const std::string & ctype) {m_err = "Invalid conversion between C++ type: " + ctype + " and BSON type: " + to_string(ti);}
+      type_error(const TypeInfo & ti, const std::string & ctype): m_err ("Invalid conversion between C++ type: " + ctype + " and BSON type: " + to_string(ti)) {}
       virtual const char* what() const noexcept
       {
 	return m_err.c_str();
