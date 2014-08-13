@@ -172,7 +172,7 @@ TEST(StringRepresentation, DbPtr)
   const std::string strrep("dbptr : [ a, \x1\x2\x3\x4\x5\x6\x7\x8\x9\xa\xb\xc ]");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-/*
+
 TEST(StringRepresentation, EmptyJS)
 {
   unsigned char jscd[] = {14, 0, 0, 0,
@@ -180,15 +180,8 @@ TEST(StringRepresentation, EmptyJS)
                           5, 0 ,0, 0, 0};
   bson::Document d;
   bson::Element e(bson::jscode_scope({"",d}));
-  std::ostringstream oss;
-  e.encode(oss);
-  std::string rep(oss.str());
-  
-  ASSERT_EQ(14, rep.size());
-  for (int i=0; i<rep.size(); i++)
-  {
-    ASSERT_EQ(jscd[i], static_cast<unsigned char>(rep[i]));
-  }
+  const std::string strrep("js_scope : { code : , mapping : {  } }");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, NonEmptyJS)
@@ -201,30 +194,28 @@ TEST(StringRepresentation, NonEmptyJS)
 			  0};
   bson::Element e;
   ASSERT_EQ(22, e.decode(jscd, bson::JS_SCOPE));
-  ASSERT_EQ(std::string("$"), e.data<bson::jscode_scope>().first);
-  ASSERT_EQ(3, e.data<bson::jscode_scope>().second["0"].data<int>());
+  const std::string strrep("js_scope : { code : $, mapping : { 0 : 3 } }");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, BinaryEmpty)
 {
   unsigned char bin[] = {0,0,0,0,0};
   bson::Element e(bson::binary({0,""}));
-  std::ostringstream oss;
-  e.encode(oss);
-  std::string rep(oss.str());
-  ASSERT_EQ(5, rep.size());
-  for (int i=0; i<rep.size(); i++)
-    ASSERT_EQ(bin[i], static_cast<unsigned char>(rep[i]));
+  const std::string strrep("binary : { size : 0, type : \x0, bytes :  }", 41);
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, BinaryNonEmpty)
 {
   unsigned char bin[] = {7,0,0,0,0,'q','w','e','r','t','y','u'};
   bson::Element e(bson::binary({0,"qwertyu"}));
-  std::ostringstream oss;
-  e.encode(oss);
-  std::string rep(oss.str());
-  ASSERT_EQ(12, rep.size());
-  for (int i=0; i<rep.size(); i++)
-    ASSERT_EQ(bin[i], static_cast<unsigned char>(rep[i]));
-}*/
+  std::string strrep("binary : { size : 7, type : \x0, bytes : qwertyu }", 48);
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
+}
+
+TEST(StringRepresentation, BadType)
+{
+  bson::Element e;
+  ASSERT_THROW(static_cast<std::string>(e), bson::type_UNKNOWN);
+}

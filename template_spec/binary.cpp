@@ -60,7 +60,7 @@ namespace bson
     std::ostringstream oss;
     std::shared_ptr<binary> data(std::static_pointer_cast<binary>(m_data));
     oss << "binary : { size : " << data->second.size() << ", type : "
-        << data -> first << ", bytes: " << data -> second << " }";
+        << data -> first << ", bytes : " << data -> second << " }";
     return oss.str();
   }
 }
