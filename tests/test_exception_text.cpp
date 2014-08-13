@@ -58,3 +58,55 @@ TEST(ExceptionText, FromBin)
     ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<char, std::string> and BSON type: string"), std::string(e.what()));
   }
 }
+
+TEST(ExceptionText, FromOID)
+{
+  try
+  {
+    bson::Element e(bson::oid({}), bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::array<unsigned char, 12> and BSON type: string"), std::string(e.what()));
+  }
+}
+
+TEST(ExceptionText, FromBool)
+{
+  try
+  {
+    bson::Element e(true, bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: bool and BSON type: string"), std::string(e.what()));
+  }
+}
+
+TEST(ExceptionText, FromDocument)
+{
+  try
+  {
+    bson::Element e(bson::Document({{}}), bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: bson::Document and BSON type: string"), std::string(e.what()));
+  }
+}
+
+TEST(ExceptionText, FromJSON)
+{
+  try
+  {
+    bson::Element e(bson::jscode_scope({}), bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<std::string, bson::Document> and BSON type: string"), std::string(e.what()));
+  }
+}

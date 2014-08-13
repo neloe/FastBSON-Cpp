@@ -22,7 +22,7 @@ namespace bson
   template<>
   std::string to_string<jscode_scope>()
   {
-    return "javascript code with scope";
+    return "std::pair<std::string, bson::Document>";
   }
   
   template<>

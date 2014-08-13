@@ -22,7 +22,7 @@ namespace bson
   template<>
   std::string to_string<oid>()
   {
-    return "oid";
+    return "std::array<unsigned char, 12>";
   }
   
   template<>
