@@ -278,7 +278,7 @@ TEST(Encoding, MaxKey)
 TEST(Encoding, Regex)
 {
   unsigned char regex[] = {'a', 'b', 'c', 0, 'd', 'e', 'f', 0};
-  bson::Element e(bson::regex({std::string("abc"), std::string("def")}), bson::REGEX);
+  bson::Element e(bson::regex({std::string("abc"), std::string("def")}));
   std::ostringstream oss;
   e.encode(oss);
   std::string rep (oss.str());
@@ -290,7 +290,7 @@ TEST(Encoding, Regex)
 TEST(Encoding, DbPtr)
 {
   unsigned char dbptr[] = {2, 0, 0, 0, 'a', 0, 1,2,3,4,5,6,7,8,9,10,11,12};
-  bson::Element e(bson::dbptr({"a", {1,2,3,4,5,6,7,8,9,10,11,12}}), bson::DBPTR);
+  bson::Element e(bson::dbptr({"a", {1,2,3,4,5,6,7,8,9,10,11,12}}));
   std::ostringstream oss;
   e.encode(oss);
   std::string rep (oss.str());

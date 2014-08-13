@@ -171,4 +171,10 @@ namespace bson
     }
     return result;
   }
+  
+  void Element::make_void(const TypeInfo type)
+  {
+    m_type = type == _UNKNOWN ? default_type<void>() : type;
+    type_check<void>();
+  }
 }
