@@ -289,7 +289,7 @@ TEST(Encoding, DbPtr)
   }
 }
 
-/*TEST(Encoding, EmptyJS)
+TEST(Encoding, EmptyJS)
 {
   unsigned char jscd[] = {14, 0, 0, 0,
                           1, 0, 0, 0, 0, 
@@ -319,4 +319,28 @@ TEST(Encoding, NonEmptyJS)
   ASSERT_EQ(22, e.decode(jscd, bson::JS_SCOPE));
   ASSERT_EQ(std::string("$"), e.data<bson::jscode_scope>().first);
   ASSERT_EQ(3, e.data<bson::jscode_scope>().second["0"].data<int>());
-}*/
+}
+
+TEST(Encoding, BinaryEmpty)
+{
+  unsigned char bin[] = {0,0,0,0,0};
+  bson::Element e(bson::binary({0,""}));
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep(oss.str());
+  ASSERT_EQ(5, rep.size());
+  for (int i=0; i<rep.size(); i++)
+    ASSERT_EQ(bin[i], static_cast<unsigned char>(rep[i]));
+}
+
+TEST(Encoding, BinaryNonEmpty)
+{
+  unsigned char bin[] = {7,0,0,0,0,'q','w','e','r','t','y','u'};
+  bson::Element e(bson::binary({0,"qwertyu"}));
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep(oss.str());
+  ASSERT_EQ(12, rep.size());
+  for (int i=0; i<rep.size(); i++)
+    ASSERT_EQ(bin[i], static_cast<unsigned char>(rep[i]));
+}
