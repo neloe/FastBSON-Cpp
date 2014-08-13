@@ -156,19 +156,15 @@ TEST(StringRepresentation, MaxKey)
   e.make_void(bson::MAXKEY);
   ASSERT_EQ(std::string(""), static_cast<std::string>(e));
 }
-/*
+
 TEST(StringRepresentation, Regex)
 {
   unsigned char regex[] = {'a', 'b', 'c', 0, 'd', 'e', 'f', 0};
   bson::Element e(bson::regex({std::string("abc"), std::string("def")}), bson::REGEX);
-  std::ostringstream oss;
-  e.encode(oss);
-  std::string rep (oss.str());
-  ASSERT_EQ(8, rep.size());
-  for (int i=0; i<8; i++)
-    ASSERT_EQ(regex[i], static_cast<unsigned char>(rep[i]));
+  const std::string strrep("regex : [ abc, def ]");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-
+/*
 TEST(StringRepresentation, DbPtr)
 {
   unsigned char dbptr[] = {2, 0, 0, 0, 'a', 0, 1,2,3,4,5,6,7,8,9,10,11,12};

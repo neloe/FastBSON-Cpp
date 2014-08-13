@@ -54,7 +54,7 @@ namespace bson
   std::string Element::_to_std_str<regex>() const
   {
     std::ostringstream oss;
-    oss << "regex: [ ";
+    oss << "regex : [ ";
     oss << std::static_pointer_cast<regex>(m_data) -> first << ", "
         << std::static_pointer_cast<regex>(m_data) -> second << " ]";
     return oss.str();
