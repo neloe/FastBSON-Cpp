@@ -51,6 +51,7 @@ namespace bson
   template <>
   std::string Element::_to_std_str<std::string>() const
   {
-    return *(std::static_pointer_cast<std::string>(m_data));
+    //Wrap this bad boy in quotes so that we match json
+    return "\"" + *(std::static_pointer_cast<std::string>(m_data)) + "\"";
   }
 }
