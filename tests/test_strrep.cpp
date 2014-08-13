@@ -135,37 +135,28 @@ TEST(StringRepresentation, BoolFalse)
   const std::string strrep("false");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-/*
+
 TEST(StringRepresentation, Nil)
 {
   bson::Element e;
-  std::ostringstream oss;
   e.make_void();
-  ASSERT_EQ(bson::NIL, e.get_type());
-  e.encode(oss);
-  ASSERT_EQ(0,oss.str().size());
+  ASSERT_EQ(std::string(""), static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, MinKey)
 {
   bson::Element e;
-  std::ostringstream oss;
   e.make_void(bson::MINKEY);
-  ASSERT_EQ(bson::MINKEY, e.get_type());
-  e.encode(oss);
-  ASSERT_EQ(0,oss.str().size());
+  ASSERT_EQ(std::string(""), static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, MaxKey)
 {
   bson::Element e;
-  std::ostringstream oss;
   e.make_void(bson::MAXKEY);
-  ASSERT_EQ(bson::MAXKEY, e.get_type());
-  e.encode(oss);
-  ASSERT_EQ(0,oss.str().size());
+  ASSERT_EQ(std::string(""), static_cast<std::string>(e));
 }
-
+/*
 TEST(StringRepresentation, Regex)
 {
   unsigned char regex[] = {'a', 'b', 'c', 0, 'd', 'e', 'f', 0};
