@@ -59,7 +59,7 @@ TEST(Decoding, Document)
   ASSERT_EQ(1, fields.count("d"));
   ASSERT_EQ(1, fields.count("l"));
   
-  ASSERT_EQ(std::string("b"), std::string(e.data<bson::Document>()["s"]));
+  ASSERT_EQ(std::string("\"b\""), std::string(e.data<bson::Document>()["s"]));
   ASSERT_EQ(1234, e.data<bson::Document>()["i"].data<int>());
   ASSERT_EQ(1223412345622, e.data<bson::Document>()["l"].data<long>());
   ASSERT_EQ(3.14000, e.data<bson::Document>()["d"].data<double>());

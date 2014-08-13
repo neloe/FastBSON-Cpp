@@ -84,37 +84,23 @@ TEST(StringRepresentation, DocEmptyDoc)
   const std::string strrep("{ d : {  } }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-/*
+
 TEST(StringRepresentation, DocNonEmptyDoc)
 {
   bson::Document d, d1;
   d1.add("s", std::string("b"));
   d.add("d", d1);
-  ASSERT_EQ(bson::DOCUMENT, d["d"].get_type());
-  const unsigned char BSON_REP[] = {0x16, 0, 0, 0, 0x03, 'd', 0, 0x0E, 0, 0, 0, 0x2, 's', 0, 2, 0, 0, 0, 'b', 0, 0, 0};
   bson::Element e(d);
-  std::ostringstream oss;
-  std::string strrep;
-  e.encode(oss);
-  strrep = oss.str();
-  ASSERT_EQ(BSON_REP[0], strrep.size());
-  for (int i=0; i< strrep.size(); i++)
-    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+  const std::string strrep("{ d : { s : \"b\" } }");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, EmptyArray)
 {
   std::vector<bson::Element> v;
   bson::Element e(v);
-  ASSERT_EQ(bson::ARRAY, e.get_type());
-  const unsigned char BSON_REP[] = {5, 0, 0, 0, 0};
-  std::ostringstream oss;
-  std::string strrep;
-  e.encode(oss);
-  strrep = oss.str();
-  ASSERT_EQ(BSON_REP[0], strrep.size());
-  for (int i=0; i< strrep.size(); i++)
-    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+  const std::string strrep("[  ]");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, ArrayOneInt32)
@@ -122,15 +108,8 @@ TEST(StringRepresentation, ArrayOneInt32)
   std::vector<bson::Element> v;
   v.push_back(bson::Element(4));
   bson::Element e(v);
-  ASSERT_EQ(bson::ARRAY, e.get_type());
-  const unsigned char BSON_REP[] = {0x0c, 0, 0, 0, 0x10, '0', 0, 4, 0, 0, 0, 0};
-  std::ostringstream oss;
-  std::string strrep;
-  e.encode(oss);
-  strrep = oss.str();
-  ASSERT_EQ(BSON_REP[0], strrep.size());
-  for (int i=0; i< strrep.size(); i++)
-    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+  const std::string strrep("[ 4 ]");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, ArrayTwoVals)
@@ -139,17 +118,10 @@ TEST(StringRepresentation, ArrayTwoVals)
   v.push_back(bson::Element(4));
   v.push_back(bson::Element(std::string("b")));
   bson::Element e(v);
-  ASSERT_EQ(bson::ARRAY, e.get_type());
-  const unsigned char BSON_REP[] = {0x15, 0, 0, 0, 0x10, '0', 0, 4, 0, 0, 0, 0x02, '1', 0, 2, 0, 0, 0, 'b', 0, 0};
-  std::ostringstream oss;
-  std::string strrep;
-  e.encode(oss);
-  strrep = oss.str();
-  ASSERT_EQ(BSON_REP[0], strrep.size());
-  for (int i=0; i< strrep.size(); i++)
-    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+  const std::string strrep("[ 4, \"b\" ]");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-
+/*
 TEST(StringRepresentation, BoolTrue)
 {
   bson::Element e(true);
