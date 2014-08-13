@@ -22,7 +22,7 @@ namespace bson
   template<>
   std::string to_string<binary>()
   {
-    return "javascript code with scope";
+    return "std::pair<char, std::string>";
   }
   
   template<>
