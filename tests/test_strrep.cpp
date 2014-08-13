@@ -121,31 +121,21 @@ TEST(StringRepresentation, ArrayTwoVals)
   const std::string strrep("[ 4, \"b\" ]");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-/*
+
 TEST(StringRepresentation, BoolTrue)
 {
   bson::Element e(true);
-  ASSERT_EQ(bson::BOOL, e.get_type());
-  std::ostringstream oss;
-  std::string strrep;
-  e.encode(oss);
-  strrep = oss.str();
-  ASSERT_EQ(1, strrep.size());
-  ASSERT_EQ(1, strrep.c_str()[0]);
+  const std::string strrep("true");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
 TEST(StringRepresentation, BoolFalse)
 {
   bson::Element e(false);
-  ASSERT_EQ(bson::BOOL, e.get_type());
-  std::ostringstream oss;
-  std::string strrep;
-  e.encode(oss);
-  strrep = oss.str();
-  ASSERT_EQ(1, strrep.size());
-  ASSERT_EQ(0, strrep.c_str()[0]);
+  const std::string strrep("false");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-
+/*
 TEST(StringRepresentation, Nil)
 {
   bson::Element e;
