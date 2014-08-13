@@ -107,7 +107,7 @@ namespace bson
   std::string Element::_to_std_str<dbptr>() const
   {
     std::ostringstream oss;
-    oss << "dbptr: [ ";
+    oss << "dbptr : [ ";
     oss << std::static_pointer_cast<dbptr>(m_data) -> first << ", ";
     for (const char c: std::static_pointer_cast<dbptr>(m_data) -> second)
       oss << c;

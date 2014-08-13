@@ -164,21 +164,15 @@ TEST(StringRepresentation, Regex)
   const std::string strrep("regex : [ abc, def ]");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-/*
+
 TEST(StringRepresentation, DbPtr)
 {
   unsigned char dbptr[] = {2, 0, 0, 0, 'a', 0, 1,2,3,4,5,6,7,8,9,10,11,12};
   bson::Element e(bson::dbptr({"a", {1,2,3,4,5,6,7,8,9,10,11,12}}), bson::DBPTR);
-  std::ostringstream oss;
-  e.encode(oss);
-  std::string rep (oss.str());
-  ASSERT_EQ(18, rep.size());
-  for (int i=0; i<18; i++)
-  {
-    ASSERT_EQ(dbptr[i], static_cast<unsigned char>(rep[i]));
-  }
+  const std::string strrep("dbptr : [ a, \x1\x2\x3\x4\x5\x6\x7\x8\x9\xa\xb\xc ]");
+  ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
-
+/*
 TEST(StringRepresentation, EmptyJS)
 {
   unsigned char jscd[] = {14, 0, 0, 0,
