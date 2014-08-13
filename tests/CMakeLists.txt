@@ -20,6 +20,7 @@ test_decoding.cpp
 test_json.cpp
 test_elm.cpp
 test_strrep.cpp
+test_exception_text.cpp
 )
 
 add_executable(tests ${test_sources})
