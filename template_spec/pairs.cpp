@@ -70,7 +70,7 @@ namespace bson
   template<>
   std::string to_string<dbptr>()
   {
-    return "dbptr>";
+    return "std::pair<std::string, std::array<unsigned char, 12>>";
   }
   
   template<>

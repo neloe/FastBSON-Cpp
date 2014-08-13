@@ -123,3 +123,16 @@ TEST(ExceptionText, FromRegex)
     ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<std::string, std::string> and BSON type: string"), std::string(e.what()));
   }
 }
+
+TEST(ExceptionText, FromDBPtr)
+{
+  try
+  {
+    bson::Element e(bson::dbptr({}), bson::STRING);
+    FAIL();
+  }
+  catch (bson::type_error & e)
+  {
+    ASSERT_EQ(std::string ("Invalid conversion between C++ type: std::pair<std::string, std::array<unsigned char, 12>> and BSON type: string"), std::string(e.what()));
+  }
+}
