@@ -18,6 +18,18 @@ TEST(Encoding, Int32)
     ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
 }
 
+TEST(Encoding, short)
+{
+  bson::Element e(static_cast<short>(1234));
+  const unsigned char BSON_REP[] = {0xd2, 4, 0, 0};
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  for (int i=0; i<4; i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
 TEST(Encoding, Int64)
 {
   bson::Element e(1223412345622);
