@@ -64,10 +64,11 @@ The FastBSON library is based around using standard data types to represent the 
 |timestamp |||
 |UTC datetime |||
 |int32           |`int`||
-|min key |`void`||
+|null |`void`||
+|min key |||
 |max key |||
 |undefined |||
-|null |||
+
 |boolean | `bool`||
 
 The are two primary entry points into the BSON library: `bson::Document` and `bson::Element`.  The Element contains any one of the BSON types.
@@ -92,10 +93,50 @@ Fields can be added to the document using the add method
 `d.add("some_field_name", 42);`
 
 #### Field access
-Individual fields are accessed through the names of the fields through the `[]` operator.  The fieldnames can be gotten using
+Individual fields are accessed through the names of the fields through the `[]` operator, which returns an element (see below).  The fieldnames can be gotten using
 `std::set<std::string> fnames = d.field_names()`
 
+### bson::Element
+#### Construction
+Elements are immutable; when you change the value, the memory is managed such that you're creating a new element.  Much of this nastiness is hidden from you.  Construction of an Element is easy:
+```c++
+bson::Element e (10)                   // creates an element holding an integer
+bson::Element e2(10l, bson::TIMESTAMP) //creates an element that stores the long 10, but considers itself a timestamp
+```
 
+If no type information is provided to the constructor, the default bson type for the c++ type you give it (as specified in the table above) is chosen
+
+#### Retrieving data
+Retrieval of data is done using a templated `data` function.  There are two ways to retrieve the data:
+```c++
+int myint;
+long atimestamp;
+myint = e.data<int>();
+e2.data(atimestamp);
+```
+
+If the type you provide as the template argument is not defined as compatible with the bson type, an exception will be thrown.  The type the element is holding can be found with
+`e.get_type()`
+
+#### Encoding
+Elements can be encoded to an output string stream (that can generate a std::string).  This is used when you want to send the bson over the wire
+```c++
+std::ostringstream oss;
+e.encode(oss);
+// or
+bson::Element::encode(oss, e2); //this method is helpful to quickly encode dictionaries
+// oss.str() now contains the series of bytes that represents the bson Element
+```
+
+#### Decoding
+Elements are decoded from arrays of `unsigned char`s.  This operation is used when receiving bson from an encoded stream (mongoDB's wire format, for example) and decodes it into the C++ types.
+```c++
+unsigned char* bytes;
+//However you get your array of bytes
+e.decode(bytes);
+// or
+bson::Element::decode(bytes, e2);
+```
 =======
 
 
