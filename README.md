@@ -68,7 +68,6 @@ The FastBSON library is based around using standard data types to represent the 
 |min key |||
 |max key |||
 |undefined |||
-
 |boolean | `bool`||
 
 The are two primary entry points into the BSON library: `bson::Document` and `bson::Element`.  The Element contains any one of the BSON types.
