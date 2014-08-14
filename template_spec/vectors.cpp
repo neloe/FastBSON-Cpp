@@ -54,7 +54,6 @@ namespace bson
   template<>
   void Element::serialize_bson<array>(std::ostringstream& oss) const
   {
-    int size = std::static_pointer_cast<array>(m_data) -> size();
     int index = 0;
     std::ostringstream data_ser;
     for (const Element & e: *(std::static_pointer_cast<array>(m_data)))

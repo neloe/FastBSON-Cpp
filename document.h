@@ -55,7 +55,7 @@ namespace bson
        * \pre None
        * \post creates the element in the map. If name already exists in the document the value is overwritten
        */ 
-      void add (const std::string name, const Element& data) {m_data.emplace(name, data); m_field_names.insert(name);}
+      void add (const std::string & name, const Element& data) {m_data.emplace(name, data); m_field_names.insert(name);}
       /*!
        * \brief element addition
        * \pre T must be template specialized for the Element class
@@ -63,7 +63,7 @@ namespace bson
        * \post creates the element in the map. If name already exists in the document the value is overwritten
        */ 
       template <class T>
-      void add (const std::string name, const T& data, const TypeInfo ti = _UNKNOWN) {m_data[name] = Element(data, ti); m_field_names.insert(name);}
+      void add (const std::string & name, const T& data, const TypeInfo ti = _UNKNOWN) {m_data[name] = Element(data, ti); m_field_names.insert(name);}
       
       /*!
        * \brief element modification
@@ -71,7 +71,7 @@ namespace bson
        * \post changes the element at index name
        * \throws std::out_of_range if name is not in the Document
        */
-      void set(const std::string name, const Element& data) {m_data.at(name) = data;}
+      void set(const std::string & name, const Element& data) {m_data.at(name) = data;}
       /*!
        * \brief element modification
        * \pre name exists as an index in the document
@@ -132,18 +132,7 @@ namespace bson
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)
   {
-    bool first = true;
-    oss << "{ ";
-    for (std::pair<std::string, Element> p: d.m_data)
-    {
-      if (!first)
-      {
-	oss << ", ";
-      }
-      first = false;
-      oss << p.first << " : " << static_cast<std::string>(p.second);
-    }
-    oss << " }";
-    return oss;
+    Element e(d);
+    oss << static_cast<std::string>(e);
   }
 }

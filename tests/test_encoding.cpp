@@ -18,6 +18,18 @@ TEST(Encoding, Int32)
     ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
 }
 
+TEST(Encoding, Short)
+{
+  bson::Element e(static_cast<short>(1234));
+  const unsigned char BSON_REP[] = {0xd2, 4, 0, 0};
+  std::ostringstream oss;
+  std::string strrep;
+  e.encode(oss);
+  strrep = oss.str();
+  for (int i=0; i<4; i++)
+    ASSERT_EQ(BSON_REP[i], static_cast<unsigned char>(strrep.c_str()[i]));
+}
+
 TEST(Encoding, Int64)
 {
   bson::Element e(1223412345622);
@@ -266,7 +278,7 @@ TEST(Encoding, MaxKey)
 TEST(Encoding, Regex)
 {
   unsigned char regex[] = {'a', 'b', 'c', 0, 'd', 'e', 'f', 0};
-  bson::Element e(bson::regex({std::string("abc"), std::string("def")}), bson::REGEX);
+  bson::Element e(bson::regex({std::string("abc"), std::string("def")}));
   std::ostringstream oss;
   e.encode(oss);
   std::string rep (oss.str());
@@ -278,7 +290,7 @@ TEST(Encoding, Regex)
 TEST(Encoding, DbPtr)
 {
   unsigned char dbptr[] = {2, 0, 0, 0, 'a', 0, 1,2,3,4,5,6,7,8,9,10,11,12};
-  bson::Element e(bson::dbptr({"a", {1,2,3,4,5,6,7,8,9,10,11,12}}), bson::DBPTR);
+  bson::Element e(bson::dbptr({"a", {1,2,3,4,5,6,7,8,9,10,11,12}}));
   std::ostringstream oss;
   e.encode(oss);
   std::string rep (oss.str());
@@ -289,7 +301,7 @@ TEST(Encoding, DbPtr)
   }
 }
 
-/*TEST(Encoding, EmptyJS)
+TEST(Encoding, EmptyJS)
 {
   unsigned char jscd[] = {14, 0, 0, 0,
                           1, 0, 0, 0, 0, 
@@ -319,4 +331,28 @@ TEST(Encoding, NonEmptyJS)
   ASSERT_EQ(22, e.decode(jscd, bson::JS_SCOPE));
   ASSERT_EQ(std::string("$"), e.data<bson::jscode_scope>().first);
   ASSERT_EQ(3, e.data<bson::jscode_scope>().second["0"].data<int>());
-}*/
+}
+
+TEST(Encoding, BinaryEmpty)
+{
+  unsigned char bin[] = {0,0,0,0,0};
+  bson::Element e(bson::binary({0,""}));
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep(oss.str());
+  ASSERT_EQ(5, rep.size());
+  for (int i=0; i<rep.size(); i++)
+    ASSERT_EQ(bin[i], static_cast<unsigned char>(rep[i]));
+}
+
+TEST(Encoding, BinaryNonEmpty)
+{
+  unsigned char bin[] = {7,0,0,0,0,'q','w','e','r','t','y','u'};
+  bson::Element e(bson::binary({0,"qwertyu"}));
+  std::ostringstream oss;
+  e.encode(oss);
+  std::string rep(oss.str());
+  ASSERT_EQ(12, rep.size());
+  for (int i=0; i<rep.size(); i++)
+    ASSERT_EQ(bin[i], static_cast<unsigned char>(rep[i]));
+}

@@ -28,7 +28,7 @@ TEST(Element, CreateFromCStrBumTypeText)
   }
   catch (bson::type_error & e)
   {
-    ASSERT_STREQ("Invalid conversion from C++ type: std::string to BSON type: int32", e.what());
+    ASSERT_STREQ("Invalid conversion between C++ type: std::string and BSON type: int32", e.what());
   }
 }
 

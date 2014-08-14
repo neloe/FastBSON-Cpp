@@ -22,7 +22,7 @@ namespace bson
   template<>
   std::string to_string<jscode_scope>()
   {
-    return "javascript code with scope";
+    return "std::pair<std::string, bson::Document>";
   }
   
   template<>
@@ -52,8 +52,9 @@ namespace bson
     std::shared_ptr<jscode_scope> data(std::static_pointer_cast<jscode_scope>(m_data));
     std::ostringstream temp;
     _to_stream(temp, data -> first);
-    _to_stream(temp, data -> second);
-    _to_stream(oss, static_cast<int>(temp.tellp()));
+    //_to_stream(temp, data -> second);
+    Element::encode(temp, data->second);
+    _to_stream(oss, static_cast<int>(temp.tellp()) + 4);
     oss << temp.str();
     return;
   }

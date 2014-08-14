@@ -21,7 +21,7 @@ namespace bson
   template<>
   std::string to_string<regex>()
   {
-    return "regex>";
+    return "std::pair<std::string, std::string>";
   }
   
   template<>
@@ -54,7 +54,7 @@ namespace bson
   std::string Element::_to_std_str<regex>() const
   {
     std::ostringstream oss;
-    oss << "regex: [ ";
+    oss << "regex : [ ";
     oss << std::static_pointer_cast<regex>(m_data) -> first << ", "
         << std::static_pointer_cast<regex>(m_data) -> second << " ]";
     return oss.str();
@@ -70,7 +70,7 @@ namespace bson
   template<>
   std::string to_string<dbptr>()
   {
-    return "dbptr>";
+    return "std::pair<std::string, std::array<unsigned char, 12>>";
   }
   
   template<>
@@ -107,7 +107,7 @@ namespace bson
   std::string Element::_to_std_str<dbptr>() const
   {
     std::ostringstream oss;
-    oss << "dbptr: [ ";
+    oss << "dbptr : [ ";
     oss << std::static_pointer_cast<dbptr>(m_data) -> first << ", ";
     for (const char c: std::static_pointer_cast<dbptr>(m_data) -> second)
       oss << c;

@@ -22,7 +22,7 @@ namespace bson
   template<>
   std::string to_string<binary>()
   {
-    return "javascript code with scope";
+    return "std::pair<char, std::string>";
   }
   
   template<>
@@ -47,9 +47,10 @@ namespace bson
   void Element::serialize_bson<binary>(std::ostringstream& oss) const
   {
     std::shared_ptr<binary> data(std::static_pointer_cast<binary>(m_data));
-    _to_stream(oss, data->second.size());
-    _to_stream(oss, data -> first);
-    _to_stream(oss, data -> second);
+    _to_stream(oss, static_cast<int>(data->second.size()));
+    oss << data -> first;
+    for (int i=0; i<data->second.size(); i++) //Have to avoid that stupid  null at the end of the string
+      oss << data->second[i];
     return;
   }
   
@@ -59,7 +60,7 @@ namespace bson
     std::ostringstream oss;
     std::shared_ptr<binary> data(std::static_pointer_cast<binary>(m_data));
     oss << "binary : { size : " << data->second.size() << ", type : "
-        << data -> first << ", bytes: " << data -> second << " }";
+        << data -> first << ", bytes : " << data -> second << " }";
     return oss.str();
   }
 }

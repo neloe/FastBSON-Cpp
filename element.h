@@ -48,8 +48,6 @@ namespace bson
       
       Element(const char* data, const TypeInfo type = _UNKNOWN);
       
-      void make_void(const TypeInfo type = NIL) {m_type = type; type_check<void>();}
-      
       /*!
        * \brief decoding constructor
        * \pre type is compatible with the kind of data in the char*
@@ -57,6 +55,13 @@ namespace bson
        */
       Element(const unsigned char* data, const TypeInfo & type) {decode(data, type);}
       
+      /*!
+       * \brief Create a "void" element (NULL, MINKEY, MAXKEY)
+       * \pre None
+       * \post Makes this element a void element
+       */
+      void make_void(const TypeInfo type = _UNKNOWN);
+            
       /*!
        * \brief decodes a byte string into the calling object
        * \pre m_type reflects the object type that is BSON encoded in data
@@ -164,24 +169,6 @@ namespace bson
       template <typename T>
       std::string _to_std_str() const;
   };
-
-  /*!
-   * \brief converts a type name to a string (for exceptions)
-   * \pre Specialized for any and all types
-   * \post None
-   * \return the name of the type as a string
-   */
-  template <typename T>
-  std::string to_string();
-  
-  /*!
-   * \brief determines the default type for type T
-   * \pre Specialized for types
-   * \post None
-   * \return the typeinfo that type T should default to.
-   */
-  template <typename T>
-  TypeInfo default_type();
   
 }
 

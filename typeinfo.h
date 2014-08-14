@@ -21,14 +21,28 @@ namespace bson
 		 MINKEY=0xFF, MAXKEY=0x7F
   };
   
+  /*!
+   * \brief converts a type name to a string (for exceptions)
+   * \pre Specialized for any and all types
+   * \post None
+   * \return the name of the type as a string
+   */
+  template <typename T>
+  std::string to_string();
+  
+  /*!
+   * \brief determines the default type for type T
+   * \pre Specialized for types
+   * \post None
+   * \return the typeinfo that type T should default to.
+   */
+  template <typename T>
+  TypeInfo default_type();
+  
   inline char to_char(const TypeInfo & ti)
   {
     return static_cast<char>((int)ti);
   }
-  
-  //forward declaration
-  template <class T>
-  std::string to_string();
   
   inline std::string to_string(const TypeInfo & ti)
   {
@@ -38,7 +52,7 @@ namespace bson
   class type_error: public std::exception
   {
     public:
-      type_error(const TypeInfo & ti, const std::string & ctype) {m_err = "Invalid conversion from C++ type: " + ctype + " to BSON type: " + to_string(ti);}
+      type_error(const TypeInfo & ti, const std::string & ctype): m_err ("Invalid conversion between C++ type: " + ctype + " and BSON type: " + to_string(ti)) {}
       virtual const char* what() const noexcept
       {
 	return m_err.c_str();
