@@ -42,6 +42,60 @@ Prerequisites
 
 This software requires the following programs to compile (install as appropriate for your operating system): bison, flex, lcov, cmake, a C++11 compliant compiler (clang 3.X+, g++ 4.7+)
 
+
+Getting Started
+---------------
+
+The FastBSON library is based around using standard data types to represent the constructions in the BSON spec (see http://bsonspec.org).  The following is a mapping of bson objects to the default types
+
+|BSON Type       |C++ data type                                                    | Helper typedef  |
+|:--------------:|:---------------------------------------------------------------:|:---------------:|
+|array           | `std::vector<bson::Element>`                                    | `bson::array`   |
+|objectID        | `std::array<unsigned char, 12>`                                 | `bson::oid`     |
+|regex           | `std::pair<std::string, std::string>`                           | `bson::regex`   |
+|database ptr    | `std::pair<std::string, std::array<unsigned char, 12>>`         | `bson::dbptr`   |
+|scoped JS code  | `std::pair<std::string, bson::Document>`                        | `bson::jscode_scope` |
+|binary          | `std::pair<unsigned char, std::string>`                         | `bson::binary`|
+|document        | `bson::Document`||
+|string          | `std::string` ||
+|JS code         |||
+|deprecated      |||
+|int64           |`long`||
+|timestamp |||
+|UTC datetime |||
+|int32           |`int`||
+|min key |`void`||
+|max key |||
+|undefined |||
+|null |||
+|boolean | `bool`||
+
+The are two primary entry points into the BSON library: `bson::Document` and `bson::Element`.  The Element contains any one of the BSON types.
+
+### bson::Document
+#### Construction
+To create a new, empty document:
+`bson::Document d;`
+
+A document can also be created with an initialization list of pairs of string/Element pairs (types in the table above are implicitly converted to Elements)
+`bson::Document d1({{"a", 1}, {"b", "hello}, {"pi", 3.14}});`
+
+Documents can also be created with json strings
+```c++
+std::string valid_json;
+//put valid json here...
+bson::Document d (valid_json);
+```
+
+#### Element addition
+Fields can be added to the document using the add method
+`d.add("some_field_name", 42);`
+
+#### Field access
+Individual fields are accessed through the names of the fields through the `[]` operator.  The fieldnames can be gotten using
+`std::set<std::string> fnames = d.field_names()`
+
+
 =======
 
 
