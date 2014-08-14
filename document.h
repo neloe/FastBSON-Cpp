@@ -128,6 +128,14 @@ namespace bson
        * \post This document contains information matching the JSON string
        */
       void from_json(const std::string& json);
+      
+      /*!
+       * \brief convenience function to get the size of the dictionary
+       * \pre None
+       * \post None
+       * \returns Number of elements in the document
+       */
+      int size() const {return m_field_names.size();}
   };
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)
