@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wno-deprecated-register ${CMAKE_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG "-std=c++11 -Wno-deprecated-register -O0 --coverage ${CMAKE_CXX_FLAGS_DEBUG}")
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules/)
 
-find_package(BISON)
+find_package(BISON 3 REQUIRED)
 find_package(FLEX)
 BISON_TARGET(jsonParser json/json.yy ${CMAKE_CURRENT_BINARY_DIR}/json.tab.cpp)
 FLEX_TARGET(jsonLexer json/json.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cpp)
@@ -30,10 +30,8 @@ element.cpp
 )
 add_library(fastbson SHARED ${bson_src} ${BISON_jsonParser_OUTPUTS} ${FLEX_jsonLexer_OUTPUTS})
 
-add_executable(bson_runner main.cpp)
-target_link_libraries(bson_runner fastbson)
 add_subdirectory(tests)
 
 include(CodeCoverage)
-setup_target_for_coverage(${PROJECT_NAME}_coverage tests coverage)
-setup_target_for_coverage_cobertura(${PROJECT_NAME}_cobertura tests coverage --gtest_output=xml:coverage.junit.xml)
+setup_target_for_coverage(${PROJECT_NAME}_coverage bsontests coverage)
+setup_target_for_coverage_cobertura(${PROJECT_NAME}_cobertura bsontests coverage --gtest_output=xml:coverage.junit.xml)
