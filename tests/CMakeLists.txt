@@ -8,7 +8,10 @@ SET(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 #add gtest
 add_subdirectory(gtest-1.7.0)
+
+if (TARGET gtest_main)
 include_directories(${gtest_SOURCE_DIR}/include)
+endif()
 
 #the actual source directory
 include_directories(..)
@@ -23,8 +26,8 @@ test_strrep.cpp
 test_exception_text.cpp
 )
 
-add_executable(tests ${test_sources})
-target_link_libraries(tests fastbson gtest_main)
+add_executable(bsontests ${test_sources})
+target_link_libraries(bsontests fastbson gtest_main)
 
 #add_custom_command(TARGET tests 
 #                   POST_BUILD
