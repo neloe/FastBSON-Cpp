@@ -26,8 +26,8 @@ test_strrep.cpp
 test_exception_text.cpp
 )
 
-add_executable(tests ${test_sources})
-target_link_libraries(tests fastbson gtest_main)
+add_executable(bsontests ${test_sources})
+target_link_libraries(bsontests fastbson gtest_main)
 
 #add_custom_command(TARGET tests 
 #                   POST_BUILD
