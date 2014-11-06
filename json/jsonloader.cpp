@@ -30,11 +30,15 @@ namespace bson
   {
     std::istringstream iss;
     iss.str(jsonstr);
-    scanner = std::shared_ptr<JSON_Scanner>(new JSON_Scanner(iss));
+    return parse(iss);
+  }
+  const Document& JSON_Loader::parse(std::istream& jsonstream)
+  {
+    scanner = std::shared_ptr<JSON_Scanner>(new JSON_Scanner(jsonstream));
     parser = std::shared_ptr<JSON_Parser>(new JSON_Parser(*scanner, *this));
     parser->parse();
     //TODO handle errors here
     return m_doc;
   }
-
 }
+
