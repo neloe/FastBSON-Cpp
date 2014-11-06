@@ -37,6 +37,7 @@ namespace bson
       
       void set_doc(const Document & doc) {m_doc = doc;}
       const Document& parse(const std::string& jsonstr);
+      const Document& parse(std::istream& jsonstream);
       
     private:
       Document m_doc;

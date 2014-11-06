@@ -159,5 +159,6 @@ namespace bson
   {
     Element e(d);
     oss << static_cast<std::string>(e);
+    return oss;
   }
 }
