@@ -71,7 +71,7 @@ TEST(StringRepresentation, DocSingleI32)
 {
   bson::Document d({{"i", 1234}});
   bson::Element e(d);
-  const std::string strrep("{ i : 1234 }");
+  const std::string strrep("{ \"i\" : 1234 }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
@@ -80,7 +80,7 @@ TEST(StringRepresentation, DocSingleI64)
   bson::Document d;
   d.add("l", 1223412345622);
   bson::Element e(d);
-  const std::string strrep("{ l : 1223412345622 }");
+  const std::string strrep("{ \"l\" : 1223412345622 }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
@@ -89,7 +89,7 @@ TEST(StringRepresentation, DocSingleString)
   bson::Document d;
   d.add("s", std::string("b"));
   bson::Element e(d);
-  const std::string strrep("{ s : \"b\" }");
+  const std::string strrep("{ \"s\" : \"b\" }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
@@ -98,8 +98,8 @@ TEST(StringRepresentation, DocMulti)
   bson::Document d({{"i", 1234}});
   d.add("s", std::string("b"));
   bson::Element e(d);
-  const std::string strrep1("{ s : \"b\", i : 1234 }");
-  const std::string strrep2("{ i : 1234, s : \"b\" }");
+  const std::string strrep1("{ \"s\" : \"b\", \"i\" : 1234 }");
+  const std::string strrep2("{ \"i\" : 1234, \"s\" : \"b\" }");
   ASSERT_TRUE(strrep1 == static_cast<std::string>(e) || strrep2 == static_cast<std::string>(e));
 }
 
@@ -108,7 +108,7 @@ TEST(StringRepresentation, DocEmptyDoc)
   bson::Document d, d1;
   d.add("d", d1);
   bson::Element e(d);
-  const std::string strrep("{ d : {  } }");
+  const std::string strrep("{ \"d\" : {  } }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
@@ -118,7 +118,7 @@ TEST(StringRepresentation, DocNonEmptyDoc)
   d1.add("s", std::string("b"));
   d.add("d", d1);
   bson::Element e(d);
-  const std::string strrep("{ d : { s : \"b\" } }");
+  const std::string strrep("{ \"d\" : { \"s\" : \"b\" } }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 
@@ -221,7 +221,7 @@ TEST(StringRepresentation, NonEmptyJS)
 			  0};
   bson::Element e;
   ASSERT_EQ(22, e.decode(jscd, bson::JS_SCOPE));
-  const std::string strrep("js_scope : { code : $, mapping : { 0 : 3 } }");
+  const std::string strrep("js_scope : { code : $, mapping : { \"0\" : 3 } }");
   ASSERT_EQ(strrep, static_cast<std::string>(e));
 }
 

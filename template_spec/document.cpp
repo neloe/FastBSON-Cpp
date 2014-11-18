@@ -98,7 +98,7 @@ namespace bson
 	oss << ", ";
       }
       first = false;
-      oss << p.first << " : " << static_cast<std::string>(p.second);
+      oss << '"' << p.first << '"' << " : " << static_cast<std::string>(p.second);
     }
     oss << " }";
     return oss.str();
