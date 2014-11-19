@@ -89,18 +89,7 @@ namespace bson
   std::string Element::_to_std_str<Document>() const
   {
     std::ostringstream oss;
-    bool first = true;
-    oss << "{ ";
-    for (const std::pair<std::string, Element>& p: std::static_pointer_cast<Document>(m_data)->m_data)
-    {
-      if (!first)
-      {
-	oss << ", ";
-      }
-      first = false;
-      oss << '"' << p.first << '"' << " : " << static_cast<std::string>(p.second);
-    }
-    oss << " }";
+    oss << *std::static_pointer_cast<Document>(m_data);    
     return oss.str();
   }
   

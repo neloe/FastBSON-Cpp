@@ -157,8 +157,16 @@ namespace bson
 
   inline std::ostream& operator << (std::ostream& oss, const Document& d)
   {
-    Element e(d);
-    oss << static_cast<std::string>(e);
+    oss << "{ ";
+    if (d.size() > 0)
+    {
+      auto it = d.begin();
+      oss << '"' << (*it).first << "\" : " << static_cast<std::string>((*it).second);
+      ++it;
+      for (; it != d.end(); ++it)
+	oss << ", \"" << (*it).first << "\" : " << static_cast<std::string>((*it).second);
+    }
+    oss << " }";
     return oss;
   }
 }
