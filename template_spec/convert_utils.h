@@ -90,9 +90,7 @@ namespace bson
   template <class T>
   void _to_stream(std::ostringstream& ss, const T& v)
   {
-    char* it = (char*)(&v);
-    for (int i=0; i<sizeof(T); ++i, ++it)
-      ss << *it;
+    ss.write((char*)(&v), sizeof(T));
   }
   
   template <>
