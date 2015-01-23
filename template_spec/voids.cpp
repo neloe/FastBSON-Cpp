@@ -27,39 +27,39 @@
 
 namespace bson
 {
-  template<>
-  TypeInfo default_type<void>()
-  {
-    return NIL;
-  }
-  
-  template <>
-  std::string to_string<void>()
-  {
-    return "void";
-  }
-  
-  template <>
-  bool Element::check_convert<void>() const
-  {
-    return m_type == NIL || m_type == MINKEY || m_type == MAXKEY || m_type == UNDEF;
-  }
-  
-  template<>
-  unsigned Element::deserialize_bytes<void>(const unsigned char* bytes)
-  {
-    return 0;
-  }
-  
-  template<>
-  void Element::serialize_bson<void>(std::ostringstream& oss) const
-  {
-    return;
-  }
-  
-  template <>
-  std::string Element::_to_std_str<void>() const
-  {
-    return "";
-  }
+    template<>
+    TypeInfo default_type<void>()
+    {
+        return NIL;
+    }
+
+    template <>
+    std::string to_string<void>()
+    {
+        return "void";
+    }
+
+    template <>
+    bool Element::check_convert<void>() const
+    {
+        return m_type == NIL || m_type == MINKEY || m_type == MAXKEY || m_type == UNDEF;
+    }
+
+    template<>
+    unsigned Element::deserialize_bytes<void> (const unsigned char *bytes)
+    {
+        return 0;
+    }
+
+    template<>
+    void Element::serialize_bson<void> (std::ostringstream &oss) const
+    {
+        return;
+    }
+
+    template <>
+    std::string Element::_to_std_str<void>() const
+    {
+        return "";
+    }
 }

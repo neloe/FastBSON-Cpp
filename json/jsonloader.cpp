@@ -26,19 +26,19 @@
 
 namespace bson
 {
-  const Document& JSON_Loader::parse(const std::string& jsonstr)
-  {
-    std::istringstream iss;
-    iss.str(jsonstr);
-    return parse(iss);
-  }
-  const Document& JSON_Loader::parse(std::istream& jsonstream)
-  {
-    scanner = std::shared_ptr<JSON_Scanner>(new JSON_Scanner(jsonstream));
-    parser = std::shared_ptr<JSON_Parser>(new JSON_Parser(*scanner, *this));
-    parser->parse();
-    //TODO handle errors here
-    return m_doc;
-  }
+    const Document &JSON_Loader::parse (const std::string &jsonstr)
+    {
+        std::istringstream iss;
+        iss.str (jsonstr);
+        return parse (iss);
+    }
+    const Document &JSON_Loader::parse (std::istream &jsonstream)
+    {
+        scanner = std::shared_ptr<JSON_Scanner> (new JSON_Scanner (jsonstream));
+        parser = std::shared_ptr<JSON_Parser> (new JSON_Parser (*scanner, *this));
+        parser->parse();
+        //TODO handle errors here
+        return m_doc;
+    }
 }
 

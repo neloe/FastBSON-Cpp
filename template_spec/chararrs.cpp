@@ -30,45 +30,45 @@
 
 namespace bson
 {
-  template<>
-  TypeInfo default_type<oid>()
-  {
-    return OID;
-  }
-  
-  template<>
-  std::string to_string<oid>()
-  {
-    return "std::array<unsigned char, 12>";
-  }
-  
-  template<>
-  bool Element::check_convert<oid>() const
-  {
-    return m_type == OID;
-  }
-  
-  template<>
-  unsigned Element::deserialize_bytes<oid>(const unsigned char* bytes)
-  {
-    m_data = std::shared_ptr<oid>(new oid);
-    std::memcpy(&(*(std::static_pointer_cast<oid>(m_data)))[0], bytes, OID_SIZE);
-    return OID_SIZE;
-  }
-  
-  template<>
-  void Element::serialize_bson<oid>(std::ostringstream& oss) const
-  {
-    _to_stream(oss, *(std::static_pointer_cast<oid>(m_data)));
-    return;
-  }
-  
-  template<>
-  std::string Element::_to_std_str<oid>() const
-  {
-    std::ostringstream oss;
-    for (int i=0; i<OID_SIZE; i++)
-      oss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>((*(std::static_pointer_cast<oid>(m_data)))[i]);
-    return oss.str();
-  }
+    template<>
+    TypeInfo default_type<oid>()
+    {
+        return OID;
+    }
+
+    template<>
+    std::string to_string<oid>()
+    {
+        return "std::array<unsigned char, 12>";
+    }
+
+    template<>
+    bool Element::check_convert<oid>() const
+    {
+        return m_type == OID;
+    }
+
+    template<>
+    unsigned Element::deserialize_bytes<oid> (const unsigned char *bytes)
+    {
+        m_data = std::shared_ptr<oid> (new oid);
+        std::memcpy (& (* (std::static_pointer_cast<oid> (m_data)))[0], bytes, OID_SIZE);
+        return OID_SIZE;
+    }
+
+    template<>
+    void Element::serialize_bson<oid> (std::ostringstream &oss) const
+    {
+        _to_stream (oss, * (std::static_pointer_cast<oid> (m_data)));
+        return;
+    }
+
+    template<>
+    std::string Element::_to_std_str<oid>() const
+    {
+        std::ostringstream oss;
+        for (int i = 0; i < OID_SIZE; i++)
+            oss << std::hex << std::setw (2) << std::setfill ('0') << static_cast<int> ((* (std::static_pointer_cast<oid> (m_data)))[i]);
+        return oss.str();
+    }
 }
