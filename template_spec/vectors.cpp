@@ -75,7 +75,7 @@ namespace bson
         std::ostringstream data_ser;
         for (const Element &e : * (std::static_pointer_cast<array> (m_data)))
         {
-            data_ser << to_char (e.m_type) << itos (index++) << X00;
+            data_ser << to_char (e.m_type) << std::to_string (index++) << X00;
             e.encode (data_ser);
         }
         _to_stream (oss, static_cast<int> (5 + data_ser.tellp()));

@@ -51,12 +51,12 @@ namespace bson
     template<>
     unsigned Element::deserialize_bytes<binary> (const unsigned char *bytes)
     {
-        binary data;
+        std::shared_ptr<binary> data(new binary);
         int size;
         std::memcpy (&size, bytes, 4);
-        data.first = bytes[5];
-        data.second = std::string ((char *)bytes + 5, size);
-        m_data = make_void_shared (data);
+        data->first = bytes[5];
+        data->second = std::string ((char *)bytes + 5, size);
+        m_data = std::static_pointer_cast<void> (data);
         return size + 5;
     }
 

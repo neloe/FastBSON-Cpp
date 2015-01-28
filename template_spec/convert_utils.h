@@ -63,9 +63,7 @@ namespace bson
     template <class T>
     T _from_bytes (const unsigned char *bytes)
     {
-        T data;
-        std::memcpy (&data, bytes, sizeof (T));
-        return data;
+        return *((T*) bytes);
     }
 
     /*!
@@ -103,8 +101,7 @@ namespace bson
     template <int ARRSIZE>
     inline void _to_stream (std::ostringstream &ss, const std::array<char, ARRSIZE> &v)
     {
-        for (const char c : v)
-            ss << v;
+        ss.write(&(v[0]), ARRSIZE);
         return;
     }
 
@@ -127,16 +124,4 @@ namespace bson
         std::cout << std::endl;
     }
 
-    /*!
-     * \brief converts integers to strings
-     * \pre None
-     * \post None
-     * \return the string representation of the integer
-     */
-    inline std::string itos (const int &a)
-    {
-        std::ostringstream oss;
-        oss << a;
-        return oss.str();
-    }
 }
