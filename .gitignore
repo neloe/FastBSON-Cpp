@@ -6,3 +6,4 @@ json_lex.cpp
 build
 doxygen/
 build/
+*.orig
